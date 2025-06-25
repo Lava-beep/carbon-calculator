@@ -13,15 +13,12 @@
 
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0ffe7 0%, #b7e5c2 100%);
+            background:
+                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat fixed,
+                url('https://www.transparenttextures.com/patterns/leaf.png') repeat,
+                linear-gradient(135deg, #e0ffe7 0%, #b7e5c2 100%);
             min-height: 100vh;
             color: #23422a;
-            /* Add leafy background accent */
-            background-image:
-                url('https://www.transparenttextures.com/patterns/leaf.png'),
-                linear-gradient(135deg, #e0ffe7 0%, #b7e5c2 100%);
-            background-repeat: repeat, no-repeat;
-            background-size: 300px, cover;
         }
 
         .container {
@@ -61,6 +58,17 @@
             opacity: 0.95;
             color: #388e3c;
             font-weight: 500;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+        }
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
         }
 
         .calculator-card {
@@ -315,6 +323,63 @@
             background: #b71c1c;
         }
 
+        /* Widget styles */
+        .widgets-panel {
+            background: rgba(255,255,255,0.85);
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(56,142,60,0.10);
+            padding: 32px 24px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .widget-title {
+            color: #2e7d32;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .widget-stat {
+            font-size: 2.1rem;
+            color: #388e3c;
+            font-weight: bold;
+        }
+        .widget-tip {
+            background: #eafaf1;
+            border-left: 5px solid #81c784;
+            border-radius: 10px;
+            padding: 16px 18px;
+            font-size: 1rem;
+            color: #23422a;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.06);
+        }
+        .progress-widget {
+            margin-top: 10px;
+        }
+        .progress-label {
+            font-size: 0.98rem;
+            color: #388e3c;
+            margin-bottom: 6px;
+        }
+        .progress-bar-bg {
+            background: #e0ffe7;
+            border-radius: 8px;
+            height: 18px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #388e3c 0%, #81c784 100%);
+            height: 100%;
+            width: 60%;
+            border-radius: 8px 0 0 8px;
+            transition: width 0.6s cubic-bezier(.4,0,.2,1);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -339,6 +404,10 @@
             .emissions-breakdown {
                 grid-template-columns: 1fr;
             }
+
+            .widgets-panel {
+                margin-top: 24px;
+            }
         }
 
         .hidden {
@@ -361,191 +430,214 @@
             <h1>Carbon Footprint Calculator</h1>
             <p>Measure, Track, and Reduce Your Corporate Environmental Impact</p>
         </header>
+        <div class="main-layout">
+            <div>
+                <div class="calculator-card">
+                    <div class="nav-tabs">
+                        <button class="nav-tab active" onclick="switchTab('scope1')">Scope 1 - Direct Emissions</button>
+                        <button class="nav-tab" onclick="switchTab('scope2')">Scope 2 - Energy</button>
+                        <button class="nav-tab" onclick="switchTab('scope3')">Scope 3 - Indirect</button>
+                        <button class="nav-tab" onclick="switchTab('history')">History</button>
+                    </div>
 
-        <div class="calculator-card">
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="switchTab('scope1')">Scope 1 - Direct Emissions</button>
-                <button class="nav-tab" onclick="switchTab('scope2')">Scope 2 - Energy</button>
-                <button class="nav-tab" onclick="switchTab('scope3')">Scope 3 - Indirect</button>
-                <button class="nav-tab" onclick="switchTab('history')">History</button>
-            </div>
+                    <!-- Scope 1 Tab -->
+                    <div id="scope1" class="tab-content active">
+                        <div class="form-section">
+                            <h3>Direct Emissions from Company Operations</h3>
+                            
+                            <div class="form-group">
+                                <label for="naturalGas">Natural Gas Consumption</label>
+                                <div class="input-group">
+                                    <input type="number" id="naturalGas" placeholder="Enter consumption">
+                                    <span class="unit-label">kWh</span>
+                                </div>
+                            </div>
 
-            <!-- Scope 1 Tab -->
-            <div id="scope1" class="tab-content active">
-                <div class="form-section">
-                    <h3>Direct Emissions from Company Operations</h3>
-                    
-                    <div class="form-group">
-                        <label for="naturalGas">Natural Gas Consumption</label>
-                        <div class="input-group">
-                            <input type="number" id="naturalGas" placeholder="Enter consumption">
-                            <span class="unit-label">kWh</span>
+                            <div class="form-group">
+                                <label for="fuel">Fuel Combustion (Vehicles, Generators)</label>
+                                <div class="input-group">
+                                    <input type="number" id="fuel" placeholder="Enter liters consumed">
+                                    <span class="unit-label">Liters</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuelType">Fuel Type</label>
+                                <select id="fuelType">
+                                    <option value="diesel">Diesel</option>
+                                    <option value="petrol">Petrol/Gasoline</option>
+                                    <option value="lng">LNG</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="refrigerants">Refrigerant Leakage (kg CO2e)</label>
+                                <div class="input-group">
+                                    <input type="number" id="refrigerants" placeholder="Enter refrigerant emissions">
+                                    <span class="unit-label">kg CO2e</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="fuel">Fuel Combustion (Vehicles, Generators)</label>
-                        <div class="input-group">
-                            <input type="number" id="fuel" placeholder="Enter liters consumed">
-                            <span class="unit-label">Liters</span>
+                    <!-- Scope 2 Tab -->
+                    <div id="scope2" class="tab-content scope2">
+                        <div class="form-section">
+                            <h3>Energy Indirect Emissions</h3>
+                            
+                            <div class="form-group">
+                                <label for="electricity">Electricity Consumption</label>
+                                <div class="input-group">
+                                    <input type="number" id="electricity" placeholder="Enter electricity usage">
+                                    <span class="unit-label">kWh</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gridRegion">Grid Region/Country</label>
+                                <select id="gridRegion">
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="us">United States</option>
+                                    <option value="eu">European Union</option>
+                                    <option value="china">China</option>
+                                    <option value="india">India</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="renewableEnergy">Renewable Energy Usage</label>
+                                <div class="input-group">
+                                    <input type="number" id="renewableEnergy" placeholder="Enter renewable energy usage">
+                                    <span class="unit-label">kWh</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heating">District Heating/Cooling</label>
+                                <div class="input-group">
+                                    <input type="number" id="heating" placeholder="Enter heating/cooling consumption">
+                                    <span class="unit-label">kWh</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="fuelType">Fuel Type</label>
-                        <select id="fuelType">
-                            <option value="diesel">Diesel</option>
-                            <option value="petrol">Petrol/Gasoline</option>
-                            <option value="lng">LNG</option>
-                        </select>
+                    <!-- Scope 3 Tab -->
+                    <div id="scope3" class="tab-content scope3">
+                        <div class="form-section">
+                            <h3>Other Indirect Emissions</h3>
+                            
+                            <div class="form-group">
+                                <label for="businessTravel">Business Travel</label>
+                                <div class="input-group">
+                                    <input type="number" id="businessTravel" placeholder="Enter total distance">
+                                    <span class="unit-label">km</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="travelMode">Primary Travel Mode</label>
+                                <select id="travelMode">
+                                    <option value="car">Car</option>
+                                    <option value="plane">Plane (Domestic)</option>
+                                    <option value="plane_international">Plane (International)</option>
+                                    <option value="train">Train</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="commuting">Employee Commuting</label>
+                                <div class="input-group">
+                                    <input type="number" id="commuting" placeholder="Enter total employee-km per year">
+                                    <span class="unit-label">employee-km/year</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="waste">Waste Generated</label>
+                                <div class="input-group">
+                                    <input type="number" id="waste" placeholder="Enter total waste">
+                                    <span class="unit-label">tonnes</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="supplyChain">Supply Chain Estimate</label>
+                                <div class="input-group">
+                                    <input type="number" id="supplyChain" placeholder="Enter supply chain emissions estimate">
+                                    <span class="unit-label">tonnes CO2e</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="refrigerants">Refrigerant Leakage (kg CO2e)</label>
-                        <div class="input-group">
-                            <input type="number" id="refrigerants" placeholder="Enter refrigerant emissions">
-                            <span class="unit-label">kg CO2e</span>
+                    <!-- History Tab -->
+                    <div id="history" class="tab-content">
+                        <div class="form-section">
+                            <h3>📊 Calculation History</h3>
+                            <div id="historyList">
+                                <p style="text-align: center; color: #666; padding: 40px;">No calculations saved yet. Complete a calculation to see your history here.</p>
+                            </div>
                         </div>
+                    </div>
+
+                    <div style="padding: 0 40px 40px;">
+                        <button class="btn btn-secondary" onclick="clearForm()">Clear All</button>
+                        <button class="btn" onclick="calculateEmissions()">Calculate Carbon Footprint</button>
+                    </div>
+                </div>
+
+                <div id="results" class="hidden">
+                    <div class="results-card fade-in">
+                        <h2>Your Carbon Footprint</h2>
+                        <div class="total-emissions" id="totalEmissions">0</div>
+                        <p>tonnes CO2e per year</p>
+                        
+                        <div class="emissions-breakdown">
+                            <div class="scope-card">
+                                <h4>Scope 1</h4>
+                                <div class="value" id="scope1Total">0</div>
+                                <p>tonnes CO2e</p>
+                            </div>
+                            <div class="scope-card">
+                                <h4>Scope 2</h4>
+                                <div class="value" id="scope2Total">0</div>
+                                <p>tonnes CO2e</p>
+                            </div>
+                            <div class="scope-card">
+                                <h4>Scope 3</h4>
+                                <div class="value" id="scope3Total">0</div>
+                                <p>tonnes CO2e</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendations fade-in">
+                        <h3>🎯 Personalized Recommendations</h3>
+                        <div id="recommendationsList"></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Scope 2 Tab -->
-            <div id="scope2" class="tab-content scope2">
-                <div class="form-section">
-                    <h3>Energy Indirect Emissions</h3>
-                    
-                    <div class="form-group">
-                        <label for="electricity">Electricity Consumption</label>
-                        <div class="input-group">
-                            <input type="number" id="electricity" placeholder="Enter electricity usage">
-                            <span class="unit-label">kWh</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gridRegion">Grid Region/Country</label>
-                        <select id="gridRegion">
-                            <option value="uk">United Kingdom</option>
-                            <option value="us">United States</option>
-                            <option value="eu">European Union</option>
-                            <option value="china">China</option>
-                            <option value="india">India</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="renewableEnergy">Renewable Energy Usage</label>
-                        <div class="input-group">
-                            <input type="number" id="renewableEnergy" placeholder="Enter renewable energy usage">
-                            <span class="unit-label">kWh</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="heating">District Heating/Cooling</label>
-                        <div class="input-group">
-                            <input type="number" id="heating" placeholder="Enter heating/cooling consumption">
-                            <span class="unit-label">kWh</span>
-                        </div>
+            <aside class="widgets-panel">
+                <div>
+                    <div class="widget-title">🌍 Global CO₂ Level</div>
+                    <div class="widget-stat" id="co2Level">419 ppm</div>
+                    <div style="font-size:0.95rem;color:#666;">(2023 Mauna Loa Observatory)</div>
+                </div>
+                <div>
+                    <div class="widget-title">🌱 Green Tip</div>
+                    <div class="widget-tip" id="greenTip">
+                        Use natural light in your workspace to reduce electricity consumption and boost well-being.
                     </div>
                 </div>
-            </div>
-
-            <!-- Scope 3 Tab -->
-            <div id="scope3" class="tab-content scope3">
-                <div class="form-section">
-                    <h3>Other Indirect Emissions</h3>
-                    
-                    <div class="form-group">
-                        <label for="businessTravel">Business Travel</label>
-                        <div class="input-group">
-                            <input type="number" id="businessTravel" placeholder="Enter total distance">
-                            <span class="unit-label">km</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="travelMode">Primary Travel Mode</label>
-                        <select id="travelMode">
-                            <option value="car">Car</option>
-                            <option value="plane">Plane (Domestic)</option>
-                            <option value="plane_international">Plane (International)</option>
-                            <option value="train">Train</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="commuting">Employee Commuting</label>
-                        <div class="input-group">
-                            <input type="number" id="commuting" placeholder="Enter total employee-km per year">
-                            <span class="unit-label">employee-km/year</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="waste">Waste Generated</label>
-                        <div class="input-group">
-                            <input type="number" id="waste" placeholder="Enter total waste">
-                            <span class="unit-label">tonnes</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="supplyChain">Supply Chain Estimate</label>
-                        <div class="input-group">
-                            <input type="number" id="supplyChain" placeholder="Enter supply chain emissions estimate">
-                            <span class="unit-label">tonnes CO2e</span>
-                        </div>
+                <div class="progress-widget">
+                    <div class="widget-title">🏢 Your Sustainability Progress</div>
+                    <div class="progress-label">Target: 30% reduction by 2030</div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar"></div>
                     </div>
                 </div>
-            </div>
-
-            <!-- History Tab -->
-            <div id="history" class="tab-content">
-                <div class="form-section">
-                    <h3>📊 Calculation History</h3>
-                    <div id="historyList">
-                        <p style="text-align: center; color: #666; padding: 40px;">No calculations saved yet. Complete a calculation to see your history here.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="padding: 0 40px 40px;">
-                <button class="btn btn-secondary" onclick="clearForm()">Clear All</button>
-                <button class="btn" onclick="calculateEmissions()">Calculate Carbon Footprint</button>
-            </div>
-        </div>
-
-        <div id="results" class="hidden">
-            <div class="results-card fade-in">
-                <h2>Your Carbon Footprint</h2>
-                <div class="total-emissions" id="totalEmissions">0</div>
-                <p>tonnes CO2e per year</p>
-                
-                <div class="emissions-breakdown">
-                    <div class="scope-card">
-                        <h4>Scope 1</h4>
-                        <div class="value" id="scope1Total">0</div>
-                        <p>tonnes CO2e</p>
-                    </div>
-                    <div class="scope-card">
-                        <h4>Scope 2</h4>
-                        <div class="value" id="scope2Total">0</div>
-                        <p>tonnes CO2e</p>
-                    </div>
-                    <div class="scope-card">
-                        <h4>Scope 3</h4>
-                        <div class="value" id="scope3Total">0</div>
-                        <p>tonnes CO2e</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="recommendations fade-in">
-                <h3>🎯 Personalized Recommendations</h3>
-                <div id="recommendationsList"></div>
-            </div>
+            </aside>
         </div>
     </div>
 
@@ -776,6 +868,25 @@
                 }
             });
         });
+
+        // Optionally, rotate green tips
+        const tips = [
+            "Use natural light in your workspace to reduce electricity consumption and boost well-being.",
+            "Encourage double-sided printing to save paper.",
+            "Switch off monitors and equipment when not in use.",
+            "Promote reusable bottles and cups in the office.",
+            "Organize a carpool or cycling day for employees."
+        ];
+        let tipIndex = 0;
+        setInterval(() => {
+            tipIndex = (tipIndex + 1) % tips.length;
+            document.getElementById('greenTip').textContent = tips[tipIndex];
+        }, 9000);
+
+        // Optionally, animate progress bar (simulate progress)
+        setTimeout(() => {
+            document.getElementById('progressBar').style.width = '60%';
+        }, 500);
     </script>
 </body>
 </html>
