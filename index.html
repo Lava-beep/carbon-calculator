@@ -1,892 +1,1498 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corporate Carbon Footprint Calculator</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>EcoLeaf Analytics - Empowering Sustainable Business Decisions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #22b573;
+      --primary-light: #e8f7ef;
+      --secondary: #3c525c;
+      --sidebar-bg: #f7faf9;
+      --kpi-bg: #fff;
+      --main-bg: #f7faf9;
+      --card-bg: #fff;
+      --border: #e2e7ec;
+      --active: #daf9e2;
+      --danger: #e84a5f;
+      --neutral: #eaeaea;
+      --quote-bg: #eee;
+      --sidebar-hover: #e8f7ef;
+      --sidebar-active: #22b573;
+      --sidebar-icon: #22b573;
+      --sidebar-inactive: #3c525c;
+      --text-dark: #333;
+      --text-light: #666;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--secondary);
+      background: var(--main-bg);
+      min-height: 100vh;
+      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    }
+    .eco-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: linear-gradient(90deg, #e8f7ef 60%, #d3f3e2 100%);
+      padding: 18px 32px 14px 32px;
+      border-bottom: 2px solid #daf9e2;
+      box-shadow: 0 4px 24px rgba(34,181,115,0.09);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .eco-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px #daf9e2;
+      border: 2.5px solid var(--primary);
+    }
+    .eco-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 1px;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .eco-slogan {
+      font-size: 1.13rem;
+      color: var(--secondary);
+      opacity: 0.85;
+      margin-left: 18px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .eco-header-nav {
+      margin-left: auto;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .eco-header-link {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.13em;
+      text-decoration: none;
+      padding: 7px 18px;
+      border-radius: 7px;
+      transition: background 0.16s, color 0.16s;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid transparent;
+    }
+    .eco-header-link.active,
+    .eco-header-link:focus,
+    .eco-header-link:hover {
+      background: var(--primary-light);
+      color: #178f60;
+      border-bottom: 2px solid var(--primary);
+      text-decoration: none;
+    }
+    @media (max-width: 700px) {
+      .eco-header-nav { gap: 8px; }
+      .eco-header-link { font-size: 0.98em; padding: 6px 8px; }
+      .eco-header { flex-wrap: wrap; gap: 10px; }
+    }
 
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background:
-                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat fixed,
-                url('https://www.transparenttextures.com/patterns/leaf.png') repeat,
-                linear-gradient(135deg, #e0ffe7 0%, #b7e5c2 100%);
-            min-height: 100vh;
-            color: #23422a;
-        }
+    /* Homepage Styles */
+    .homepage-section {
+      padding: 60px 5%;
+      text-align: center;
+      background: var(--main-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      box-sizing: border-box;
+    }
+    .homepage-hero {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #d3f3e2 100%);
+      color: var(--secondary);
+      padding: 80px 5%;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .homepage-hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(34, 181, 115, 0.1);
+      border-radius: 50%;
+      animation: floatEffect 10s infinite ease-in-out;
+    }
+    .homepage-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -70px;
+      right: -70px;
+      width: 250px;
+      height: 250px;
+      background: rgba(34, 181, 115, 0.08);
+      border-radius: 50%;
+      animation: floatEffect 12s infinite ease-in-out reverse;
+    }
+    @keyframes floatEffect {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, 20px) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px;
-        }
+    .homepage-hero h1 {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+    }
+    .homepage-hero p {
+      font-size: 1.4rem;
+      color: var(--text-light);
+      max-width: 800px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    .homepage-hero .cta-button {
+      background: var(--primary);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 15px rgba(34,181,115,0.3);
+    }
+    .homepage-hero .cta-button:hover {
+      background: #178f60;
+      transform: translateY(-3px);
+    }
 
-        .header {
-            text-align: center;
-            color: #23422a;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        .header h1 {
-            font-size: 2.7rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 8px rgba(34, 66, 42, 0.08);
-            letter-spacing: 1px;
-            font-weight: 800;
-            color: #2e7d32;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .header h1::before {
-            content: '';
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f331.svg') no-repeat center/contain;
-            vertical-align: middle;
-        }
-        .header p {
-            font-size: 1.15rem;
-            opacity: 0.95;
-            color: #388e3c;
-            font-weight: 500;
-        }
+    .homepage-features {
+      background: white;
+      padding: 80px 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .feature-card .icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      background: var(--primary-light);
+      padding: 15px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(34,181,115,0.2);
+    }
+    .feature-card h3 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .feature-card p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
 
-        .main-layout {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 32px;
-        }
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
+    .homepage-about {
+      background: var(--main-bg);
+      padding: 80px 5%;
+      text-align: center;
+    }
+    .homepage-about h2 {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 30px;
+      font-weight: 800;
+    }
+    .homepage-about p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      line-height: 1.7;
+    }
+    .homepage-about .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .team-member {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid var(--primary);
+    }
+    .team-member h4 {
+      font-size: 1.4rem;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+    .team-member p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+    .team-member .social-links a {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+    .team-member .social-links a:hover {
+      color: #178f60;
+    }
 
-        .calculator-card {
-            background: linear-gradient(120deg, #e0ffe7 60%, #b7e5c2 100%);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(34, 66, 42, 0.10);
-            overflow: hidden;
-            margin-bottom: 32px;
-            border: 2px solid #81c784;
-        }
+    /* Chatbot Styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      pointer-events: none; /* Initially disable interactions */
+    }
+    .chatbot-container.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all; /* Enable interactions when open */
+    }
+    .chatbot-header {
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.2em;
+      font-weight: 600;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    .chatbot-header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 5px;
+    }
+    .chatbot-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chatbot-message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 12px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+    .chatbot-message.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: white;
+      border-bottom-right-radius: 2px;
+    }
+    .chatbot-message.bot {
+      align-self: flex-start;
+      background: var(--primary-light);
+      color: var(--secondary);
+      border-bottom-left-radius: 2px;
+    }
+    .chatbot-input-area {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #eee;
+      background: white;
+    }
+    .chatbot-input-area input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      font-size: 1em;
+      margin-right: 10px;
+    }
+    .chatbot-input-area button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .chatbot-input-area button:hover {
+      background: #178f60;
+    }
+    .chatbot-toggle-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(34,181,115,0.4);
+      z-index: 1001;
+      transition: transform 0.2s ease;
+    }
+    .chatbot-toggle-button:hover {
+      transform: scale(1.05);
+    }
+    .chatbot-loading {
+        text-align: center;
+        padding: 10px;
+        color: var(--text-light);
+        font-style: italic;
+    }
 
-        .nav-tabs {
-            display: flex;
-            background: #eafaf1;
-            border-bottom: 2px solid #81c784;
-        }
+    /* Dashboard specific styles (from v2.html, slightly adapted) */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+      background: var(--main-bg);
+    }
+    nav.sidebar {
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: width 0.2s;
+      position: relative;
+      z-index: 10;
+    }
+    .sidebar .logo {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.25em;
+      margin-bottom: 2.3rem;
+      letter-spacing: 0.015em;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0; margin: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+    }
+    .sidebar ul li {
+      padding: 0.72rem 1rem;
+      margin-bottom: 0.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--sidebar-inactive);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.8em;
+      transition: background 0.14s, color 0.15s;
+      user-select: none;
+      font-size: 1.09em;
+      border: 2px solid transparent;
+      position: relative;
+    }
+    .sidebar ul li .sidebar-icon {
+      font-size: 1.35em;
+      color: var(--sidebar-icon);
+      margin-right: 0.5em;
+      transition: color 0.18s;
+    }
+    .sidebar ul li.active,
+    .sidebar ul li:focus {
+      background: var(--sidebar-hover);
+      color: var(--sidebar-active);
+      border: 2px solid var(--sidebar-active);
+      outline: none;
+    }
+    .sidebar ul li.active .sidebar-icon,
+    .sidebar ul li:focus .sidebar-icon {
+      color: var(--sidebar-active);
+    }
+    .sidebar ul li:hover:not(.active) {
+      background: var(--sidebar-hover);
+      color: var(--sidebar-active);
+    }
+    .sidebar ul li:hover:not(.active) .sidebar-icon {
+      color: var(--sidebar-active);
+    }
+    .sidebar .sidebar-bottom {
+      margin-top: auto;
+      font-size: 1.05em;
+      color: var(--secondary);
+      opacity: 0.6;
+      text-align: center;
+      padding-top: 1.5em;
+    }
+    .sidebar .sidebar-bottom img {
+      vertical-align: middle;
+    }
 
-        .nav-tab {
-            flex: 1;
-            padding: 18px;
-            text-align: center;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1.08rem;
-            font-weight: 700;
-            color: #388e3c;
-            transition: all 0.25s cubic-bezier(.4,0,.2,1);
-            letter-spacing: 0.5px;
-            border-right: 1px solid #d2f5d6;
-        }
-        .nav-tab:last-child { border-right: none; }
-
-        .nav-tab.active {
-            background: linear-gradient(90deg, #81c784 0%, #e0ffe7 100%);
-            color: #23422a;
-            border-bottom: 4px solid #388e3c;
-            box-shadow: 0 2px 8px rgba(67, 160, 71, 0.08);
-        }
-
-        .nav-tab:hover {
-            background: #c8e6c9;
-            color: #23422a;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 44px 44px 24px 44px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .form-section {
-            margin-bottom: 30px;
-        }
-
-        .form-section h3 {
-            color: #2e7d32;
-            margin-bottom: 20px;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-        }
-
-        .form-section h3::before {
-            content: '🏭';
-            margin-right: 10px;
-            font-size: 1.5rem;
-        }
-
-        .scope2 h3::before { content: '⚡'; }
-        .scope3 h3::before { content: '🚛'; }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            color: #388e3c;
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group select {
-            border: 2px solid #81c784;
-            background: #f8fff8;
-            color: #23422a;
-            width: 100%;
-            padding: 13px 18px;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #388e3c;
-            box-shadow: 0 0 0 3px rgba(56, 142, 60, 0.13);
-            outline: none;
-        }
-
-        .input-group {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
-            align-items: end;
-        }
-
-        .unit-label {
-            background: #eafaf1;
-            border: 2px solid #81c784;
-            color: #388e3c;
-            padding: 13px 18px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .btn {
-            background: linear-gradient(90deg, #388e3c 0%, #81c784 100%);
-            color: white;
-            padding: 15px 34px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.13rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-            box-shadow: 0 4px 16px rgba(67, 160, 71, 0.10);
-            letter-spacing: 0.5px;
-        }
-        .btn:hover {
-            background: linear-gradient(90deg, #2e7d32 0%, #81c784 100%);
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 8px 24px rgba(67, 160, 71, 0.18);
-        }
-        .btn-secondary {
-            background: #eafaf1;
-            color: #388e3c;
-            border: 2px solid #81c784;
-            margin-right: 10px;
-            box-shadow: none;
-        }
-        .btn-secondary:hover {
-            background: #b7e5c2;
-            color: #23422a;
-        }
-
-        .results-card {
-            background: linear-gradient(120deg, #81c784 0%, #388e3c 100%);
-            color: white;
-            border-radius: 24px;
-            padding: 44px 32px 32px 32px;
-            text-align: center;
-            margin-bottom: 32px;
-            box-shadow: 0 8px 32px rgba(67, 160, 71, 0.15);
-        }
-        .total-emissions {
-            color: #e0ffe7;
-            font-size: 3.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 8px rgba(34, 66, 42, 0.10);
-        }
-        .emissions-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
-        }
-        .scope-card {
-            background: rgba(255, 255, 255, 0.22);
-            padding: 22px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 2px 8px rgba(67, 160, 71, 0.08);
-        }
-        .scope-card h4 {
-            color: #388e3c;
-            font-size: 1.18rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .scope-card .value {
-            color: #2e7d32;
-            font-size: 2.1rem;
-            font-weight: bold;
-        }
-
-        .recommendations {
-            background: linear-gradient(120deg, #f8fff8 60%, #e0ffe7 100%);
-            border-radius: 24px;
-            padding: 32px 32px 24px 32px;
-            box-shadow: 0 6px 24px rgba(67, 160, 71, 0.10);
-        }
-        .recommendations h3 {
-            color: #2e7d32;
-            margin-bottom: 20px;
-            font-size: 1.35rem;
-            font-weight: 800;
-        }
-        .recommendation-item {
-            background: #eafaf1;
-            border-left: 5px solid #388e3c;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(67, 160, 71, 0.06);
-        }
-        .recommendation-item h4 {
-            color: #388e3c;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .history-card {
-            background: #f8fff8;
-            border-left: 4px solid #388e3c;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(67, 160, 71, 0.08);
-        }
-        .history-date {
-            color: #388e3c;
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
-        .history-total {
-            color: #388e3c;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .delete-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            float: right;
-            font-size: 1.1rem;
-            font-weight: 700;
-            transition: background 0.2s;
-        }
-        .delete-btn:hover {
-            background: #b71c1c;
-        }
-
-        /* Widget styles */
-        .widgets-panel {
-            background: rgba(255,255,255,0.85);
-            border-radius: 20px;
-            box-shadow: 0 4px 24px rgba(56,142,60,0.10);
-            padding: 32px 24px;
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-        .widget-title {
-            color: #2e7d32;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .widget-stat {
-            font-size: 2.1rem;
-            color: #388e3c;
-            font-weight: bold;
-        }
-        .widget-tip {
-            background: #eafaf1;
-            border-left: 5px solid #81c784;
-            border-radius: 10px;
-            padding: 16px 18px;
-            font-size: 1rem;
-            color: #23422a;
-            box-shadow: 0 2px 8px rgba(67,160,71,0.06);
-        }
-        .progress-widget {
-            margin-top: 10px;
-        }
-        .progress-label {
-            font-size: 0.98rem;
-            color: #388e3c;
-            margin-bottom: 6px;
-        }
-        .progress-bar-bg {
-            background: #e0ffe7;
-            border-radius: 8px;
-            height: 18px;
-            width: 100%;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            background: linear-gradient(90deg, #388e3c 0%, #81c784 100%);
-            height: 100%;
-            width: 60%;
-            border-radius: 8px 0 0 8px;
-            transition: width 0.6s cubic-bezier(.4,0,.2,1);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .nav-tabs {
-                flex-direction: column;
-            }
-
-            .tab-content {
-                padding: 20px;
-            }
-
-            .total-emissions {
-                font-size: 2rem;
-            }
-
-            .emissions-breakdown {
-                grid-template-columns: 1fr;
-            }
-
-            .widgets-panel {
-                margin-top: 24px;
-            }
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    main.dashboard {
+      padding: 2.2rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      min-height: 100vh;
+      background: linear-gradient(120deg,#f7faf9 70%,#e8f7ef 100%);
+      transition: background 0.2s;
+    }
+    .tab-nav {
+      display: flex;
+      gap: 0.5em;
+      margin-bottom: 1.2em;
+      border-bottom: 2px solid #e2e7ec;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      font-size: 1.08em;
+      font-weight: 600;
+      color: #3c525c;
+      padding: 0.7em 1.5em 0.7em 1.5em;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      font-weight: 700;
+    }
+    .tab-btn:hover:not(.active) {
+      background: #f0f9f5;
+      color: var(--primary);
+    }
+    .kpi-row {
+      display: flex;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2em;
+    }
+    .kpi-card {
+      background: var(--kpi-bg);
+      border-radius: 14px;
+      flex: 1 1 200px;
+      display: flex; flex-direction: column;
+      padding: 1.2rem 1.1rem 1.05rem 1.2rem;
+      min-width: 170px;
+      box-shadow: 0 2px 14px rgba(44,58,70,0.06);
+      margin-bottom: 0.3em;
+      transition: box-shadow 0.12s, background 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card .kpi-eco-icon {
+      position: absolute;
+      right: 16px;
+      top: 18px;
+      font-size: 2.2em;
+      opacity: 0.13;
+      pointer-events: none;
+    }
+    .kpi-label {
+      color: #84bca5;
+      font-size: 0.98em;
+      margin: 0 0 7px 0;
+    }
+    .kpi-value {
+      font-size: 2.1em;
+      margin: 0 0 2px 0;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .kpi-unit {
+      font-size: 0.98em;
+      color: var(--secondary);
+      opacity: 0.7;
+    }
+    .kpi-trend-up { color: #24a982; font-size: 1em;}
+    .kpi-trend-down { color: #e04752; font-size: 1em;}
+    .toolbar {
+      background: var(--card-bg);
+      border-radius: 11px;
+      box-shadow: 0 2px 8px rgba(14,45,32,0.03);
+      padding: 0.85rem 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.2em;
+    }
+    .toolbar select, .toolbar input[type=date] {
+      padding: 0.5em 1em;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: #f9fefd;
+      font-size: 1em;
+    }
+    .toolbar button {
+      padding: 0.6em 1.1em;
+      background: var(--primary);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.15s;
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+    }
+    .toolbar button:active, .toolbar button:focus {
+      background: #178f60;
+      outline: none;
+    }
+    .main-flex {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.3rem;
+      width: 100%;
+    }
+    .visual-cards-col {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      min-width: 260px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(40,60,90,0.07);
+      padding: 1.4rem 1.75rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 180px;
+      transition: box-shadow 0.13s;
+    }
+    .card h3 {
+      font-size: 1.08em;
+      color: #7d9c8f;
+      font-weight: 600;
+      margin: 0 0 1em 0;
+      letter-spacing: 0.01em;
+    }
+    .quote-area {
+      background: var(--quote-bg);
+      border-radius: 9px;
+      margin: 1.1em 0 0.2em 0;
+      padding: 1.19em 1.25em;
+      font-size: 1.13em;
+      color: #44654a;
+      font-style: italic;
+      display: flex; align-items: center; gap: 0.7em;
+      transition: background 0.11s;
+    }
+    .quote-icon {
+      font-size: 1.6em;
+      color: var(--primary);
+      opacity: 0.65;
+      margin-right: 0.4em;
+    }
+    .side-panel {
+      flex: 1.2;
+      min-width: 230px;
+      max-width: 340px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.25em 1.1em;
+      box-shadow: 0 2px 8px rgba(60,72,80,0.04);
+      display: flex; flex-direction: column;
+      gap: 1.1em;
+      min-height: 180px;
+    }
+    .side-panel h4 {
+      font-size: 1.08em;
+      color: #7d9c8f;
+      margin: 0 0 0.8em 0;
+      font-weight: 600;
+    }
+    .activity-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column;
+      gap: 0.7em;
+      font-size: 0.99em;
+    }
+    .activity-list li {
+      display: flex; align-items: center; gap: 0.8em;
+      padding: 0.65em 0.4em;
+      border-radius: 6px;
+      background: #f4fcf8;
+      color: #332;
+    }
+    .activity-icon {
+      font-size: 1.28em;
+      color: var(--primary);
+      background: #e3f6ea;
+      border-radius: 50%;
+      width: 1.7em; height: 1.7em;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .activity-list time { color: #7d9c8f; margin-left: auto; font-size: 0.93em;}
+    .refresh-btn {
+      margin: 0.4em 0 0 0; align-self: flex-end;
+      background: var(--primary);
+      color: #fff; border: none;
+      border-radius: 5px;
+      padding: 0.35em 0.88em;
+      font-size: 0.94em;
+      cursor: pointer;
+      transition: background 0.14s;
+    }
+    .tab-content { display: none; animation: fadeInTab 0.5s; }
+    .tab-content.active { display: block; }
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Blog content extra style */
+    .card ul.blog-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .card ul.blog-list li {
+      margin-bottom: 1.5em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #e6e7ec;
+    }
+    .card ul.blog-list li:last-child { border: none; }
+    .card ul.blog-list .blog-title {
+      font-size: 1.07em;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.3em;
+    }
+    .card ul.blog-list .blog-desc {
+      color: #587e6e;
+      font-size: 0.99em;
+      margin-bottom: 0.2em;
+    }
+    .card ul.blog-list a {
+      color: #0052cc;
+      font-size: 0.99em;
+      text-decoration: underline;
+    }
+    @media (max-width:1050px) {
+      .main-flex { flex-direction: column;}
+      .side-panel { max-width: 100%; width: 100%; margin-left: 0;}
+    }
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr;}
+      nav.sidebar { min-height: auto; flex-direction: row; padding: 1em 0.4em;}
+      .sidebar .logo { margin: 0 0.6em 0 0;}
+      .sidebar ul { flex-direction: row; gap: 0.7em;}
+      main.dashboard { padding: 1.4em 0.5em;}
+      .kpi-row { gap: 0.5em; }
+      .kpi-card { min-width: 120px; padding: 0.6em;}
+      .side-panel { padding: 1em;}
+      .visual-cards-col .card { padding: 1em 0.6em;}
+      .homepage-hero h1 { font-size: 2.5rem; }
+      .homepage-hero p { font-size: 1.1rem; }
+      .homepage-features { grid-template-columns: 1fr; }
+      .feature-card .icon { font-size: 2.5rem; }
+      .feature-card h3 { font-size: 1.5rem; }
+      .homepage-about h2 { font-size: 2rem; }
+      .homepage-about p { font-size: 1rem; }
+      .team-member img { width: 80px; height: 80px; }
+      .team-member h4 { font-size: 1.2rem; }
+      .team-member p { font-size: 0.9rem; }
+      .chatbot-container { width: 90%; right: 5%; left: 5%; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Carbon Footprint Calculator</h1>
-            <p>Measure, Track, and Reduce Your Corporate Environmental Impact</p>
-        </header>
-        <div class="main-layout">
-            <div>
-                <div class="calculator-card">
-                    <div class="nav-tabs">
-                        <button class="nav-tab active" onclick="switchTab('scope1')">Scope 1 - Direct Emissions</button>
-                        <button class="nav-tab" onclick="switchTab('scope2')">Scope 2 - Energy</button>
-                        <button class="nav-tab" onclick="switchTab('scope3')">Scope 3 - Indirect</button>
-                        <button class="nav-tab" onclick="switchTab('history')">History</button>
-                    </div>
+  <div class="eco-header" style="box-shadow:0 4px 24px rgba(34,181,115,0.09);background:linear-gradient(90deg,#e8f7ef 60%,#d3f3e2 100%);">
+    <span class="eco-logo" style="border:2.5px solid var(--primary);">
+      <img src="https://cdn-icons-png.flaticon.com/512/2909/2909769.png" alt="EcoLeaf Logo" style="width:38px;height:38px;">
+    </span>
+    <span class="eco-title" style="font-size:2.3rem;">EcoLeaf Analytics</span>
+    <span class="eco-slogan" style="font-size:1.13rem;">Empowering Sustainable Business Decisions</span>
+    <nav class="eco-header-nav" id="ecoHeaderNav" style="gap:30px;">
+      <a href="#home" class="eco-header-link active" data-header="home" style="font-size:1.13em;">Home</a>
+      <a href="#dashboard" class="eco-header-link" data-header="dashboard" style="font-size:1.13em;">Dashboard</a>
+      <a href="#contact" class="eco-header-link" data-header="contact" style="font-size:1.13em;">Contact Us</a>
+      <a href="#blogs" class="eco-header-link" data-header="blogs" style="font-size:1.13em;">Blogs</a>
+      <a href="#privacy" class="eco-header-link" data-header="privacy" style="font-size:1.13em;">Privacy Policy</a>
+    </nav>
+  </div>
 
-                    <!-- Scope 1 Tab -->
-                    <div id="scope1" class="tab-content active">
-                        <div class="form-section">
-                            <h3>Direct Emissions from Company Operations</h3>
-                            
-                            <div class="form-group">
-                                <label for="naturalGas">Natural Gas Consumption</label>
-                                <div class="input-group">
-                                    <input type="number" id="naturalGas" placeholder="Enter consumption">
-                                    <span class="unit-label">kWh</span>
-                                </div>
-                            </div>
+  <!-- Homepage Section -->
+  <div id="header-content-home" class="header-content-panel" style="display:block;">
+    <section class="homepage-hero">
+      <h1>Drive Your Green Future with EcoLeaf Analytics</h1>
+      <p>
+        EcoLeaf Analytics provides cutting-edge solutions for comprehensive carbon accounting and sustainability management.
+        Leverage our AI-powered insights to reduce your environmental footprint and achieve your net-zero goals.
+      </p>
+      <a href="#" class="cta-button" id="exploreDashboardBtn">Explore Dashboard</a>
+    </section>
 
-                            <div class="form-group">
-                                <label for="fuel">Fuel Combustion (Vehicles, Generators)</label>
-                                <div class="input-group">
-                                    <input type="number" id="fuel" placeholder="Enter liters consumed">
-                                    <span class="unit-label">Liters</span>
-                                </div>
-                            </div>
+    <section class="homepage-section homepage-features">
+      <div class="feature-card">
+        <span class="icon"><i class="fas fa-leaf"></i></span>
+        <h3>Precise Carbon Accounting</h3>
+        <p>Track Scope 1, 2, and 3 emissions with unparalleled accuracy, ensuring compliance and clear reporting.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon"><i class="fas fa-chart-line"></i></span>
+        <h3>AI-Powered Insights</h3>
+        <p>Utilize advanced AI and machine learning models to identify emission hotspots and forecast future trends.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon"><i class="fas fa-cogs"></i></span>
+        <h3>Customizable Dashboards</h3>
+        <p>Visualize your sustainability data through intuitive, customizable dashboards tailored to your business needs.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon"><i class="fas fa-handshake"></i></span>
+        <h3>Supply Chain Optimization</h3>
+        <p>Monitor supplier sustainability and optimize your supply chain for reduced environmental impact.</p>
+      </div>
+    </section>
 
-                            <div class="form-group">
-                                <label for="fuelType">Fuel Type</label>
-                                <select id="fuelType">
-                                    <option value="diesel">Diesel</option>
-                                    <option value="petrol">Petrol/Gasoline</option>
-                                    <option value="lng">LNG</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="refrigerants">Refrigerant Leakage (kg CO2e)</label>
-                                <div class="input-group">
-                                    <input type="number" id="refrigerants" placeholder="Enter refrigerant emissions">
-                                    <span class="unit-label">kg CO2e</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Scope 2 Tab -->
-                    <div id="scope2" class="tab-content scope2">
-                        <div class="form-section">
-                            <h3>Energy Indirect Emissions</h3>
-                            
-                            <div class="form-group">
-                                <label for="electricity">Electricity Consumption</label>
-                                <div class="input-group">
-                                    <input type="number" id="electricity" placeholder="Enter electricity usage">
-                                    <span class="unit-label">kWh</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="gridRegion">Grid Region/Country</label>
-                                <select id="gridRegion">
-                                    <option value="uk">United Kingdom</option>
-                                    <option value="us">United States</option>
-                                    <option value="eu">European Union</option>
-                                    <option value="china">China</option>
-                                    <option value="india">India</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="renewableEnergy">Renewable Energy Usage</label>
-                                <div class="input-group">
-                                    <input type="number" id="renewableEnergy" placeholder="Enter renewable energy usage">
-                                    <span class="unit-label">kWh</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="heating">District Heating/Cooling</label>
-                                <div class="input-group">
-                                    <input type="number" id="heating" placeholder="Enter heating/cooling consumption">
-                                    <span class="unit-label">kWh</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Scope 3 Tab -->
-                    <div id="scope3" class="tab-content scope3">
-                        <div class="form-section">
-                            <h3>Other Indirect Emissions</h3>
-                            
-                            <div class="form-group">
-                                <label for="businessTravel">Business Travel</label>
-                                <div class="input-group">
-                                    <input type="number" id="businessTravel" placeholder="Enter total distance">
-                                    <span class="unit-label">km</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="travelMode">Primary Travel Mode</label>
-                                <select id="travelMode">
-                                    <option value="car">Car</option>
-                                    <option value="plane">Plane (Domestic)</option>
-                                    <option value="plane_international">Plane (International)</option>
-                                    <option value="train">Train</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="commuting">Employee Commuting</label>
-                                <div class="input-group">
-                                    <input type="number" id="commuting" placeholder="Enter total employee-km per year">
-                                    <span class="unit-label">employee-km/year</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="waste">Waste Generated</label>
-                                <div class="input-group">
-                                    <input type="number" id="waste" placeholder="Enter total waste">
-                                    <span class="unit-label">tonnes</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="supplyChain">Supply Chain Estimate</label>
-                                <div class="input-group">
-                                    <input type="number" id="supplyChain" placeholder="Enter supply chain emissions estimate">
-                                    <span class="unit-label">tonnes CO2e</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- History Tab -->
-                    <div id="history" class="tab-content">
-                        <div class="form-section">
-                            <h3>📊 Calculation History</h3>
-                            <div id="historyList">
-                                <p style="text-align: center; color: #666; padding: 40px;">No calculations saved yet. Complete a calculation to see your history here.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="padding: 0 40px 40px;">
-                        <button class="btn btn-secondary" onclick="clearForm()">Clear All</button>
-                        <button class="btn" onclick="calculateEmissions()">Calculate Carbon Footprint</button>
-                    </div>
-                </div>
-
-                <div id="results" class="hidden">
-                    <div class="results-card fade-in">
-                        <h2>Your Carbon Footprint</h2>
-                        <div class="total-emissions" id="totalEmissions">0</div>
-                        <p>tonnes CO2e per year</p>
-                        
-                        <div class="emissions-breakdown">
-                            <div class="scope-card">
-                                <h4>Scope 1</h4>
-                                <div class="value" id="scope1Total">0</div>
-                                <p>tonnes CO2e</p>
-                            </div>
-                            <div class="scope-card">
-                                <h4>Scope 2</h4>
-                                <div class="value" id="scope2Total">0</div>
-                                <p>tonnes CO2e</p>
-                            </div>
-                            <div class="scope-card">
-                                <h4>Scope 3</h4>
-                                <div class="value" id="scope3Total">0</div>
-                                <p>tonnes CO2e</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="recommendations fade-in">
-                        <h3>🎯 Personalized Recommendations</h3>
-                        <div id="recommendationsList"></div>
-                    </div>
-                </div>
-            </div>
-            <aside class="widgets-panel">
-                <div>
-                    <div class="widget-title">🌍 Global CO₂ Level</div>
-                    <div class="widget-stat" id="co2Level">419 ppm</div>
-                    <div style="font-size:0.95rem;color:#666;">(2023 Mauna Loa Observatory)</div>
-                </div>
-                <div>
-                    <div class="widget-title">🌱 Green Tip</div>
-                    <div class="widget-tip" id="greenTip">
-                        Use natural light in your workspace to reduce electricity consumption and boost well-being.
-                    </div>
-                </div>
-                <div class="progress-widget">
-                    <div class="widget-title">🏢 Your Sustainability Progress</div>
-                    <div class="progress-label">Target: 30% reduction by 2030</div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="progressBar"></div>
-                    </div>
-                </div>
-            </aside>
+    <section class="homepage-section homepage-about">
+      <h2>About EcoLeaf Analytics</h2>
+      <p>
+        At EcoLeaf Analytics, we believe that sustainable business is good business. With over 25 years of combined
+        experience in environmental science and data analytics, our team is dedicated to providing innovative solutions
+        that empower organizations to make informed, eco-conscious decisions. We are passionate about helping businesses
+        not just meet, but exceed their sustainability targets.
+      </p>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://placehold.co/120x120/22b573/ffffff?text=CEO" alt="Team Member 1">
+          <h4>Jane Doe</h4>
+          <p>CEO & Founder</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
         </div>
+        <div class="team-member">
+          <img src="https://placehold.co/120x120/22b573/ffffff?text=CTO" alt="Team Member 2">
+          <h4>John Smith</h4>
+          <p>CTO</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="https://placehold.co/120x120/22b573/ffffff?text=CSO" alt="Team Member 3">
+          <h4>Emily White</h4>
+          <p>Chief Sustainability Officer</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="layout" id="dashboard-layout" style="display:none;">
+    <nav class="sidebar" tabindex="0" style="box-shadow:0 4px 24px rgba(34,181,115,0.07);">
+      <div class="logo" style="display:flex;align-items:center;gap:8px;">
+        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909769.png" alt="EcoLeaf Logo" style="width:28px;height:28px;vertical-align:middle;">
+        <span style="font-size:1.25em;">EcoLeaf</span>
+      </div>
+      <ul id="sidebar-list">
+        <li class="active" data-tab="dashboard"><span class="sidebar-icon">🏠</span>Dashboard</li>
+        <li data-tab="analytics"><span class="sidebar-icon">📊</span>Analytics</li>
+        <li data-tab="reports"><span class="sidebar-icon">📁</span>Reports</li>
+        <li data-tab="products"><span class="sidebar-icon">🛒</span>Products</li>
+        <li data-tab="suppliers"><span class="sidebar-icon">🤝</span>Suppliers</li>
+        <li data-tab="settings"><span class="sidebar-icon">⚙️</span>Settings</li>
+      </ul>
+      <div class="sidebar-bottom" style="font-size:1.05em;">
+        <span style="display:flex;align-items:center;gap:4px;">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Leaf" style="width:16px;height:16px;">
+          © 2025 EcoLeaf
+        </span>
+      </div>
+    </nav>
+    <main class="dashboard" id="dashboard-main" style="background:linear-gradient(120deg,#f7faf9 70%,#e8f7ef 100%);">
+      <!-- Dashboard / Tabs Panel -->
+      <div id="header-content-dashboard" class="header-content-panel" style="display:block;">
+        <div class="tab-nav" id="tabNav" style="margin-bottom:2em;">
+          <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+          <button class="tab-btn" data-tab="analytics">Analytics</button>
+          <button class="tab-btn" data-tab="reports">Reports</button>
+          <button class="tab-btn" data-tab="products">Products</button>
+          <button class="tab-btn" data-tab="suppliers">Suppliers</button>
+          <button class="tab-btn" data-tab="settings">Settings</button>
+        </div>
+        <div class="tab-content active" id="tab-dashboard">
+          <div class="kpi-row">
+            <div class="kpi-card" style="border-left:5px solid var(--primary);">
+              <div class="kpi-label">Total YTD Emissions</div>
+              <div class="kpi-value" id="kpi-total">0</div>
+              <div class="kpi-unit">tCO₂e <span class="kpi-trend-up">▲ 0%</span></div>
+              <span class="kpi-eco-icon">🌱</span>
+            </div>
+            <div class="kpi-card" style="border-left:5px solid #1abc9c;">
+              <div class="kpi-label">Emissions/Employee</div>
+              <div class="kpi-value" id="kpi-per-emp">0</div>
+              <div class="kpi-unit">kgCO₂e</div>
+              <span class="kpi-eco-icon">👤</span>
+            </div>
+            <div class="kpi-card" style="border-left:5px solid #f1c40f;">
+              <div class="kpi-label">Emissions/m²</div>
+              <div class="kpi-value" id="kpi-per-m2">0</div>
+              <div class="kpi-unit">kgCO₂e</div>
+              <span class="kpi-eco-icon">🏢</span>
+            </div>
+            <div class="kpi-card" style="border-left:5px solid #e67e22;">
+              <div class="kpi-label">Reduction Target</div>
+              <div class="kpi-value" id="kpi-target">0%</div>
+              <div class="kpi-unit">by 2025 <span class="kpi-trend-down">▼</span></div>
+              <span class="kpi-eco-icon">🎯</span>
+            </div>
+          </div>
+          <div class="toolbar" id="toolbar-filters" style="margin-bottom:2em;">
+            <input type="date" id="date-start">
+            <input type="date" id="date-end">
+            <select id="departments"><option>All Departments</option></select>
+            <select id="locations"><option>All Locations</option></select>
+            <button id="filter-btn"><span>🔎</span>Filter</button>
+            <button id="simulate-btn"><span>🚀</span>Simulate Reduction</button>
+          </div>
+          <div class="main-flex">
+            <div class="visual-cards-col">
+              <div class="card" style="background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);">
+                <h3>Emission Trends</h3>
+                <canvas id="emissionTrendsChart" height="140"></canvas>
+              </div>
+              <div class="card" style="background:linear-gradient(120deg,#f7faf9 60%,var(--primary-light) 100%);">
+                <h3>Impact per Product</h3>
+                <canvas id="impactDonutChart" height="111"></canvas>
+              </div>
+              <div class="card quote-area" id="quote-card" style="background:var(--primary-light);">
+                <span class="quote-icon">💬</span>
+                <span id="quote-text">
+                  "The greatest threat to our planet is the belief that someone else will save it."
+                </span>
+              </div>
+            </div>
+            <aside class="side-panel" style="background:linear-gradient(120deg,#f7faf9 70%,var(--primary-light) 100%);">
+              <h4>Recent Activities</h4>
+              <ul class="activity-list" id="activity-list"></ul>
+              <button class="refresh-btn" id="refresh-activity">🔄 Refresh</button>
+            </aside>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-analytics">
+          <div class="card" style="min-height:220px;">
+            <h3>Advanced Analytics</h3>
+            <div style="display:flex;flex-direction:column;gap:1.2em;">
+              <div style="font-size:1.1em;color:var(--primary);">Coming soon: Visualize your emissions breakdown, trends, and forecasts here.</div>
+              <div style="color:#7d9c8f;">Connect your dataset to see analytics.</div>
+              <canvas id="analyticsChart" height="120"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-reports">
+          <div class="card" style="min-height:220px;">
+            <h3>Reports</h3>
+            <div style="font-size:1.1em;color:var(--primary);">Generate, download, and share sustainability reports here.</div>
+            <div style="color:#7d9c8f;">Connect your dataset to see reports.</div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-products">
+          <div class="card" style="min-height:220px;">
+            <h3>Products</h3>
+            <div style="font-size:1.1em;color:var(--primary);">Track product-level emissions and eco-impact.</div>
+            <div style="color:#7d9c8f;">Connect your dataset to see product data.</div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-suppliers">
+          <div class="card" style="min-height:220px;">
+            <h3>Suppliers</h3>
+            <div style="font-size:1.1em;color:var(--primary);">Monitor supplier sustainability and supply chain impact.</div>
+            <div style="color:#7d9c8f;">Connect your dataset to see supplier data.</div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-settings">
+          <div class="card" style="min-height:220px;">
+            <h3>Settings</h3>
+            <div style="font-size:1.1em;color:var(--primary);">Manage your account, integrations, and preferences.</div>
+            <div style="color:#7d9c8f;">Settings will appear here.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT US -->
+      <div id="header-content-contact" class="header-content-panel" style="display:none;">
+        <div class="card" style="max-width:600px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
+          <h3 style="color:var(--primary);font-size:1.5em;">Contact Us</h3>
+          <div style="font-size:1.09em;color:var(--primary);margin-bottom:1.1em;">
+            We'd love to hear from you! Whether you have a question about our platform, want to request a feature, or need support with your account, our team is ready to help.
+          </div>
+          <form id="contactForm" style="display:flex;flex-direction:column;gap:1em;">
+            <div style="display:flex;gap:1em;">
+              <input type="text" placeholder="First Name" required style="flex:1;padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+              <input type="text" placeholder="Last Name" required style="flex:1;padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            </div>
+            <input type="text" placeholder="Company/Organisation Name" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="tel" placeholder="Contact Number" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="email" placeholder="Contact Email ID" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <textarea placeholder="Describe your problem or request in detail..." required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;min-height:100px;"></textarea>
+            <button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:12px 0;font-weight:700;font-size:1.08em;cursor:pointer;box-shadow:0 2px 8px #daf9e2;">
+              Send Message
+            </button>
+          </form>
+          <div style="margin-top:1.3em;">
+            <div style="color:var(--secondary);font-weight:600;">Or reach us directly:</div>
+            <div style="margin-top:0.5em;">
+              <span style="color:var(--primary);font-weight:600;">EcoLeaf Analytics:</span><br>
+              <span style="color:var(--secondary);">123 Green Street, Sustainable City, Earth</span><br>
+              <span style="color:var(--primary);font-weight:600;">Phone:</span>
+              <a href="tel:+1800123456" style="color:#0052cc;text-decoration:underline;">+1 800 123 456</a><br>
+              <span style="color:var(--primary);font-weight:600;">Email:</span>
+              <a href="mailto:support@ecoleaf.com" style="color:#0052cc;text-decoration:underline;">support@ecoleaf.com</a>
+            </div>
+          </div>
+          <div id="contactSuccess" style="display:none;color:var(--primary);margin-top:1em;font-weight:600;">
+            Thank you! We'll get back to you soon.
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOGS -->
+      <div id="header-content-blogs" class="header-content-panel" style="display:none;">
+        <div class="card" style="max-width:700px;margin:40px auto;background:linear-gradient(120deg,#f7faf9 60%,var(--primary-light) 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
+          <h3 style="color:var(--primary);font-size:1.5em;">EcoLeaf Blogs</h3>
+          <div style="font-size:1.11em;color:var(--primary);margin-bottom:0.7em;">
+            Latest Insights & Sustainability Stories
+          </div>
+          <ul class="blog-list">
+            <li>
+              <span class="blog-title">What is Carbon Accounting? (Greenly Blog)</span>
+              <span class="blog-desc">Understand how carbon accounting helps organizations track and manage emissions effectively.</span><br>
+              <a href="https://greenly.earth/en-us/blog/company-guide/what-is-carbon-accounting" target="_blank">
+                Read the article
+              </a>
+            </li>
+            <li>
+              <span class="blog-title">A Beginner’s Guide to Carbon Accounting (Greenly Blog)</span>
+              <span class="blog-desc">A simple breakdown for those new to sustainability and carbon reporting.</span><br>
+              <a href="https://greenly.earth/en-us/blog/company-guide/a-beginners-guide-to-carbon-accounting" target="_blank">
+                Read the article
+              </a>
+            </li>
+            <li>
+              <span class="blog-title">What is Carbon Accounting? (GHG Protocol)</span>
+              <span class="blog-desc">Official update on international carbon accounting protocols and best practices.</span><br>
+              <a href="https://ghgprotocol.org/blog/what-carbon-accounting" target="_blank">
+                Visit GHG Protocol Blog
+              </a>
+            </li>
+            <li>
+              <span class="blog-title">Carbon Accounting: The Key to Net Zero (GreenBiz)</span>
+              <span class="blog-desc">Learn how comprehensive carbon accounting paves the way for net-zero strategies.</span><br>
+              <a href="https://www.greenbiz.com/article/carbon-accounting-key-net-zero" target="_blank">
+                Read on GreenBiz
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PRIVACY POLICY -->
+      <div id="header-content-privacy" class="header-content-panel" style="display:none;">
+        <div class="card" style="max-width:700px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
+          <h3 style="color:var(--primary);font-size:1.5em;">Privacy Policy</h3>
+          <div style="font-size:1.11em;color:var(--primary);margin-bottom:1em;">
+            Your privacy matters to us.
+          </div>
+          <div style="color:#7d9c8f;">
+            <strong>EcoLeaf Analytics</strong> is committed to protecting your privacy and complying with the General Data Protection Regulation (GDPR) and other applicable data protection laws.<br><br>
+            <ul style="margin:0 0 0 1.2em;padding:0;">
+              <li>We collect only the data necessary to provide our services and improve your experience.</li>
+              <li>Your data is stored securely and is not shared with third parties without your explicit consent, except as required by law.</li>
+              <li>You have the right to access, correct, or delete your personal data at any time.<br>
+                Please contact us at <a href="mailto:privacy@ecoleaf.com" style="color:#0052cc;text-decoration:underline;">privacy@ecoleaf.com</a> for any privacy-related requests.</li>
+              <li>We use industry-standard security measures to protect your information.</li>
+              <li>By using our services, you agree to this policy. Updates will be posted on this page.</li>
+            </ul>
+            <br>
+            For more details, please review our full privacy policy or contact our Data Protection Officer.<br>
+            <br>
+            <span style="color:var(--primary);">Thank you for trusting EcoLeaf Analytics with your data.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Chatbot Toggle Button -->
+  <button class="chatbot-toggle-button" id="chatbotToggle">
+    <i class="fas fa-comment-dots"></i>
+  </button>
+
+  <!-- Chatbot Container -->
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      EcoLeaf AI Assistant
+      <button id="closeChatbot"><i class="fas fa-times"></i></button>
     </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chatbot-message bot">Hello! How can I assist you with EcoLeaf Analytics today?</div>
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chatbotInput" placeholder="Type your message..." />
+      <button id="sendChatbotMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
 
-    <script>
-        // Emission factors (kg CO2e)
-        const EMISSION_FACTORS = {
-            naturalGas: 0.184, // kg CO2e per kWh
-            diesel: 2.68, // kg CO2e per liter
-            petrol: 2.31, // kg CO2e per liter
-            lng: 2.75, // kg CO2e per liter
-            electricity: {
-                uk: 0.233, // kg CO2e per kWh
-                us: 0.493,
-                eu: 0.275,
-                china: 0.681,
-                india: 0.912
-            },
-            heating: 0.2, // kg CO2e per kWh
-            travel: {
-                car: 0.171, // kg CO2e per km
-                plane: 0.255, // kg CO2e per km
-                plane_international: 0.195,
-                train: 0.041
-            },
-            commuting: 0.171, // kg CO2e per employee-km (average car)
-            waste: 500, // kg CO2e per tonne of waste
-        };
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Navigation & Tabs
+    function activateTab(tab) {
+      const dashboardTabs = ['dashboard', 'analytics', 'reports', 'products', 'suppliers', 'settings'];
+      document.getElementById('dashboard-layout').style.display = dashboardTabs.includes(tab) ? 'grid' : 'none';
+      document.getElementById('header-content-home').style.display = tab === 'home' ? 'block' : 'none';
+      document.getElementById('header-content-contact').style.display = tab === 'contact' ? 'block' : 'none';
+      document.getElementById('header-content-blogs').style.display = tab === 'blogs' ? 'block' : 'none';
+      document.getElementById('header-content-privacy').style.display = tab === 'privacy' ? 'block' : 'none';
+      document.getElementById('header-content-customerform')?.style.display = tab === 'customerform' ? 'block' : 'none';
 
-        function switchTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all nav tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked nav tab
-            event.target.classList.add('active');
+      if (dashboardTabs.includes(tab)) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.tab === tab);
+        });
+        document.querySelectorAll('#sidebar-list li').forEach(li => {
+          li.classList.toggle('active', li.dataset.tab === tab);
+        });
+        document.querySelectorAll('.tab-content').forEach(tc => {
+          tc.classList.toggle('active', tc.id === 'tab-' + tab);
+        });
+      }
+
+      document.querySelectorAll('.eco-header-link').forEach(l => l.classList.remove('active'));
+      const activeHeaderLink = document.querySelector(`.eco-header-link[data-header="${tab}"]`);
+      if (activeHeaderLink) {
+        activeHeaderLink.classList.add('active');
+      }
+    }
+
+    // Initial activation
+    const initialHash = window.location.hash.substring(1) || 'home';
+    activateTab(initialHash);
+
+    // Header navigation
+    document.getElementById('ecoHeaderNav').addEventListener('click', function(e) {
+      const link = e.target.closest('.eco-header-link');
+      if (link) {
+        e.preventDefault();
+        const targetTab = link.dataset.header;
+        window.location.hash = targetTab;
+        activateTab(targetTab);
+      }
+    });
+
+    // Sidebar and dashboard tabs
+    document.getElementById('sidebar-list').addEventListener('click', function(e) {
+      let li = e.target.closest('li[data-tab]');
+      if (li) {
+        activateTab(li.dataset.tab);
+        window.location.hash = 'dashboard';
+      }
+    });
+    document.getElementById('tabNav').addEventListener('click', function(e) {
+      let btn = e.target.closest('.tab-btn[data-tab]');
+      if (btn) {
+        activateTab(btn.dataset.tab);
+      }
+    });
+
+    // "Explore Dashboard" button
+    document.getElementById('exploreDashboardBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.hash = 'dashboard';
+      activateTab('dashboard');
+    });
+
+    // Dashboard KPI/Toolbar buttons
+    document.getElementById('simulate-btn').onclick = function() {
+      var target = document.getElementById('kpi-target');
+      var oldVal = target.textContent;
+      target.textContent = '0%';
+      setTimeout(() => target.textContent = oldVal, 2000);
+    };
+    document.getElementById('filter-btn').onclick = function() {
+      var el = document.getElementById('kpi-total');
+      el.style.background = '#daf9e2';
+      setTimeout(()=>el.style.background='#fff', 420);
+    };
+
+    // Charts
+    const emissionCtx = document.getElementById('emissionTrendsChart').getContext('2d');
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+    const scope1 = [0, 0, 0, 0, 0, 0, 0];
+    const scope2 = [0, 0, 0, 0, 0, 0, 0];
+    const scope3 = [0, 0, 0, 0, 0, 0, 0];
+    const emissionTrendsChart = new Chart(emissionCtx, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [
+          { label: 'Scope 1', data: scope1, backgroundColor: '#22b573c0' },
+          { label: 'Scope 2', data: scope2, backgroundColor: '#5773eea0' },
+          { label: 'Scope 3', data: scope3, backgroundColor: '#f16971bb' }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display:true, position:'top' }},
+        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero:true, title:{display:true, text:'tCO₂e'} }}
+      }
+    });
+    const donutCtx = document.getElementById('impactDonutChart').getContext('2d');
+    const impactDonutChart = new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Freight Lift','Electric Table', 'Tire', 'Raw Materials'],
+        datasets: [{
+          data: [0, 0, 0, 0],
+          backgroundColor: ["#22b573c0", "#fff456d7", "#e84a5fc7", "#5773eea0"]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true, position:'right' } }
+      }
+    });
+    const analyticsCtx = document.getElementById('analyticsChart').getContext('2d');
+    new Chart(analyticsCtx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          { label: 'Emissions', data: [0,0,0,0,0,0,0], borderColor: '#22b573', backgroundColor: '#e8f7ef', fill: true }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    // Quotes
+    const quotes = [
+      '"The greatest threat to our planet is the belief that someone else will save it." – Robert Swan',
+      '"We do not inherit the earth from our ancestors, we borrow it from our children." – Native American Proverb',
+      '"Sustainability is no longer about doing less harm. It’s about doing more good." – Jochen Zeitz',
+      '"Every individual matters. Every individual has a role to play." – Jane Goodall'
+    ];
+    let quoteIdx = 0;
+    setInterval(()=>{
+      quoteIdx = (quoteIdx+1)%quotes.length;
+      document.getElementById('quote-text').textContent = quotes[quoteIdx];
+    }, 6500);
+    // Activities
+    const activities = [{ icon:'🧾', text:'No recent activity', time:'' }];
+    function renderActivities() {
+      const el = document.getElementById('activity-list');
+      el.innerHTML = '';
+      activities.forEach(a=>{
+        el.innerHTML += `<li>
+          <span class="activity-icon">${a.icon}</span>
+          <span>${a.text}</span>
+          <time>${a.time}</time>
+        </li>`;
+      });
+    }
+    renderActivities();
+    document.getElementById('refresh-activity').onclick = function() { renderActivities(); };
+    // Toolbar selects
+    for(let dept of ["All Departments","Sustainability","Operations","HR","IT"]) {
+      let o = document.createElement("option"); o.value=o.text=dept;
+      document.getElementById('departments').appendChild(o);
+    }
+    for(let loc of ["All Locations","Seattle","London","Delhi","Tokyo"]) {
+      let o = document.createElement("option"); o.value=o.text=loc;
+      document.getElementById('locations').appendChild(o);
+    }
+
+    // Contact form handler with localStorage
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Collect form data
+      const inputs = this.querySelectorAll('input, textarea');
+      const data = {};
+      inputs.forEach(input => {
+        if (input.type === 'text' || input.type === 'email' || input.type === 'tel' || input.tagName === 'TEXTAREA') {
+          data[input.placeholder] = input.value;
         }
+      });
+      // Save to localStorage
+      let contactSubmissions = JSON.parse(localStorage.getItem('ecoleaf_contact_submissions') || '[]');
+      contactSubmissions.push({ ...data, submittedAt: new Date().toISOString() });
+      localStorage.setItem('ecoleaf_contact_submissions', JSON.stringify(contactSubmissions));
+      document.getElementById('contactSuccess').style.display = 'block';
+      setTimeout(()=>{ document.getElementById('contactSuccess').style.display = 'none'; }, 3500);
+      this.reset();
+    });
 
-        function calculateEmissions() {
-            // Scope 1 calculations
-            const naturalGas = parseFloat(document.getElementById('naturalGas').value) || 0;
-            const fuel = parseFloat(document.getElementById('fuel').value) || 0;
-            const fuelType = document.getElementById('fuelType').value;
-            const refrigerants = parseFloat(document.getElementById('refrigerants').value) || 0;
+    // --- Customer Emissions Form Logic ---
+    // Add navigation link if not present
+    if (!document.querySelector('.eco-header-link[data-header="customerform"]')) {
+      const nav = document.getElementById('ecoHeaderNav');
+      const link = document.createElement('a');
+      link.href = "#customerform";
+      link.className = "eco-header-link";
+      link.dataset.header = "customerform";
+      link.style.fontSize = "1.13em";
+      link.textContent = "Submit Emissions";
+      nav.appendChild(link);
+    }
 
-            const scope1Emissions = (
-                naturalGas * EMISSION_FACTORS.naturalGas +
-                fuel * EMISSION_FACTORS[fuelType] +
-                refrigerants
-            ) / 1000; // Convert to tonnes
+    // Add customer form section if not present
+    if (!document.getElementById('header-content-customerform')) {
+      const customerFormSection = document.createElement('div');
+      customerFormSection.id = "header-content-customerform";
+      customerFormSection.className = "header-content-panel";
+      customerFormSection.style.display = "none";
+      customerFormSection.innerHTML = `
+        <div class="card" style="max-width:600px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
+          <h3 style="color:var(--primary);font-size:1.5em;">Submit Your Emissions Data</h3>
+          <div style="font-size:1.09em;color:var(--primary);margin-bottom:1.1em;">
+            Please fill in your company emissions details below. Our team will review and provide tailored sustainability insights.
+          </div>
+          <form id="customerEmissionsForm" style="display:flex;flex-direction:column;gap:1em;">
+            <input type="text" placeholder="Company Name" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="text" placeholder="Contact Person" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="email" placeholder="Contact Email" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="tel" placeholder="Contact Number" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="number" placeholder="Total Annual Emissions (tCO₂e)" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="number" placeholder="Number of Employees" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <input type="number" placeholder="Facility Size (m²)" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
+            <textarea placeholder="Describe your sustainability goals or challenges..." style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;min-height:80px;"></textarea>
+            <button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:12px 0;font-weight:700;font-size:1.08em;cursor:pointer;box-shadow:0 2px 8px #daf9e2;">
+              Submit Emissions Data
+            </button>
+          </form>
+          <div id="customerEmissionsSuccess" style="display:none;color:var(--primary);margin-top:1em;font-weight:600;">
+            Thank you! Your emissions data has been submitted.
+          </div>
+        </div>
+      `;
+      document.body.appendChild(customerFormSection);
+    }
 
-            // Scope 2 calculations
-            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
-            const gridRegion = document.getElementById('gridRegion').value;
-            const renewableEnergy = parseFloat(document.getElementById('renewableEnergy').value) || 0;
-            const heating = parseFloat(document.getElementById('heating').value) || 0;
-
-            const scope2Emissions = (
-                (electricity - renewableEnergy) * EMISSION_FACTORS.electricity[gridRegion] +
-                heating * EMISSION_FACTORS.heating
-            ) / 1000; // Convert to tonnes
-
-            // Scope 3 calculations
-            const businessTravel = parseFloat(document.getElementById('businessTravel').value) || 0;
-            const travelMode = document.getElementById('travelMode').value;
-            const commuting = parseFloat(document.getElementById('commuting').value) || 0;
-            const waste = parseFloat(document.getElementById('waste').value) || 0;
-            const supplyChain = parseFloat(document.getElementById('supplyChain').value) || 0;
-
-            const scope3Emissions = (
-                businessTravel * EMISSION_FACTORS.travel[travelMode] +
-                commuting * EMISSION_FACTORS.commuting +
-                waste * EMISSION_FACTORS.waste
-            ) / 1000 + supplyChain; // Convert to tonnes and add supply chain
-
-            const totalEmissions = scope1Emissions + scope2Emissions + scope3Emissions;
-
-            // Display results
-            displayResults(totalEmissions, scope1Emissions, scope2Emissions, scope3Emissions);
-            
-            // Save to localStorage
-            saveCalculation(totalEmissions, scope1Emissions, scope2Emissions, scope3Emissions);
-            
-            // Generate recommendations
-            generateRecommendations(scope1Emissions, scope2Emissions, scope3Emissions);
+    // Customer Emissions Form handler with localStorage
+    document.getElementById('customerEmissionsForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inputs = this.querySelectorAll('input, textarea');
+      const data = {};
+      inputs.forEach(input => {
+        if (input.type === 'text' || input.type === 'email' || input.type === 'tel' || input.type === 'number' || input.tagName === 'TEXTAREA') {
+          data[input.placeholder] = input.value;
         }
+      });
+      let emissionsSubmissions = JSON.parse(localStorage.getItem('ecoleaf_emissions_submissions') || '[]');
+      emissionsSubmissions.push({ ...data, submittedAt: new Date().toISOString() });
+      localStorage.setItem('ecoleaf_emissions_submissions', JSON.stringify(emissionsSubmissions));
+      document.getElementById('customerEmissionsSuccess').style.display = 'block';
+      setTimeout(()=>{ document.getElementById('customerEmissionsSuccess').style.display = 'none'; }, 3500);
+      this.reset();
+    });
 
-        function displayResults(total, scope1, scope2, scope3) {
-            document.getElementById('totalEmissions').textContent = total.toFixed(2);
-            document.getElementById('scope1Total').textContent = scope1.toFixed(2);
-            document.getElementById('scope2Total').textContent = scope2.toFixed(2);
-            document.getElementById('scope3Total').textContent = scope3.toFixed(2);
-            
-            document.getElementById('results').classList.remove('hidden');
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }
+    // Handle navigation for new customer form tab
+    document.getElementById('ecoHeaderNav').addEventListener('click', function(e) {
+      const link = e.target.closest('.eco-header-link');
+      if (link && link.dataset.header === 'customerform') {
+        e.preventDefault();
+        window.location.hash = 'customerform';
+        activateTab('customerform');
+      }
+    });
 
-        function generateRecommendations(scope1, scope2, scope3) {
-            const recommendations = [];
-            const total = scope1 + scope2 + scope3;
+    // Chatbot Logic
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const sendChatbotMessage = document.getElementById('sendChatbotMessage');
 
-            if (scope2 > total * 0.4) {
-                recommendations.push({
-                    title: "🔋 Switch to Renewable Energy",
-                    description: "Your electricity consumption is your largest emission source. Consider switching to renewable energy providers or installing solar panels.",
-                    impact: "Could reduce emissions by up to " + (scope2 * 0.8).toFixed(1) + " tonnes CO2e annually"
-                });
-            }
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('open');
+    });
 
-            if (scope3 > total * 0.3) {
-                recommendations.push({
-                    title: "🚗 Optimize Transportation",
-                    description: "Transportation is a significant contributor. Encourage remote work, use video conferencing, and promote public transport for commuting.",
-                    impact: "Could reduce emissions by up to " + (scope3 * 0.3).toFixed(1) + " tonnes CO2e annually"
-                });
-            }
+    closeChatbot.addEventListener('click', () => {
+      chatbotContainer.classList.remove('open');
+    });
 
-            if (scope1 > total * 0.2) {
-                recommendations.push({
-                    title: "🏭 Improve Energy Efficiency",
-                    description: "Upgrade heating systems, improve insulation, and maintain equipment regularly to reduce direct emissions.",
-                    impact: "Could reduce emissions by up to " + (scope1 * 0.4).toFixed(1) + " tonnes CO2e annually"
-                });
-            }
+    sendChatbotMessage.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
 
-            recommendations.push({
-                title: "📊 Set Science-Based Targets",
-                description: "Establish measurable reduction targets aligned with climate science to stay on track for net-zero goals.",
-                impact: "Essential for long-term sustainability strategy"
-            });
+    async function sendMessage() {
+      const userMessage = chatbotInput.value.trim();
+      if (userMessage === '') return;
 
-            const recommendationsHtml = recommendations.map(rec => `
-                <div class="recommendation-item">
-                    <h4>${rec.title}</h4>
-                    <p>${rec.description}</p>
-                    <small><strong>${rec.impact}</strong></small>
-                </div>
-            `).join('');
+      appendMessage(userMessage, 'user');
+      chatbotInput.value = '';
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom
 
-            document.getElementById('recommendationsList').innerHTML = recommendationsHtml;
-        }
+      // Show loading indicator
+      const loadingMessage = document.createElement('div');
+      loadingMessage.classList.add('chatbot-loading');
+      loadingMessage.textContent = 'EcoLeaf AI is typing...';
+      chatbotMessages.appendChild(loadingMessage);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 
-        function saveCalculation(total, scope1, scope2, scope3) {
-            const calculation = {
-                date: new Date().toISOString(),
-                total: total,
-                scope1: scope1,
-                scope2: scope2,
-                scope3: scope3
-            };
+      try {
+        const chatHistory = [{ role: "user", parts: [{ text: userMessage }] }];
+        const payload = { contents: chatHistory };
+        const apiKey = ""; // Leave as empty string for Canvas to provide
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-            let history = JSON.parse(localStorage.getItem('carbonCalculations') || '[]');
-            history.unshift(calculation); // Add to beginning
-            history = history.slice(0, 10); // Keep only last 10 calculations
-            localStorage.setItem('carbonCalculations', JSON.stringify(history));
-            
-            updateHistoryDisplay();
-        }
-
-        function updateHistoryDisplay() {
-            const history = JSON.parse(localStorage.getItem('carbonCalculations') || '[]');
-            const historyList = document.getElementById('historyList');
-
-            if (history.length === 0) {
-                historyList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">No calculations saved yet. Complete a calculation to see your history here.</p>';
-                return;
-            }
-
-            const historyHtml = history.map((calc, index) => `
-                <div class="history-card">
-                    <button class="delete-btn" onclick="deleteCalculation(${index})">×</button>
-                    <div class="history-date">${new Date(calc.date).toLocaleDateString()} at ${new Date(calc.date).toLocaleTimeString()}</div>
-                    <div class="history-total">${calc.total.toFixed(2)} tonnes CO2e</div>
-                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                        Scope 1: ${calc.scope1.toFixed(2)} | Scope 2: ${calc.scope2.toFixed(2)} | Scope 3: ${calc.scope3.toFixed(2)}
-                    </div>
-                </div>
-            `).join('');
-
-            historyList.innerHTML = historyHtml;
-        }
-
-        function deleteCalculation(index) {
-            let history = JSON.parse(localStorage.getItem('carbonCalculations') || '[]');
-            history.splice(index, 1);
-            localStorage.setItem('carbonCalculations', JSON.stringify(history));
-            updateHistoryDisplay();
-        }
-
-        function clearForm() {
-            document.querySelectorAll('input[type="number"]').forEach(input => {
-                input.value = '';
-            });
-            document.getElementById('results').classList.add('hidden');
-        }
-
-        // Load history on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateHistoryDisplay();
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
 
-        // Auto-save form data as user types
-        document.querySelectorAll('input, select').forEach(input => {
-            input.addEventListener('change', function() {
-                const formData = {};
-                document.querySelectorAll('input, select').forEach(field => {
-                    formData[field.id] = field.value;
-                });
-                localStorage.setItem('currentFormData', JSON.stringify(formData));
-            });
-        });
+        const result = await response.json();
 
-        // Load saved form data on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedData = JSON.parse(localStorage.getItem('currentFormData') || '{}');
-            Object.keys(savedData).forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    field.value = savedData[fieldId];
-                }
-            });
-        });
+        // Remove loading indicator
+        chatbotMessages.removeChild(loadingMessage);
 
-        // Optionally, rotate green tips
-        const tips = [
-            "Use natural light in your workspace to reduce electricity consumption and boost well-being.",
-            "Encourage double-sided printing to save paper.",
-            "Switch off monitors and equipment when not in use.",
-            "Promote reusable bottles and cups in the office.",
-            "Organize a carpool or cycling day for employees."
-        ];
-        let tipIndex = 0;
-        setInterval(() => {
-            tipIndex = (tipIndex + 1) % tips.length;
-            document.getElementById('greenTip').textContent = tips[tipIndex];
-        }, 9000);
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+          const botResponse = result.candidates[0].content.parts[0].text;
+          appendMessage(botResponse, 'bot');
+        } else {
+          appendMessage("Sorry, I couldn't get a response. Please try again.", 'bot');
+        }
+      } catch (error) {
+        console.error('Error fetching chatbot response:', error);
+        // Remove loading indicator
+        if (chatbotMessages.contains(loadingMessage)) {
+            chatbotMessages.removeChild(loadingMessage);
+        }
+        appendMessage("Oops! Something went wrong. Please try again later.", 'bot');
+      }
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom after response
+    }
 
-        // Optionally, animate progress bar (simulate progress)
-        setTimeout(() => {
-            document.getElementById('progressBar').style.width = '60%';
-        }, 500);
-    </script>
+    function appendMessage(text, sender) {  
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('chatbot-message', sender);
+      messageElement.textContent = text;
+      chatbotMessages.appendChild(messageElement);
+    }
+  </script>
 </body>
 </html>
