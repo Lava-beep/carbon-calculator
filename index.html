@@ -1,1498 +1,1391 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>EcoLeaf Analytics - Empowering Sustainable Business Decisions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoLeaf Analytics - Carbon Accounting & Sustainability</title>
   <style>
-    :root {
-      --primary: #22b573;
-      --primary-light: #e8f7ef;
-      --secondary: #3c525c;
-      --sidebar-bg: #f7faf9;
-      --kpi-bg: #fff;
-      --main-bg: #f7faf9;
-      --card-bg: #fff;
-      --border: #e2e7ec;
-      --active: #daf9e2;
-      --danger: #e84a5f;
-      --neutral: #eaeaea;
-      --quote-bg: #eee;
-      --sidebar-hover: #e8f7ef;
-      --sidebar-active: #22b573;
-      --sidebar-icon: #22b573;
-      --sidebar-inactive: #3c525c;
-      --text-dark: #333;
-      --text-light: #666;
-    }
-    html, body {
-      margin: 0; padding: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      color: var(--secondary);
-      background: var(--main-bg);
-      min-height: 100vh;
-      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-    }
-    .eco-header {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      background: linear-gradient(90deg, #e8f7ef 60%, #d3f3e2 100%);
-      padding: 18px 32px 14px 32px;
-      border-bottom: 2px solid #daf9e2;
-      box-shadow: 0 4px 24px rgba(34,181,115,0.09);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .eco-logo {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px #daf9e2;
-      border: 2.5px solid var(--primary);
-    }
-    .eco-title {
-      font-size: 2.3rem;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: 1px;
-      font-family: 'Inter', Arial, sans-serif;
-    }
-    .eco-slogan {
-      font-size: 1.13rem;
-      color: var(--secondary);
-      opacity: 0.85;
-      margin-left: 18px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-    .eco-header-nav {
-      margin-left: auto;
-      display: flex;
-      gap: 30px;
-      align-items: center;
-    }
-    .eco-header-link {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 1.13em;
-      text-decoration: none;
-      padding: 7px 18px;
-      border-radius: 7px;
-      transition: background 0.16s, color 0.16s;
-      cursor: pointer;
-      background: none;
-      border: none;
-      outline: none;
-      border-bottom: 2px solid transparent;
-    }
-    .eco-header-link.active,
-    .eco-header-link:focus,
-    .eco-header-link:hover {
-      background: var(--primary-light);
-      color: #178f60;
-      border-bottom: 2px solid var(--primary);
-      text-decoration: none;
-    }
-    @media (max-width: 700px) {
-      .eco-header-nav { gap: 8px; }
-      .eco-header-link { font-size: 0.98em; padding: 6px 8px; }
-      .eco-header { flex-wrap: wrap; gap: 10px; }
-    }
-
-    /* Homepage Styles */
-    .homepage-section {
-      padding: 60px 5%;
-      text-align: center;
-      background: var(--main-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 70vh;
-      box-sizing: border-box;
-    }
-    .homepage-hero {
-      background: linear-gradient(135deg, var(--primary-light) 0%, #d3f3e2 100%);
-      color: var(--secondary);
-      padding: 80px 5%;
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .homepage-hero::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      width: 200px;
-      height: 200px;
-      background: rgba(34, 181, 115, 0.1);
-      border-radius: 50%;
-      animation: floatEffect 10s infinite ease-in-out;
-    }
-    .homepage-hero::after {
-      content: '';
-      position: absolute;
-      bottom: -70px;
-      right: -70px;
-      width: 250px;
-      height: 250px;
-      background: rgba(34, 181, 115, 0.08);
-      border-radius: 50%;
-      animation: floatEffect 12s infinite ease-in-out reverse;
-    }
-    @keyframes floatEffect {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(20px, 20px) scale(1.05); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-
-    .homepage-hero h1 {
-      font-size: 3.5rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
-    }
-    .homepage-hero p {
-      font-size: 1.4rem;
-      color: var(--text-light);
-      max-width: 800px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-    .homepage-hero .cta-button {
-      background: var(--primary);
-      color: white;
-      padding: 15px 30px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 700;
-      transition: background 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 4px 15px rgba(34,181,115,0.3);
-    }
-    .homepage-hero .cta-button:hover {
-      background: #178f60;
-      transform: translateY(-3px);
-    }
-
-    .homepage-features {
-      background: white;
-      padding: 80px 5%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    }
-    .feature-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 30px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    }
-    .feature-card .icon {
-      font-size: 3.5rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      background: var(--primary-light);
-      padding: 15px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(34,181,115,0.2);
-    }
-    .feature-card h3 {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-    .feature-card p {
-      font-size: 1.1rem;
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-
-    .homepage-about {
-      background: var(--main-bg);
-      padding: 80px 5%;
-      text-align: center;
-    }
-    .homepage-about h2 {
-      font-size: 2.8rem;
-      color: var(--primary);
-      margin-bottom: 30px;
-      font-weight: 800;
-    }
-    .homepage-about p {
-      font-size: 1.2rem;
-      color: var(--text-light);
-      max-width: 900px;
-      margin: 0 auto 40px auto;
-      line-height: 1.7;
-    }
-    .homepage-about .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .team-member {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.07);
-      transition: transform 0.3s ease;
-    }
-    .team-member:hover {
-      transform: translateY(-5px);
-    }
-    .team-member img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 15px;
-      border: 3px solid var(--primary);
-    }
-    .team-member h4 {
-      font-size: 1.4rem;
-      color: var(--secondary);
-      margin-bottom: 5px;
-    }
-    .team-member p {
-      font-size: 1rem;
-      color: var(--text-light);
-      margin-bottom: 10px;
-    }
-    .team-member .social-links a {
-      color: var(--primary);
-      font-size: 1.5rem;
-      margin: 0 10px;
-      transition: color 0.3s ease;
-    }
-    .team-member .social-links a:hover {
-      color: #178f60;
-    }
-
-    /* Chatbot Styles */
-    .chatbot-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 350px;
-      height: 500px;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 1000;
-      transform: translateY(100%);
-      opacity: 0;
-      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-      pointer-events: none; /* Initially disable interactions */
-    }
-    .chatbot-container.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all; /* Enable interactions when open */
-    }
-    .chatbot-header {
-      background: var(--primary);
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.2em;
-      font-weight: 600;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-    }
-    .chatbot-header button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5em;
-      cursor: pointer;
-      padding: 5px;
-    }
-    .chatbot-messages {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      background: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .chatbot-message {
-      max-width: 80%;
-      padding: 10px 15px;
-      border-radius: 12px;
-      line-height: 1.5;
-      word-wrap: break-word;
-    }
-    .chatbot-message.user {
-      align-self: flex-end;
-      background: var(--primary);
-      color: white;
-      border-bottom-right-radius: 2px;
-    }
-    .chatbot-message.bot {
-      align-self: flex-start;
-      background: var(--primary-light);
-      color: var(--secondary);
-      border-bottom-left-radius: 2px;
-    }
-    .chatbot-input-area {
-      display: flex;
-      padding: 15px;
-      border-top: 1px solid #eee;
-      background: white;
-    }
-    .chatbot-input-area input {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border);
-      border-radius: 25px;
-      font-size: 1em;
-      margin-right: 10px;
-    }
-    .chatbot-input-area button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .chatbot-input-area button:hover {
-      background: #178f60;
-    }
-    .chatbot-toggle-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 2em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(34,181,115,0.4);
-      z-index: 1001;
-      transition: transform 0.2s ease;
-    }
-    .chatbot-toggle-button:hover {
-      transform: scale(1.05);
-    }
-    .chatbot-loading {
-        text-align: center;
-        padding: 10px;
-        color: var(--text-light);
-        font-style: italic;
-    }
-
-    /* Dashboard specific styles (from v2.html, slightly adapted) */
-    .layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      min-height: 100vh;
-      background: var(--main-bg);
-    }
-    nav.sidebar {
-      background: var(--sidebar-bg);
-      border-right: 1px solid var(--border);
-      padding: 2rem 1rem 1rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      transition: width 0.2s;
-      position: relative;
-      z-index: 10;
-    }
-    .sidebar .logo {
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 1.25em;
-      margin-bottom: 2.3rem;
-      letter-spacing: 0.015em;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sidebar ul {
-      list-style: none;
-      padding: 0; margin: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2em;
-    }
-    .sidebar ul li {
-      padding: 0.72rem 1rem;
-      margin-bottom: 0.25rem;
-      border-radius: 8px;
-      cursor: pointer;
-      color: var(--sidebar-inactive);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.8em;
-      transition: background 0.14s, color 0.15s;
-      user-select: none;
-      font-size: 1.09em;
-      border: 2px solid transparent;
-      position: relative;
-    }
-    .sidebar ul li .sidebar-icon {
-      font-size: 1.35em;
-      color: var(--sidebar-icon);
-      margin-right: 0.5em;
-      transition: color 0.18s;
-    }
-    .sidebar ul li.active,
-    .sidebar ul li:focus {
-      background: var(--sidebar-hover);
-      color: var(--sidebar-active);
-      border: 2px solid var(--sidebar-active);
-      outline: none;
-    }
-    .sidebar ul li.active .sidebar-icon,
-    .sidebar ul li:focus .sidebar-icon {
-      color: var(--sidebar-active);
-    }
-    .sidebar ul li:hover:not(.active) {
-      background: var(--sidebar-hover);
-      color: var(--sidebar-active);
-    }
-    .sidebar ul li:hover:not(.active) .sidebar-icon {
-      color: var(--sidebar-active);
-    }
-    .sidebar .sidebar-bottom {
-      margin-top: auto;
-      font-size: 1.05em;
-      color: var(--secondary);
-      opacity: 0.6;
-      text-align: center;
-      padding-top: 1.5em;
-    }
-    .sidebar .sidebar-bottom img {
-      vertical-align: middle;
-    }
-
-    main.dashboard {
-      padding: 2.2rem 2.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-      min-height: 100vh;
-      background: linear-gradient(120deg,#f7faf9 70%,#e8f7ef 100%);
-      transition: background 0.2s;
-    }
-    .tab-nav {
-      display: flex;
-      gap: 0.5em;
-      margin-bottom: 1.2em;
-      border-bottom: 2px solid #e2e7ec;
-    }
-    .tab-btn {
-      background: none;
-      border: none;
-      font-size: 1.08em;
-      font-weight: 600;
-      color: #3c525c;
-      padding: 0.7em 1.5em 0.7em 1.5em;
-      border-radius: 10px 10px 0 0;
-      cursor: pointer;
-      transition: background 0.18s, color 0.18s;
-      margin-bottom: -2px;
-    }
-    .tab-btn.active {
-      background: var(--primary-light);
-      color: var(--primary);
-      border-bottom: 2px solid var(--primary);
-      font-weight: 700;
-    }
-    .tab-btn:hover:not(.active) {
-      background: #f0f9f5;
-      color: var(--primary);
-    }
-    .kpi-row {
-      display: flex;
-      gap: 1.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.2em;
-    }
-    .kpi-card {
-      background: var(--kpi-bg);
-      border-radius: 14px;
-      flex: 1 1 200px;
-      display: flex; flex-direction: column;
-      padding: 1.2rem 1.1rem 1.05rem 1.2rem;
-      min-width: 170px;
-      box-shadow: 0 2px 14px rgba(44,58,70,0.06);
-      margin-bottom: 0.3em;
-      transition: box-shadow 0.12s, background 0.18s;
-      position: relative;
-      overflow: hidden;
-    }
-    .kpi-card .kpi-eco-icon {
-      position: absolute;
-      right: 16px;
-      top: 18px;
-      font-size: 2.2em;
-      opacity: 0.13;
-      pointer-events: none;
-    }
-    .kpi-label {
-      color: #84bca5;
-      font-size: 0.98em;
-      margin: 0 0 7px 0;
-    }
-    .kpi-value {
-      font-size: 2.1em;
-      margin: 0 0 2px 0;
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    .kpi-unit {
-      font-size: 0.98em;
-      color: var(--secondary);
-      opacity: 0.7;
-    }
-    .kpi-trend-up { color: #24a982; font-size: 1em;}
-    .kpi-trend-down { color: #e04752; font-size: 1em;}
-    .toolbar {
-      background: var(--card-bg);
-      border-radius: 11px;
-      box-shadow: 0 2px 8px rgba(14,45,32,0.03);
-      padding: 0.85rem 1.4rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 1.2em;
-    }
-    .toolbar select, .toolbar input[type=date] {
-      padding: 0.5em 1em;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: #f9fefd;
-      font-size: 1em;
-    }
-    .toolbar button {
-      padding: 0.6em 1.1em;
-      background: var(--primary);
-      border: none;
-      border-radius: 6px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.15s;
-      display: flex;
-      gap: 0.5em;
-      align-items: center;
-    }
-    .toolbar button:active, .toolbar button:focus {
-      background: #178f60;
-      outline: none;
-    }
-    .main-flex {
-      display: flex;
-      align-items: flex-start;
-      gap: 2.3rem;
-      width: 100%;
-    }
-    .visual-cards-col {
-      flex: 3;
-      display: flex;
-      flex-direction: column;
-      gap: 1.3rem;
-      min-width: 260px;
-    }
-    .card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      box-shadow: 0 2px 8px rgba(40,60,90,0.07);
-      padding: 1.4rem 1.75rem;
-      margin-bottom: 0.4rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 180px;
-      transition: box-shadow 0.13s;
-    }
-    .card h3 {
-      font-size: 1.08em;
-      color: #7d9c8f;
-      font-weight: 600;
-      margin: 0 0 1em 0;
-      letter-spacing: 0.01em;
-    }
-    .quote-area {
-      background: var(--quote-bg);
-      border-radius: 9px;
-      margin: 1.1em 0 0.2em 0;
-      padding: 1.19em 1.25em;
-      font-size: 1.13em;
-      color: #44654a;
-      font-style: italic;
-      display: flex; align-items: center; gap: 0.7em;
-      transition: background 0.11s;
-    }
-    .quote-icon {
-      font-size: 1.6em;
-      color: var(--primary);
-      opacity: 0.65;
-      margin-right: 0.4em;
-    }
-    .side-panel {
-      flex: 1.2;
-      min-width: 230px;
-      max-width: 340px;
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 1.25em 1.1em;
-      box-shadow: 0 2px 8px rgba(60,72,80,0.04);
-      display: flex; flex-direction: column;
-      gap: 1.1em;
-      min-height: 180px;
-    }
-    .side-panel h4 {
-      font-size: 1.08em;
-      color: #7d9c8f;
-      margin: 0 0 0.8em 0;
-      font-weight: 600;
-    }
-    .activity-list {
-      list-style: none;
-      padding: 0; margin: 0;
-      display: flex; flex-direction: column;
-      gap: 0.7em;
-      font-size: 0.99em;
-    }
-    .activity-list li {
-      display: flex; align-items: center; gap: 0.8em;
-      padding: 0.65em 0.4em;
-      border-radius: 6px;
-      background: #f4fcf8;
-      color: #332;
-    }
-    .activity-icon {
-      font-size: 1.28em;
-      color: var(--primary);
-      background: #e3f6ea;
-      border-radius: 50%;
-      width: 1.7em; height: 1.7em;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .activity-list time { color: #7d9c8f; margin-left: auto; font-size: 0.93em;}
-    .refresh-btn {
-      margin: 0.4em 0 0 0; align-self: flex-end;
-      background: var(--primary);
-      color: #fff; border: none;
-      border-radius: 5px;
-      padding: 0.35em 0.88em;
-      font-size: 0.94em;
-      cursor: pointer;
-      transition: background 0.14s;
-    }
-    .tab-content { display: none; animation: fadeInTab 0.5s; }
-    .tab-content.active { display: block; }
-    @keyframes fadeInTab {
-      from { opacity: 0; transform: translateY(20px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    /* Blog content extra style */
-    .card ul.blog-list {
-      list-style: none;
+    /* Base styles */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #e7f1db 0%, #c8ddb6 60%, #a8c48a 100%);
+      /* Add animated gradient */
+      animation: gradientBG 12s ease-in-out infinite alternate;
+      position: relative;
+      overflow-x: hidden;
     }
-    .card ul.blog-list li {
-      margin-bottom: 1.5em;
-      padding-bottom: 1em;
-      border-bottom: 1px solid #e6e7ec;
+
+    /* Animated gradient keyframes */
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+        background: linear-gradient(135deg, #e7f1db 0%, #c8ddb6 60%, #a8c48a 100%);
+      }
+
+      50% {
+        background-position: 100% 50%;
+        background: linear-gradient(120deg, #d2f1e7 0%, #b6ddc8 60%, #8ac4a8 100%);
+      }
+
+      100% {
+        background-position: 0% 50%;
+        background: linear-gradient(135deg, #e7f1db 0%, #c8ddb6 60%, #a8c48a 100%);
+      }
     }
-    .card ul.blog-list li:last-child { border: none; }
-    .card ul.blog-list .blog-title {
-      font-size: 1.07em;
+
+    /* Container with translucent background */
+    .container {
+      max-width: 960px;
+      margin: 2.5rem auto 4rem;
+      padding: 2rem 2.5rem;
+      background-color: rgba(255 255 255 / 0.85);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgb(28 54 25 / 0.15);
+    }
+
+    /* Header styles */
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    header h1 {
+      font-size: 3.2rem;
+      margin-bottom: 0.3rem;
+      color: #1c470f;
+      text-shadow: 1px 1px 4px rgb(145 163 117 / 0.55);
+      font-weight: 800;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      color: #4c7033;
+      font-style: italic;
+      font-weight: 600;
+      text-shadow: 0 0 2px rgb(155 176 132 / 0.45);
+      margin: 0;
+    }
+
+    /* Callout with button */
+    .callout {
+      background-color: #ddefc9;
+      border-radius: 14px;
+      padding: 1.1rem 2.5rem;
       font-weight: 700;
-      color: var(--primary);
+      font-size: 1.3rem;
+      color: #3f6821;
+      text-align: center;
+      margin-bottom: 4em;
+      box-shadow: 2px 5px 16px rgb(43 82 18 / 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .callout button {
+      background-color: #558a2f;
+      color: #f1f7e7;
+      padding: 0.55rem 1.6rem;
+      font-weight: 700;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgb(44 79 20 / 0.6);
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .callout button:hover,
+    .callout button:focus {
+      background-color: #3e6d1f;
+      box-shadow: 0 0 12px rgb(36 65 18 / 0.9);
+      outline: none;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 3rem;
+      background: #f9fff4;
+      padding: 2rem 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 6px 28px rgb(30 54 22 / 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    section:hover,
+    section:focus-within {
+      box-shadow: 0 10px 38px rgb(30 54 22 / 0.22);
+    }
+
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      font-size: 2.1rem;
+      color: #275210;
+      font-weight: 900;
+      border-bottom: 4px solid #8eb145;
+      padding-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 3px rgb(85 129 14 / 0.25);
+    }
+
+    section p,
+    section ul {
+      font-size: 1.18rem;
+      color: #40682a;
+      font-weight: 600;
+      text-shadow: 0 0 1px rgb(146 166 117 / 0.15);
+    }
+
+    section ul {
+      margin-left: 1.8rem;
+    }
+
+    section ul li {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Leadership */
+    .leadership {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.3rem;
+      justify-items: center;
+    }
+
+    .leader-card {
+      background-color: #d9f0b5;
+      border-radius: 16px;
+      padding: 1.8rem 2.2rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #2e5725;
+      box-shadow: 3px 7px 18px rgb(54 114 31 / 0.22);
+      text-align: center;
+      transition: background-color 0.35s ease, transform 0.35s ease;
+      cursor: default;
+      user-select: none;
+    }
+
+    .leader-card:hover,
+    .leader-card:focus {
+      background-color: #c3da8f;
+      transform: scale(1.06);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      font-style: italic;
+      color: #627a3b;
+      text-align: center;
+      border-top: 1px solid #97b35a;
+      padding: 1.6rem 0;
+      font-size: 1rem;
+      letter-spacing: 0.035rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.4rem;
+      }
+
+      section h2 {
+        font-size: 1.85rem;
+      }
+
+      .container {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      }
+
+      section,
+      .leadership {
+        padding: 1.2rem 1.2rem;
+      }
+
+      .leader-card {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Modal styling for dashboard */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 32px rgba(28, 54, 25, 0.2);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      user-select: text;
+      animation: fadeInScale 0.3s ease forwards;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal h3 {
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2a582a;
+      border-bottom: 2px solid #6aa44d;
+      padding-bottom: 0.30rem;
+    }
+
+    .modal label {
       display: block;
-      margin-bottom: 0.3em;
+      margin-bottom: 0.7rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-top: 1rem;
+      color: #2d562d;
     }
-    .card ul.blog-list .blog-desc {
-      color: #587e6e;
-      font-size: 0.99em;
-      margin-bottom: 0.2em;
+
+    .modal input[type="number"] {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 6px;
+      border: 1px solid #9ccc65;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      color: #225522;
+      transition: border-color 0.3s ease;
     }
-    .card ul.blog-list a {
-      color: #0052cc;
-      font-size: 0.99em;
-      text-decoration: underline;
+
+    .modal input[type="number"]:focus {
+      border-color: #6ca814;
+      outline: none;
+      box-shadow: 0 0 4px 2px #a5d14f8a;
     }
-    @media (max-width:1050px) {
-      .main-flex { flex-direction: column;}
-      .side-panel { max-width: 100%; width: 100%; margin-left: 0;}
+
+    .modal .calculation-history {
+      margin-top: 2rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      border-top: 2px solid #b7d48a;
+      padding-top: 1rem;
+      color: #3a663a;
+      min-height: 3rem;
+      max-height: 9rem;
+      overflow-y: auto;
+      background: #f5fbe9;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
     }
-    @media (max-width: 800px) {
-      .layout { grid-template-columns: 1fr;}
-      nav.sidebar { min-height: auto; flex-direction: row; padding: 1em 0.4em;}
-      .sidebar .logo { margin: 0 0.6em 0 0;}
-      .sidebar ul { flex-direction: row; gap: 0.7em;}
-      main.dashboard { padding: 1.4em 0.5em;}
-      .kpi-row { gap: 0.5em; }
-      .kpi-card { min-width: 120px; padding: 0.6em;}
-      .side-panel { padding: 1em;}
-      .visual-cards-col .card { padding: 1em 0.6em;}
-      .homepage-hero h1 { font-size: 2.5rem; }
-      .homepage-hero p { font-size: 1.1rem; }
-      .homepage-features { grid-template-columns: 1fr; }
-      .feature-card .icon { font-size: 2.5rem; }
-      .feature-card h3 { font-size: 1.5rem; }
-      .homepage-about h2 { font-size: 2rem; }
-      .homepage-about p { font-size: 1rem; }
-      .team-member img { width: 80px; height: 80px; }
-      .team-member h4 { font-size: 1.2rem; }
-      .team-member p { font-size: 0.9rem; }
-      .chatbot-container { width: 90%; right: 5%; left: 5%; }
+
+    .modal .footprint {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #275213;
+      margin: 1.5rem 0 0.5rem;
+      text-align: center;
+      user-select: all;
+    }
+
+    .modal .footprint strong {
+      color: #1d3d11;
+    }
+
+    .modal p.scope {
+      font-size: 1.1rem;
+      padding-left: 0.6rem;
+    }
+
+    /* Close button */
+    .modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #3e6b23;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+      color: #1d3b0d;
+      outline: none;
+    }
+
+    /* Calculate button */
+    .modal button.calculate-btn {
+      margin-top: 2rem;
+      background-color: #6aa44d;
+      color: white;
+      padding: 0.75rem 2rem;
+      font-size: 1.15rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .modal button.calculate-btn:hover,
+    .modal button.calculate-btn:focus {
+      background-color: #4f7f34;
+      outline: none;
+    }
+
+    /* User Auth Modal */
+    .modal-overlay#authModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal#authModal {
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(28, 54, 25, 0.2);
+      position: relative;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal#authModal h3 {
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2a582a;
+      border-bottom: 2px solid #6aa44d;
+      padding-bottom: 0.3rem;
+    }
+
+    .modal#authModal label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #2d562d;
+    }
+
+    .modal#authModal input[type="text"] {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #9ccc65;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      color: #225522;
+      transition: border-color 0.3s ease;
+    }
+
+    .modal#authModal input[type="text"]:focus {
+      border-color: #6ca814;
+      outline: none;
+      box-shadow: 0 0 4px 2px #a5d14f8a;
+    }
+
+    /* Responsive modal */
+    @media (max-width: 480px) {
+      .modal {
+        padding: 1.5rem 1.8rem;
+        max-width: 95vw;
+      }
+
+      .modal#authModal {
+        padding: 1.5rem 1.8rem;
+        max-width: 95vw;
+      }
+    }
+
+    /* Chatbot widget */
+    #chatbotWidget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 320px;
+      max-width: 90vw;
+      background: #f9fff4;
+      border-radius: 14px 14px 0 14px;
+      box-shadow: 0 8px 32px rgba(28, 54, 25, 0.18);
+      z-index: 1001;
+      font-size: 1rem;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #chatbotHeader {
+      background: #8eb145;
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #chatbotBody {
+      padding: 1rem;
+      height: 180px;
+      overflow-y: auto;
+      background: #f5fbe9;
+    }
+
+    #chatbotQuickReplies {
+      display: flex;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      padding: 0.5em 1em 0.5em 1em;
+    }
+
+    #chatbotInputArea {
+      display: flex;
+      border-top: 1px solid #c3da8f;
+      background: #f9fff4;
+    }
+
+    #chatbotInput {
+      flex: 1;
+      border: none;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 0 0 0 14px;
+      outline: none;
+      background: #f9fff4;
+    }
+
+    #chatbotSend {
+      background: #6aa44d;
+      color: #fff;
+      border: none;
+      padding: 0 1.2rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 0 0 14px 0;
+      transition: background 0.2s;
+    }
+
+    #chatbotSend:hover {
+      background: #4f7f34;
+    }
+
+    #openChatbot {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #6aa44d;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      font-size: 2rem;
+      box-shadow: 0 4px 16px rgba(28, 54, 25, 0.18);
+      cursor: pointer;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    #openChatbot:hover {
+      background: #4f7f34;
+    }
+
+    /* Dark mode */
+    body.dark-mode {
+      background: linear-gradient(135deg, #232e1c 0%, #2a3c1e 60%, #1a2a0e 100%);
+      color: #e7f1db;
+    }
+
+    body.dark-mode .container,
+    body.dark-mode section,
+    body.dark-mode .modal,
+    body.dark-mode #chatbotWidget {
+      background-color: #232e1c !important;
+      color: #e7f1db !important;
+    }
+
+    body.dark-mode .callout,
+    body.dark-mode .leader-card {
+      background-color: #2a3c1e !important;
+      color: #e7f1db !important;
+    }
+
+    body.dark-mode .modal input,
+    body.dark-mode .modal label {
+      background: #232e1c !important;
+      color: #e7f1db !important;
+    }
+
+    body.dark-mode .modal input {
+      border-color: #8eb145;
+    }
+
+    body.dark-mode #chatbotBody {
+      background: #232e1c !important;
+      color: #e7f1db !important;
+    }
+
+    body.dark-mode #chatbotHeader {
+      background: #4f7f34 !important;
+      color: #fff !important;
+    }
+
+    /* Animated SVG leaves overlay */
+    .bg-leaves {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      overflow: visible;
+    }
+
+    .leaf {
+      opacity: 0.18;
+      position: absolute;
+      will-change: transform;
+      animation: floatLeaf 14s linear infinite;
+    }
+
+    .leaf2 {
+      left: 20vw;
+      top: 10vh;
+      animation-delay: 2s;
+    }
+
+    .leaf3 {
+      left: 60vw;
+      top: 30vh;
+      animation-delay: 5s;
+    }
+
+    .leaf4 {
+      left: 80vw;
+      top: 60vh;
+      animation-delay: 8s;
+    }
+
+    .leaf5 {
+      left: 10vw;
+      top: 70vh;
+      animation-delay: 11s;
+    }
+
+    @keyframes floatLeaf {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: translateY(30px) rotate(10deg) scale(1.1);
+      }
+
+      100% {
+        transform: translateY(0) rotate(-5deg) scale(1);
+      }
+    }
+
+    /* Header (inspired by greenly.earth) */
+    #mainHeader {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 2px 12px rgba(44, 79, 20, 0.09);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1005;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5em;
+      height: 72px;
+    }
+
+    #mainHeader img {
+      height: 38px;
+      width: 38px;
+      margin-right: 0.5em;
+    }
+
+    #mainHeader .nav-link {
+      color: #275210;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+
+    #mainHeader #darkModeToggle {
+      background: #6aa44d;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 8px rgba(44, 79, 20, 0.2);
+      cursor: pointer;
+    }
+
+    #mainHeader #langSelect {
+      padding: 0.3em 1em;
+      border-radius: 8px;
+      border: 1px solid #8eb145;
+    }
+
+    /* Spacer for fixed header */
+    .header-spacer {
+      height: 72px;
     }
   </style>
 </head>
+
 <body>
-  <div class="eco-header" style="box-shadow:0 4px 24px rgba(34,181,115,0.09);background:linear-gradient(90deg,#e8f7ef 60%,#d3f3e2 100%);">
-    <span class="eco-logo" style="border:2.5px solid var(--primary);">
-      <img src="https://cdn-icons-png.flaticon.com/512/2909/2909769.png" alt="EcoLeaf Logo" style="width:38px;height:38px;">
-    </span>
-    <span class="eco-title" style="font-size:2.3rem;">EcoLeaf Analytics</span>
-    <span class="eco-slogan" style="font-size:1.13rem;">Empowering Sustainable Business Decisions</span>
-    <nav class="eco-header-nav" id="ecoHeaderNav" style="gap:30px;">
-      <a href="#home" class="eco-header-link active" data-header="home" style="font-size:1.13em;">Home</a>
-      <a href="#dashboard" class="eco-header-link" data-header="dashboard" style="font-size:1.13em;">Dashboard</a>
-      <a href="#contact" class="eco-header-link" data-header="contact" style="font-size:1.13em;">Contact Us</a>
-      <a href="#blogs" class="eco-header-link" data-header="blogs" style="font-size:1.13em;">Blogs</a>
-      <a href="#privacy" class="eco-header-link" data-header="privacy" style="font-size:1.13em;">Privacy Policy</a>
+  <!-- Animated SVG Leaves Overlay -->
+  <svg class="bg-leaves" width="100vw" height="100vh" style="position:fixed;top:0;left:0;z-index:0;pointer-events:none;">
+    <g class="leaf leaf2">
+      <path d="M30 60 Q50 10 70 60 Q50 40 30 60" fill="#8eb145"/>
+    </g>
+    <g class="leaf leaf3">
+      <path d="M60 120 Q90 60 120 120 Q90 100 60 120" fill="#6aa44d"/>
+    </g>
+    <g class="leaf leaf4">
+      <path d="M100 40 Q120 10 140 40 Q120 30 100 40" fill="#c3da8f"/>
+    </g>
+    <g class="leaf leaf5">
+      <path d="M20 180 Q40 140 60 180 Q40 170 20 180" fill="#b6ddc8"/>
+    </g>
+  </svg>
+
+  <!-- User Auth Modal -->
+  <div class="modal-overlay" id="authModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="User Login/Register">
+    <div class="modal" role="document">
+      <button class="modal-close" aria-label="Close Auth" id="closeAuthModal">&times;</button>
+      <h3>Sign In / Register</h3>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" autocomplete="username" />
+      <button class="calculate-btn" id="loginBtn">Continue</button>
+      <p id="authStatus" style="color:#b00;font-size:1rem;"></p>
+    </div>
+  </div>
+
+  <!-- EcoLeaf Header (inspired by greenly.earth) -->
+  <header id="mainHeader" style="width:100%;background:rgba(255,255,255,0.98);box-shadow:0 2px 12px rgba(44,79,20,0.09);position:fixed;top:0;left:0;z-index:1005;display:flex;align-items:center;justify-content:space-between;padding:0 2.5em;height:72px;">
+    <div style="display:flex;align-items:center;gap:1em;">
+      <img src="https://img.icons8.com/ios-filled/50/8eb145/leaf.png" alt="EcoLeaf Logo" style="height:38px;width:38px;margin-right:0.5em;">
+      <span style="font-size:2rem;font-weight:800;color:#275210;letter-spacing:0.02em;">EcoLeaf Analytics</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:2em;">
+      <a href="#" class="nav-link" data-section="home" style="color:#275210;font-weight:700;text-decoration:none;font-size:1.1em;">Home</a>
+      <a href="#" class="nav-link" data-section="dashboard" style="color:#275210;font-weight:700;text-decoration:none;font-size:1.1em;">Dashboard</a>
+      <a href="#" class="nav-link" data-section="blog" style="color:#275210;font-weight:700;text-decoration:none;font-size:1.1em;">Blog</a>
+      <a href="#" class="nav-link" data-section="contact" style="color:#275210;font-weight:700;text-decoration:none;font-size:1.1em;">Contact Us</a>
+      <a href="#" class="nav-link" data-section="privacy" style="color:#275210;font-weight:700;text-decoration:none;font-size:1.1em;">Privacy Policy</a>
     </nav>
-  </div>
+    <div style="display:flex;align-items:center;gap:0.7em;">
+      <button id="darkModeToggle" aria-label="Toggle dark mode" style="background:#6aa44d;color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:1.2rem;box-shadow:0 2px 8px rgba(44,79,20,0.2);cursor:pointer;">🌙</button>
+      <select id="langSelect" style="padding:0.3em 1em;border-radius:8px;border:1px solid #8eb145;">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </header>
 
-  <!-- Homepage Section -->
-  <div id="header-content-home" class="header-content-panel" style="display:block;">
-    <section class="homepage-hero">
-      <h1>Drive Your Green Future with EcoLeaf Analytics</h1>
-      <p>
-        EcoLeaf Analytics provides cutting-edge solutions for comprehensive carbon accounting and sustainability management.
-        Leverage our AI-powered insights to reduce your environmental footprint and achieve your net-zero goals.
-      </p>
-      <a href="#" class="cta-button" id="exploreDashboardBtn">Explore Dashboard</a>
-    </section>
+  <!-- Spacer for fixed header -->
+  <div style="height:72px;"></div>
 
-    <section class="homepage-section homepage-features">
-      <div class="feature-card">
-        <span class="icon"><i class="fas fa-leaf"></i></span>
-        <h3>Precise Carbon Accounting</h3>
-        <p>Track Scope 1, 2, and 3 emissions with unparalleled accuracy, ensuring compliance and clear reporting.</p>
-      </div>
-      <div class="feature-card">
-        <span class="icon"><i class="fas fa-chart-line"></i></span>
-        <h3>AI-Powered Insights</h3>
-        <p>Utilize advanced AI and machine learning models to identify emission hotspots and forecast future trends.</p>
-      </div>
-      <div class="feature-card">
-        <span class="icon"><i class="fas fa-cogs"></i></span>
-        <h3>Customizable Dashboards</h3>
-        <p>Visualize your sustainability data through intuitive, customizable dashboards tailored to your business needs.</p>
-      </div>
-      <div class="feature-card">
-        <span class="icon"><i class="fas fa-handshake"></i></span>
-        <h3>Supply Chain Optimization</h3>
-        <p>Monitor supplier sustainability and optimize your supply chain for reduced environmental impact.</p>
-      </div>
-    </section>
+  <div class="container">
+    <header>
+      <h1>EcoLeaf Analytics</h1>
+      <p id="welcomeUser">Provides cutting-edge solutions for comprehensive carbon accounting and sustainability management.</p>
+    </header>
 
-    <section class="homepage-section homepage-about">
-      <h2>About EcoLeaf Analytics</h2>
-      <p>
-        At EcoLeaf Analytics, we believe that sustainable business is good business. With over 25 years of combined
-        experience in environmental science and data analytics, our team is dedicated to providing innovative solutions
-        that empower organizations to make informed, eco-conscious decisions. We are passionate about helping businesses
-        not just meet, but exceed their sustainability targets.
-      </p>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="https://placehold.co/120x120/22b573/ffffff?text=CEO" alt="Team Member 1">
-          <h4>Jane Doe</h4>
-          <p>CEO & Founder</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-          </div>
-        </div>
-        <div class="team-member">
-          <img src="https://placehold.co/120x120/22b573/ffffff?text=CTO" alt="Team Member 2">
-          <h4>John Smith</h4>
-          <p>CTO</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        <div class="team-member">
-          <img src="https://placehold.co/120x120/22b573/ffffff?text=CSO" alt="Team Member 3">
-          <h4>Emily White</h4>
-          <p>Chief Sustainability Officer</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+    <div class="callout">
+      Leverage our AI-powered insights to reduce your environmental footprint and achieve your net-zero goals.
+      <button id="exploreBtn" aria-expanded="false" aria-controls="dashboardModal" aria-label="Open Dashboard">
+        Explore Dashboard
+      </button>
+    </div>
 
-  <div class="layout" id="dashboard-layout" style="display:none;">
-    <nav class="sidebar" tabindex="0" style="box-shadow:0 4px 24px rgba(34,181,115,0.07);">
-      <div class="logo" style="display:flex;align-items:center;gap:8px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/2909/2909769.png" alt="EcoLeaf Logo" style="width:28px;height:28px;vertical-align:middle;">
-        <span style="font-size:1.25em;">EcoLeaf</span>
-      </div>
-      <ul id="sidebar-list">
-        <li class="active" data-tab="dashboard"><span class="sidebar-icon">🏠</span>Dashboard</li>
-        <li data-tab="analytics"><span class="sidebar-icon">📊</span>Analytics</li>
-        <li data-tab="reports"><span class="sidebar-icon">📁</span>Reports</li>
-        <li data-tab="products"><span class="sidebar-icon">🛒</span>Products</li>
-        <li data-tab="suppliers"><span class="sidebar-icon">🤝</span>Suppliers</li>
-        <li data-tab="settings"><span class="sidebar-icon">⚙️</span>Settings</li>
+    <section>
+      <h2>Track Emissions</h2>
+      <ul>
+        <li>Track Scope 1, 2, and 3 emissions with unparalleled accuracy, ensuring compliance and clear reporting.</li>
+        <li>Utilize advanced AI and machine learning models to identify emission hotspots and forecast future trends.</li>
+        <li>Visualize your sustainability data through intuitive, customizable dashboards tailored to your business needs.</li>
+        <li>Monitor supplier sustainability and optimize your supply chain for reduced environmental impact.</li>
       </ul>
-      <div class="sidebar-bottom" style="font-size:1.05em;">
-        <span style="display:flex;align-items:center;gap:4px;">
-          <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Leaf" style="width:16px;height:16px;">
-          © 2025 EcoLeaf
-        </span>
-      </div>
-    </nav>
-    <main class="dashboard" id="dashboard-main" style="background:linear-gradient(120deg,#f7faf9 70%,#e8f7ef 100%);">
-      <!-- Dashboard / Tabs Panel -->
-      <div id="header-content-dashboard" class="header-content-panel" style="display:block;">
-        <div class="tab-nav" id="tabNav" style="margin-bottom:2em;">
-          <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
-          <button class="tab-btn" data-tab="analytics">Analytics</button>
-          <button class="tab-btn" data-tab="reports">Reports</button>
-          <button class="tab-btn" data-tab="products">Products</button>
-          <button class="tab-btn" data-tab="suppliers">Suppliers</button>
-          <button class="tab-btn" data-tab="settings">Settings</button>
-        </div>
-        <div class="tab-content active" id="tab-dashboard">
-          <div class="kpi-row">
-            <div class="kpi-card" style="border-left:5px solid var(--primary);">
-              <div class="kpi-label">Total YTD Emissions</div>
-              <div class="kpi-value" id="kpi-total">0</div>
-              <div class="kpi-unit">tCO₂e <span class="kpi-trend-up">▲ 0%</span></div>
-              <span class="kpi-eco-icon">🌱</span>
-            </div>
-            <div class="kpi-card" style="border-left:5px solid #1abc9c;">
-              <div class="kpi-label">Emissions/Employee</div>
-              <div class="kpi-value" id="kpi-per-emp">0</div>
-              <div class="kpi-unit">kgCO₂e</div>
-              <span class="kpi-eco-icon">👤</span>
-            </div>
-            <div class="kpi-card" style="border-left:5px solid #f1c40f;">
-              <div class="kpi-label">Emissions/m²</div>
-              <div class="kpi-value" id="kpi-per-m2">0</div>
-              <div class="kpi-unit">kgCO₂e</div>
-              <span class="kpi-eco-icon">🏢</span>
-            </div>
-            <div class="kpi-card" style="border-left:5px solid #e67e22;">
-              <div class="kpi-label">Reduction Target</div>
-              <div class="kpi-value" id="kpi-target">0%</div>
-              <div class="kpi-unit">by 2025 <span class="kpi-trend-down">▼</span></div>
-              <span class="kpi-eco-icon">🎯</span>
-            </div>
-          </div>
-          <div class="toolbar" id="toolbar-filters" style="margin-bottom:2em;">
-            <input type="date" id="date-start">
-            <input type="date" id="date-end">
-            <select id="departments"><option>All Departments</option></select>
-            <select id="locations"><option>All Locations</option></select>
-            <button id="filter-btn"><span>🔎</span>Filter</button>
-            <button id="simulate-btn"><span>🚀</span>Simulate Reduction</button>
-          </div>
-          <div class="main-flex">
-            <div class="visual-cards-col">
-              <div class="card" style="background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);">
-                <h3>Emission Trends</h3>
-                <canvas id="emissionTrendsChart" height="140"></canvas>
-              </div>
-              <div class="card" style="background:linear-gradient(120deg,#f7faf9 60%,var(--primary-light) 100%);">
-                <h3>Impact per Product</h3>
-                <canvas id="impactDonutChart" height="111"></canvas>
-              </div>
-              <div class="card quote-area" id="quote-card" style="background:var(--primary-light);">
-                <span class="quote-icon">💬</span>
-                <span id="quote-text">
-                  "The greatest threat to our planet is the belief that someone else will save it."
-                </span>
-              </div>
-            </div>
-            <aside class="side-panel" style="background:linear-gradient(120deg,#f7faf9 70%,var(--primary-light) 100%);">
-              <h4>Recent Activities</h4>
-              <ul class="activity-list" id="activity-list"></ul>
-              <button class="refresh-btn" id="refresh-activity">🔄 Refresh</button>
-            </aside>
-          </div>
-        </div>
-        <div class="tab-content" id="tab-analytics">
-          <div class="card" style="min-height:220px;">
-            <h3>Advanced Analytics</h3>
-            <div style="display:flex;flex-direction:column;gap:1.2em;">
-              <div style="font-size:1.1em;color:var(--primary);">Coming soon: Visualize your emissions breakdown, trends, and forecasts here.</div>
-              <div style="color:#7d9c8f;">Connect your dataset to see analytics.</div>
-              <canvas id="analyticsChart" height="120"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab-reports">
-          <div class="card" style="min-height:220px;">
-            <h3>Reports</h3>
-            <div style="font-size:1.1em;color:var(--primary);">Generate, download, and share sustainability reports here.</div>
-            <div style="color:#7d9c8f;">Connect your dataset to see reports.</div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab-products">
-          <div class="card" style="min-height:220px;">
-            <h3>Products</h3>
-            <div style="font-size:1.1em;color:var(--primary);">Track product-level emissions and eco-impact.</div>
-            <div style="color:#7d9c8f;">Connect your dataset to see product data.</div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab-suppliers">
-          <div class="card" style="min-height:220px;">
-            <h3>Suppliers</h3>
-            <div style="font-size:1.1em;color:var(--primary);">Monitor supplier sustainability and supply chain impact.</div>
-            <div style="color:#7d9c8f;">Connect your dataset to see supplier data.</div>
-          </div>
-        </div>
-        <div class="tab-content" id="tab-settings">
-          <div class="card" style="min-height:220px;">
-            <h3>Settings</h3>
-            <div style="font-size:1.1em;color:var(--primary);">Manage your account, integrations, and preferences.</div>
-            <div style="color:#7d9c8f;">Settings will appear here.</div>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <!-- CONTACT US -->
-      <div id="header-content-contact" class="header-content-panel" style="display:none;">
-        <div class="card" style="max-width:600px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
-          <h3 style="color:var(--primary);font-size:1.5em;">Contact Us</h3>
-          <div style="font-size:1.09em;color:var(--primary);margin-bottom:1.1em;">
-            We'd love to hear from you! Whether you have a question about our platform, want to request a feature, or need support with your account, our team is ready to help.
-          </div>
-          <form id="contactForm" style="display:flex;flex-direction:column;gap:1em;">
-            <div style="display:flex;gap:1em;">
-              <input type="text" placeholder="First Name" required style="flex:1;padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-              <input type="text" placeholder="Last Name" required style="flex:1;padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            </div>
-            <input type="text" placeholder="Company/Organisation Name" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="tel" placeholder="Contact Number" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="email" placeholder="Contact Email ID" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <textarea placeholder="Describe your problem or request in detail..." required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;min-height:100px;"></textarea>
-            <button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:12px 0;font-weight:700;font-size:1.08em;cursor:pointer;box-shadow:0 2px 8px #daf9e2;">
-              Send Message
-            </button>
-          </form>
-          <div style="margin-top:1.3em;">
-            <div style="color:var(--secondary);font-weight:600;">Or reach us directly:</div>
-            <div style="margin-top:0.5em;">
-              <span style="color:var(--primary);font-weight:600;">EcoLeaf Analytics:</span><br>
-              <span style="color:var(--secondary);">123 Green Street, Sustainable City, Earth</span><br>
-              <span style="color:var(--primary);font-weight:600;">Phone:</span>
-              <a href="tel:+1800123456" style="color:#0052cc;text-decoration:underline;">+1 800 123 456</a><br>
-              <span style="color:var(--primary);font-weight:600;">Email:</span>
-              <a href="mailto:support@ecoleaf.com" style="color:#0052cc;text-decoration:underline;">support@ecoleaf.com</a>
-            </div>
-          </div>
-          <div id="contactSuccess" style="display:none;color:var(--primary);margin-top:1em;font-weight:600;">
-            Thank you! We'll get back to you soon.
-          </div>
-        </div>
-      </div>
+    <section>
+      <h2>Our Commitment</h2>
+      <p>At EcoLeaf Analytics, we believe that sustainable business is good business. With over 25 years of combined
+        experience in environmental science and data analytics, our team is dedicated to providing innovative
+        solutions that empower organizations to make informed, eco-conscious decisions. We are passionate about helping
+        businesses not just meet, but exceed their sustainability targets.</p>
+    </section>
 
-      <!-- BLOGS -->
-      <div id="header-content-blogs" class="header-content-panel" style="display:none;">
-        <div class="card" style="max-width:700px;margin:40px auto;background:linear-gradient(120deg,#f7faf9 60%,var(--primary-light) 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
-          <h3 style="color:var(--primary);font-size:1.5em;">EcoLeaf Blogs</h3>
-          <div style="font-size:1.11em;color:var(--primary);margin-bottom:0.7em;">
-            Latest Insights & Sustainability Stories
-          </div>
-          <ul class="blog-list">
-            <li>
-              <span class="blog-title">What is Carbon Accounting? (Greenly Blog)</span>
-              <span class="blog-desc">Understand how carbon accounting helps organizations track and manage emissions effectively.</span><br>
-              <a href="https://greenly.earth/en-us/blog/company-guide/what-is-carbon-accounting" target="_blank">
-                Read the article
-              </a>
-            </li>
-            <li>
-              <span class="blog-title">A Beginner’s Guide to Carbon Accounting (Greenly Blog)</span>
-              <span class="blog-desc">A simple breakdown for those new to sustainability and carbon reporting.</span><br>
-              <a href="https://greenly.earth/en-us/blog/company-guide/a-beginners-guide-to-carbon-accounting" target="_blank">
-                Read the article
-              </a>
-            </li>
-            <li>
-              <span class="blog-title">What is Carbon Accounting? (GHG Protocol)</span>
-              <span class="blog-desc">Official update on international carbon accounting protocols and best practices.</span><br>
-              <a href="https://ghgprotocol.org/blog/what-carbon-accounting" target="_blank">
-                Visit GHG Protocol Blog
-              </a>
-            </li>
-            <li>
-              <span class="blog-title">Carbon Accounting: The Key to Net Zero (GreenBiz)</span>
-              <span class="blog-desc">Learn how comprehensive carbon accounting paves the way for net-zero strategies.</span><br>
-              <a href="https://www.greenbiz.com/article/carbon-accounting-key-net-zero" target="_blank">
-                Read on GreenBiz
-              </a>
-            </li>
-          </ul>
-        </div>
+    <section>
+      <h2>Leadership Team</h2>
+      <div class="leadership">
+        <div class="leader-card" tabindex="0" aria-label="CEO & Founder">CEO &amp; Founder</div>
+        <div class="leader-card" tabindex="0" aria-label="CTO">CTO</div>
+        <div class="leader-card" tabindex="0" aria-label="Chief Sustainability Officer">Chief Sustainability Officer</div>
       </div>
-
-      <!-- PRIVACY POLICY -->
-      <div id="header-content-privacy" class="header-content-panel" style="display:none;">
-        <div class="card" style="max-width:700px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
-          <h3 style="color:var(--primary);font-size:1.5em;">Privacy Policy</h3>
-          <div style="font-size:1.11em;color:var(--primary);margin-bottom:1em;">
-            Your privacy matters to us.
-          </div>
-          <div style="color:#7d9c8f;">
-            <strong>EcoLeaf Analytics</strong> is committed to protecting your privacy and complying with the General Data Protection Regulation (GDPR) and other applicable data protection laws.<br><br>
-            <ul style="margin:0 0 0 1.2em;padding:0;">
-              <li>We collect only the data necessary to provide our services and improve your experience.</li>
-              <li>Your data is stored securely and is not shared with third parties without your explicit consent, except as required by law.</li>
-              <li>You have the right to access, correct, or delete your personal data at any time.<br>
-                Please contact us at <a href="mailto:privacy@ecoleaf.com" style="color:#0052cc;text-decoration:underline;">privacy@ecoleaf.com</a> for any privacy-related requests.</li>
-              <li>We use industry-standard security measures to protect your information.</li>
-              <li>By using our services, you agree to this policy. Updates will be posted on this page.</li>
-            </ul>
-            <br>
-            For more details, please review our full privacy policy or contact our Data Protection Officer.<br>
-            <br>
-            <span style="color:var(--primary);">Thank you for trusting EcoLeaf Analytics with your data.</span>
-          </div>
-        </div>
-      </div>
-    </main>
+    </section>
   </div>
 
-  <!-- Chatbot Toggle Button -->
-  <button class="chatbot-toggle-button" id="chatbotToggle">
-    <i class="fas fa-comment-dots"></i>
-  </button>
+  <!-- Modal Dashboard -->
+  <div class="modal-overlay" id="dashboardModal" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-label="Carbon Emissions Dashboard">
+    <div class="modal" role="document">
+      <button class="modal-close" aria-label="Close Dashboard" id="closeModal">&times;</button>
+      <h3>Direct Emissions from Company Operations</h3>
+      <label for="kwh-direct">kWh</label>
+      <input type="number" id="kwh-direct" name="kwh-direct" placeholder="Enter kWh" min="0" />
+      <label for="liters-direct">Liters</label>
+      <input type="number" id="liters-direct" name="liters-direct" placeholder="Enter liters" min="0" />
+      <label for="kg-co2e-direct">kg CO2e</label>
+      <input type="number" id="kg-co2e-direct" name="kg-co2e-direct" placeholder="Enter kg CO2e" min="0" />
 
-  <!-- Chatbot Container -->
-  <div class="chatbot-container" id="chatbotContainer">
-    <div class="chatbot-header">
+      <h3>Energy Indirect Emissions</h3>
+      <label for="kwh-indirect1">kWh</label>
+      <input type="number" id="kwh-indirect1" name="kwh-indirect1" placeholder="Enter kWh" min="0" />
+      <label for="kwh-indirect2">kWh</label>
+      <input type="number" id="kwh-indirect2" name="kwh-indirect2" placeholder="Enter kWh" min="0" />
+      <label for="kwh-indirect3">kWh</label>
+      <input type="number" id="kwh-indirect3" name="kwh-indirect3" placeholder="Enter kWh" min="0" />
+
+      <h3>Other Indirect Emissions</h3>
+      <label for="km-other">km</label>
+      <input type="number" id="km-other" name="km-other" placeholder="Enter distance (km)" min="0" />
+      <label for="employee-km">employee-km/year</label>
+      <input type="number" id="employee-km" name="employee-km" placeholder="Enter employee km/year" min="0" />
+      <label for="tonnes-other">tonnes</label>
+      <input type="number" id="tonnes-other" name="tonnes-other" placeholder="Enter tonnes" min="0" />
+      <label for="tonnes-co2e-other">tonnes CO2e</label>
+      <input type="number" id="tonnes-co2e-other" name="tonnes-co2e-other" placeholder="Enter tonnes CO2e" min="0" />
+
+      <div class="calculation-history" aria-live="polite">
+        <h3>📊 Calculation History</h3>
+        <p id="calcHistory">No calculations saved yet. Complete a calculation to see your history here.</p>
+      </div>
+
+      <h3>Your Carbon Footprint</h3>
+      <canvas id="emissionChart" width="400" height="180" style="display:block;margin:0 auto 1.5rem;"></canvas>
+      <p class="footprint" id="totalFootprint"><strong>0</strong> tonnes CO<sub>2</sub>e per year</p>
+      <p class="scope" id="scope1Text">Scope 1: <strong id="scope1Footprint">0</strong> tonnes CO<sub>2</sub>e</p>
+      <p class="scope" id="scope2Text">Scope 2: <strong id="scope2Footprint">0</strong> tonnes CO<sub>2</sub>e</p>
+      <p class="scope" id="scope3Text">Scope 3: <strong id="scope3Footprint">0</strong> tonnes CO<sub>2</sub>e</p>
+
+      <h3>Set Your Emission Reduction Goal</h3>
+      <label for="goalInput">Annual Target (tonnes CO2e)</label>
+      <input type="number" id="goalInput" min="0" placeholder="e.g. 100" />
+      <div id="goalProgress" style="margin:1rem 0 2rem;">
+        <div style="background:#c3da8f;border-radius:8px;height:18px;width:100%;overflow:hidden;">
+          <div id="goalBar" style="background:#6aa44d;height:18px;width:0%;transition:width 0.5s;"></div>
+        </div>
+        <span id="goalStatus" style="font-size:1rem;font-weight:600;"></span>
+      </div>
+
+      <label for="csvImport" style="margin-top:2rem;">Import Data (CSV)</label>
+      <input type="file" id="csvImport" accept=".csv" />
+
+      <button class="calculate-btn" id="calculateBtn">Calculate Carbon Footprint</button>
+    </div>
+  </div>
+
+  <!-- Chatbot Widget -->
+  <button id="openChatbot" aria-label="Open Chatbot">💬</button>
+  <div id="chatbotWidget" aria-label="AI Assistant" role="dialog" aria-modal="true" tabindex="-1">
+    <div id="chatbotHeader">
       EcoLeaf AI Assistant
-      <button id="closeChatbot"><i class="fas fa-times"></i></button>
+      <button style="background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;" id="closeChatbot" aria-label="Close Chatbot">&times;</button>
     </div>
-    <div class="chatbot-messages" id="chatbotMessages">
-      <div class="chatbot-message bot">Hello! How can I assist you with EcoLeaf Analytics today?</div>
-    </div>
-    <div class="chatbot-input-area">
-      <input type="text" id="chatbotInput" placeholder="Type your message..." />
-      <button id="sendChatbotMessage"><i class="fas fa-paper-plane"></i></button>
+    <div id="chatbotBody"></div>
+    <div id="chatbotQuickReplies" style="display:flex;gap:0.5em;flex-wrap:wrap;padding:0.5em 1em 0.5em 1em;"></div>
+    <div id="chatbotInputArea">
+      <input type="text" id="chatbotInput" placeholder="Ask about your emissions..." autocomplete="off" aria-label="Chatbot input" />
+      <button id="chatbotSend" aria-label="Send">➤</button>
     </div>
   </div>
 
-  <!-- Chart.js CDN -->
+  <!-- Blog Section (replace the old #section-blog) -->
+  <div id="section-blog" class="main-section" style="display:none;margin-top:80px;">
+    <div class="container">
+      <header>
+        <h1>EcoLeaf Blog</h1>
+        <p>Insights, news, and tips on sustainability and carbon management.</p>
+      </header>
+      <section>
+        <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: center;">
+          <!-- Blog Card 1 -->
+          <article style="background:#f9fff4;border-radius:16px;box-shadow:0 6px 28px rgb(30 54 22 / 0.10);padding:1.5rem 1.5rem 1rem 1.5rem;max-width:340px;flex:1 1 320px;display:flex;flex-direction:column;">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="AI Carbon Accounting" style="width:100%;border-radius:12px 12px 0 0;object-fit:cover;max-height:160px;">
+            <h2 style="font-size:1.3rem;margin:1rem 0 0.5rem 0;color:#275210;">How AI is Transforming Carbon Accounting</h2>
+            <div style="color:#627a3b;font-size:0.95em;margin-bottom:0.7em;">April 2025</div>
+            <p style="flex:1;">Discover how artificial intelligence is revolutionizing the way organizations track, analyze, and reduce their carbon emissions for a greener future.</p>
+            <a href="#" class="blog-readmore" style="color:#6aa44d;font-weight:700;text-decoration:underline;margin-top:0.5em;" onclick="showBlogModal(0);return false;">Read more</a>
+          </article>
+          <!-- Blog Card 2 -->
+          <article style="background:#f9fff4;border-radius:16px;box-shadow:0 6px 28px rgb(30 54 22 / 0.10);padding:1.5rem 1.5rem 1rem 1.5rem;max-width:340px;flex:1 1 320px;display:flex;flex-direction:column;">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Reduce Emissions" style="width:100%;border-radius:12px 12px 0 0;object-fit:cover;max-height:160px;">
+            <h2 style="font-size:1.3rem;margin:1rem 0 0.5rem 0;color:#275210;">Top 5 Ways to Reduce Your Business Emissions</h2>
+            <div style="color:#627a3b;font-size:0.95em;margin-bottom:0.7em;">March 2025</div>
+            <p style="flex:1;">Practical strategies and actionable tips for companies to cut their carbon footprint and lead the way in sustainability.</p>
+            <a href="#" class="blog-readmore" style="color:#6aa44d;font-weight:700;text-decoration:underline;margin-top:0.5em;" onclick="showBlogModal(1);return false;">Read more</a>
+          </article>
+          <!-- Blog Card 3 -->
+          <article style="background:#f9fff4;border-radius:16px;box-shadow:0 6px 28px rgb(30 54 22 / 0.10);padding:1.5rem 1.5rem 1rem 1.5rem;max-width:340px;flex:1 1 320px;display:flex;flex-direction:column;">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80" alt="Scope Emissions" style="width:100%;border-radius:12px 12px 0 0;object-fit:cover;max-height:160px;">
+            <h2 style="font-size:1.3rem;margin:1rem 0 0.5rem 0;color:#275210;">Understanding Scope 1, 2, and 3 Emissions</h2>
+            <div style="color:#627a3b;font-size:0.95em;margin-bottom:0.7em;">February 2025</div>
+            <p style="flex:1;">A clear guide to the different types of emissions, why they matter, and how your business can address each scope.</p>
+            <a href="#" class="blog-readmore" style="color:#6aa44d;font-weight:700;text-decoration:underline;margin-top:0.5em;" onclick="showBlogModal(2);return false;">Read more</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Blog Modal (for reading full blog posts) -->
+  <div id="blogModal" class="modal-overlay" style="z-index:2000;display:none;" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal" role="document" style="max-width:600px;">
+      <button class="modal-close" aria-label="Close Blog" id="closeBlogModal" style="top:1rem;right:1rem;">&times;</button>
+      <div id="blogModalContent"></div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Navigation & Tabs
-    function activateTab(tab) {
-      const dashboardTabs = ['dashboard', 'analytics', 'reports', 'products', 'suppliers', 'settings'];
-      document.getElementById('dashboard-layout').style.display = dashboardTabs.includes(tab) ? 'grid' : 'none';
-      document.getElementById('header-content-home').style.display = tab === 'home' ? 'block' : 'none';
-      document.getElementById('header-content-contact').style.display = tab === 'contact' ? 'block' : 'none';
-      document.getElementById('header-content-blogs').style.display = tab === 'blogs' ? 'block' : 'none';
-      document.getElementById('header-content-privacy').style.display = tab === 'privacy' ? 'block' : 'none';
-      document.getElementById('header-content-customerform')?.style.display = tab === 'customerform' ? 'block' : 'none';
+    // User Auth logic
+    const authModal = document.getElementById('authModal');
+    const closeAuthModal = document.getElementById('closeAuthModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('username');
+    const welcomeUser = document.getElementById('welcomeUser');
+    let currentUser = null;
 
-      if (dashboardTabs.includes(tab)) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.tab === tab);
-        });
-        document.querySelectorAll('#sidebar-list li').forEach(li => {
-          li.classList.toggle('active', li.dataset.tab === tab);
-        });
-        document.querySelectorAll('.tab-content').forEach(tc => {
-          tc.classList.toggle('active', tc.id === 'tab-' + tab);
-        });
-      }
-
-      document.querySelectorAll('.eco-header-link').forEach(l => l.classList.remove('active'));
-      const activeHeaderLink = document.querySelector(`.eco-header-link[data-header="${tab}"]`);
-      if (activeHeaderLink) {
-        activeHeaderLink.classList.add('active');
+    function showAuthModal() {
+      authModal.classList.add('active');
+      authModal.setAttribute('aria-hidden', 'false');
+      usernameInput.value = '';
+      usernameInput.focus();
+      document.body.style.overflow = 'hidden';
+    }
+    function hideAuthModal() {
+      authModal.classList.remove('active');
+      authModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function setUser(name) {
+      currentUser = name;
+      localStorage.setItem('ecoUser', name);
+      welcomeUser.innerHTML = `Welcome, <strong>${name}</strong>! Provides cutting-edge solutions for comprehensive carbon accounting and sustainability management.`;
+    }
+    function checkUser() {
+      const user = localStorage.getItem('ecoUser');
+      if (!user) {
+        showAuthModal();
+      } else {
+        setUser(user);
       }
     }
+    loginBtn.addEventListener('click', () => {
+      const name = usernameInput.value.trim();
+      if (name.length < 2) {
+        document.getElementById('authStatus').textContent = "Please enter a valid username.";
+        return;
+      }
+      setUser(name);
+      hideAuthModal();
+    });
+    closeAuthModal.addEventListener('click', hideAuthModal);
+    window.addEventListener('DOMContentLoaded', checkUser);
 
-    // Initial activation
-    const initialHash = window.location.hash.substring(1) || 'home';
-    activateTab(initialHash);
+    // Dashboard Modal logic
+    const exploreBtn = document.getElementById('exploreBtn');
+    const dashboardModal = document.getElementById('dashboardModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const calculateBtn = document.getElementById('calculateBtn');
 
-    // Header navigation
-    document.getElementById('ecoHeaderNav').addEventListener('click', function(e) {
-      const link = e.target.closest('.eco-header-link');
-      if (link) {
-        e.preventDefault();
-        const targetTab = link.dataset.header;
-        window.location.hash = targetTab;
-        activateTab(targetTab);
+    exploreBtn.addEventListener('click', () => {
+      dashboardModal.classList.add('active');
+      dashboardModal.setAttribute('aria-hidden', 'false');
+      // Focus first input
+      const firstInput = dashboardModal.querySelector('input');
+      if (firstInput) firstInput.focus();
+      document.body.style.overflow = 'hidden'; // prevent body scroll
+      loadCalculationHistory();
+      loadGoal();
+      updateGoalProgress();
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      dashboardModal.classList.remove('active');
+      dashboardModal.setAttribute('aria-hidden', 'true');
+      exploreBtn.focus();
+      document.body.style.overflow = '';
+    });
+
+    dashboardModal.addEventListener('click', (e) => {
+      if (e.target === dashboardModal) {
+        closeModalBtn.click();
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && dashboardModal.classList.contains('active')) {
+        closeModalBtn.click();
       }
     });
 
-    // Sidebar and dashboard tabs
-    document.getElementById('sidebar-list').addEventListener('click', function(e) {
-      let li = e.target.closest('li[data-tab]');
-      if (li) {
-        activateTab(li.dataset.tab);
-        window.location.hash = 'dashboard';
-      }
-    });
-    document.getElementById('tabNav').addEventListener('click', function(e) {
-      let btn = e.target.closest('.tab-btn[data-tab]');
-      if (btn) {
-        activateTab(btn.dataset.tab);
-      }
-    });
-
-    // "Explore Dashboard" button
-    document.getElementById('exploreDashboardBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.hash = 'dashboard';
-      activateTab('dashboard');
-    });
-
-    // Dashboard KPI/Toolbar buttons
-    document.getElementById('simulate-btn').onclick = function() {
-      var target = document.getElementById('kpi-target');
-      var oldVal = target.textContent;
-      target.textContent = '0%';
-      setTimeout(() => target.textContent = oldVal, 2000);
-    };
-    document.getElementById('filter-btn').onclick = function() {
-      var el = document.getElementById('kpi-total');
-      el.style.background = '#daf9e2';
-      setTimeout(()=>el.style.background='#fff', 420);
-    };
-
-    // Charts
-    const emissionCtx = document.getElementById('emissionTrendsChart').getContext('2d');
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
-    const scope1 = [0, 0, 0, 0, 0, 0, 0];
-    const scope2 = [0, 0, 0, 0, 0, 0, 0];
-    const scope3 = [0, 0, 0, 0, 0, 0, 0];
-    const emissionTrendsChart = new Chart(emissionCtx, {
-      type: 'bar',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'Scope 1', data: scope1, backgroundColor: '#22b573c0' },
-          { label: 'Scope 2', data: scope2, backgroundColor: '#5773eea0' },
-          { label: 'Scope 3', data: scope3, backgroundColor: '#f16971bb' }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display:true, position:'top' }},
-        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero:true, title:{display:true, text:'tCO₂e'} }}
-      }
-    });
-    const donutCtx = document.getElementById('impactDonutChart').getContext('2d');
-    const impactDonutChart = new Chart(donutCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Freight Lift','Electric Table', 'Tire', 'Raw Materials'],
-        datasets: [{
-          data: [0, 0, 0, 0],
-          backgroundColor: ["#22b573c0", "#fff456d7", "#e84a5fc7", "#5773eea0"]
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true, position:'right' } }
-      }
-    });
-    const analyticsCtx = document.getElementById('analyticsChart').getContext('2d');
-    new Chart(analyticsCtx, {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'Emissions', data: [0,0,0,0,0,0,0], borderColor: '#22b573', backgroundColor: '#e8f7ef', fill: true }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: { y: { beginAtZero: true } }
-      }
-    });
-    // Quotes
-    const quotes = [
-      '"The greatest threat to our planet is the belief that someone else will save it." – Robert Swan',
-      '"We do not inherit the earth from our ancestors, we borrow it from our children." – Native American Proverb',
-      '"Sustainability is no longer about doing less harm. It’s about doing more good." – Jochen Zeitz',
-      '"Every individual matters. Every individual has a role to play." – Jane Goodall'
-    ];
-    let quoteIdx = 0;
-    setInterval(()=>{
-      quoteIdx = (quoteIdx+1)%quotes.length;
-      document.getElementById('quote-text').textContent = quotes[quoteIdx];
-    }, 6500);
-    // Activities
-    const activities = [{ icon:'🧾', text:'No recent activity', time:'' }];
-    function renderActivities() {
-      const el = document.getElementById('activity-list');
-      el.innerHTML = '';
-      activities.forEach(a=>{
-        el.innerHTML += `<li>
-          <span class="activity-icon">${a.icon}</span>
-          <span>${a.text}</span>
-          <time>${a.time}</time>
-        </li>`;
-      });
-    }
-    renderActivities();
-    document.getElementById('refresh-activity').onclick = function() { renderActivities(); };
-    // Toolbar selects
-    for(let dept of ["All Departments","Sustainability","Operations","HR","IT"]) {
-      let o = document.createElement("option"); o.value=o.text=dept;
-      document.getElementById('departments').appendChild(o);
-    }
-    for(let loc of ["All Locations","Seattle","London","Delhi","Tokyo"]) {
-      let o = document.createElement("option"); o.value=o.text=loc;
-      document.getElementById('locations').appendChild(o);
+    // Calculation logic
+    function getUserHistoryKey() {
+      return currentUser ? `calcHistory_${currentUser}` : 'calcHistory';
     }
 
-    // Contact form handler with localStorage
-    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Collect form data
-      const inputs = this.querySelectorAll('input, textarea');
-      const data = {};
-      inputs.forEach(input => {
-        if (input.type === 'text' || input.type === 'email' || input.type === 'tel' || input.tagName === 'TEXTAREA') {
-          data[input.placeholder] = input.value;
+    let emissionChart = null;
+    function updateChart(scope1, scope2, scope3) {
+      const ctx = document.getElementById('emissionChart').getContext('2d');
+      if (emissionChart) emissionChart.destroy();
+      emissionChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Scope 1', 'Scope 2', 'Scope 3'],
+          datasets: [{
+            data: [scope1, scope2, scope3],
+            backgroundColor: ['#8eb145', '#6aa44d', '#c3da8f'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { display: true, position: 'bottom' }
+          }
         }
       });
-      // Save to localStorage
-      let contactSubmissions = JSON.parse(localStorage.getItem('ecoleaf_contact_submissions') || '[]');
-      contactSubmissions.push({ ...data, submittedAt: new Date().toISOString() });
-      localStorage.setItem('ecoleaf_contact_submissions', JSON.stringify(contactSubmissions));
-      document.getElementById('contactSuccess').style.display = 'block';
-      setTimeout(()=>{ document.getElementById('contactSuccess').style.display = 'none'; }, 3500);
-      this.reset();
-    });
-
-    // --- Customer Emissions Form Logic ---
-    // Add navigation link if not present
-    if (!document.querySelector('.eco-header-link[data-header="customerform"]')) {
-      const nav = document.getElementById('ecoHeaderNav');
-      const link = document.createElement('a');
-      link.href = "#customerform";
-      link.className = "eco-header-link";
-      link.dataset.header = "customerform";
-      link.style.fontSize = "1.13em";
-      link.textContent = "Submit Emissions";
-      nav.appendChild(link);
     }
 
-    // Add customer form section if not present
-    if (!document.getElementById('header-content-customerform')) {
-      const customerFormSection = document.createElement('div');
-      customerFormSection.id = "header-content-customerform";
-      customerFormSection.className = "header-content-panel";
-      customerFormSection.style.display = "none";
-      customerFormSection.innerHTML = `
-        <div class="card" style="max-width:600px;margin:40px auto;background:linear-gradient(120deg,var(--primary-light) 60%,#fff 100%);box-shadow:0 4px 24px rgba(34,181,115,0.09);">
-          <h3 style="color:var(--primary);font-size:1.5em;">Submit Your Emissions Data</h3>
-          <div style="font-size:1.09em;color:var(--primary);margin-bottom:1.1em;">
-            Please fill in your company emissions details below. Our team will review and provide tailored sustainability insights.
-          </div>
-          <form id="customerEmissionsForm" style="display:flex;flex-direction:column;gap:1em;">
-            <input type="text" placeholder="Company Name" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="text" placeholder="Contact Person" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="email" placeholder="Contact Email" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="tel" placeholder="Contact Number" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="number" placeholder="Total Annual Emissions (tCO₂e)" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="number" placeholder="Number of Employees" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <input type="number" placeholder="Facility Size (m²)" required style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;">
-            <textarea placeholder="Describe your sustainability goals or challenges..." style="padding:10px;border-radius:7px;border:1.5px solid #b0c4e6;min-height:80px;"></textarea>
-            <button type="submit" style="background:var(--primary);color:#fff;border:none;border-radius:7px;padding:12px 0;font-weight:700;font-size:1.08em;cursor:pointer;box-shadow:0 2px 8px #daf9e2;">
-              Submit Emissions Data
-            </button>
-          </form>
-          <div id="customerEmissionsSuccess" style="display:none;color:var(--primary);margin-top:1em;font-weight:600;">
-            Thank you! Your emissions data has been submitted.
-          </div>
-        </div>
-      `;
-      document.body.appendChild(customerFormSection);
-    }
-
-    // Customer Emissions Form handler with localStorage
-    document.getElementById('customerEmissionsForm')?.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const inputs = this.querySelectorAll('input, textarea');
-      const data = {};
-      inputs.forEach(input => {
-        if (input.type === 'text' || input.type === 'email' || input.type === 'tel' || input.type === 'number' || input.tagName === 'TEXTAREA') {
-          data[input.placeholder] = input.value;
-        }
-      });
-      let emissionsSubmissions = JSON.parse(localStorage.getItem('ecoleaf_emissions_submissions') || '[]');
-      emissionsSubmissions.push({ ...data, submittedAt: new Date().toISOString() });
-      localStorage.setItem('ecoleaf_emissions_submissions', JSON.stringify(emissionsSubmissions));
-      document.getElementById('customerEmissionsSuccess').style.display = 'block';
-      setTimeout(()=>{ document.getElementById('customerEmissionsSuccess').style.display = 'none'; }, 3500);
-      this.reset();
-    });
-
-    // Handle navigation for new customer form tab
-    document.getElementById('ecoHeaderNav').addEventListener('click', function(e) {
-      const link = e.target.closest('.eco-header-link');
-      if (link && link.dataset.header === 'customerform') {
-        e.preventDefault();
-        window.location.hash = 'customerform';
-        activateTab('customerform');
+    calculateBtn.addEventListener('click', () => {
+      function val(id) {
+        const v = document.getElementById(id)?.value;
+        return v && !isNaN(v) && Number(v) >= 0 ? parseFloat(v) : 0;
       }
+      let scope1 = val('kwh-direct') + val('liters-direct') + val('kg-co2e-direct');
+      let scope2 = val('kwh-indirect1') + val('kwh-indirect2') + val('kwh-indirect3');
+      let scope3 = val('km-other') + val('employee-km') + val('tonnes-other') + val('tonnes-co2e-other');
+      let total = (scope1 * 0.9) + (scope2 * 0.7) + (scope3 * 0.5);
+
+      scope1 = Math.round(scope1 * 100) / 100;
+      scope2 = Math.round(scope2 * 100) / 100;
+      scope3 = Math.round(scope3 * 100) / 100;
+      total = Math.round(total * 100) / 100;
+
+      document.getElementById('scope1Footprint').textContent = scope1;
+      document.getElementById('scope2Footprint').textContent = scope2;
+      document.getElementById('scope3Footprint').textContent = scope3;
+      document.getElementById('totalFootprint').innerHTML = `<strong>${total}</strong> tonnes CO<sub>2</sub>e per year`;
+
+      // Save calculation history per user
+      let history = JSON.parse(localStorage.getItem(getUserHistoryKey()) || '[]');
+      const timestamp = new Date().toLocaleString();
+      const entry = `${timestamp}: Scope1=${scope1}, Scope2=${scope2}, Scope3=${scope3}, Total=${total}`;
+      history.unshift(entry);
+      if (history.length > 5) history.pop();
+      localStorage.setItem(getUserHistoryKey(), JSON.stringify(history));
+      renderCalculationHistory(history);
+
+      updateChart(scope1, scope2, scope3);
+      updateGoalProgress();
     });
 
-    // Chatbot Logic
-    const chatbotToggle = document.getElementById('chatbotToggle');
-    const chatbotContainer = document.getElementById('chatbotContainer');
+    function renderCalculationHistory(history) {
+      if (!history || history.length === 0) {
+        document.getElementById('calcHistory').textContent = 'No calculations saved yet. Complete a calculation to see your history here.';
+        return;
+      }
+      document.getElementById('calcHistory').innerHTML = history.map(item => `<div>${item}</div>`).join('');
+    }
+
+    function loadCalculationHistory() {
+      const history = JSON.parse(localStorage.getItem(getUserHistoryKey()) || '[]');
+      renderCalculationHistory(history);
+    }
+
+    // Goal logic
+    const goalInput = document.getElementById('goalInput');
+    const goalBar = document.getElementById('goalBar');
+    const goalStatus = document.getElementById('goalStatus');
+    function getGoalKey() {
+      return currentUser ? `goal_${currentUser}` : 'goal';
+    }
+    function loadGoal() {
+      const g = localStorage.getItem(getGoalKey());
+      if (g) goalInput.value = g;
+    }
+    goalInput.addEventListener('change', () => {
+      localStorage.setItem(getGoalKey(), goalInput.value);
+      updateGoalProgress();
+    });
+    function updateGoalProgress() {
+      const goal = parseFloat(goalInput.value);
+      const totalText = document.getElementById('totalFootprint').textContent;
+      const total = parseFloat(totalText) || 0;
+      if (!goal || goal <= 0) {
+        goalBar.style.width = '0%';
+        goalStatus.textContent = '';
+        return;
+      }
+      const percent = Math.min(100, Math.round((goal - total) / goal * 100));
+      goalBar.style.width = `${100 - percent}%`;
+      goalStatus.textContent = total <= goal
+        ? `🎉 Goal met! Emissions at ${total} / ${goal} tonnes`
+        : `Progress: ${total} / ${goal} tonnes CO₂e`;
+    }
+
+    // CSV import logic (demo: expects headers matching input IDs)
+    document.getElementById('csvImport').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (evt) {
+        const lines = evt.target.result.split('\n');
+        const headers = lines[0].split(',');
+        const values = lines[1]?.split(',');
+        if (!values) return;
+        headers.forEach((h, i) => {
+          const el = document.getElementById(h.trim());
+          if (el) el.value = values[i].trim();
+        });
+      };
+      reader.readAsText(file);
+    });
+
+    // Chatbot logic (enhanced)
+    const openChatbot = document.getElementById('openChatbot');
+    const chatbotWidget = document.getElementById('chatbotWidget');
     const closeChatbot = document.getElementById('closeChatbot');
-    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotBody = document.getElementById('chatbotBody');
     const chatbotInput = document.getElementById('chatbotInput');
-    const sendChatbotMessage = document.getElementById('sendChatbotMessage');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const chatbotQuickReplies = document.getElementById('chatbotQuickReplies');
+    let chatbotHistory = [];
+    let lastTopic = null;
 
-    chatbotToggle.addEventListener('click', () => {
-      chatbotContainer.classList.toggle('open');
-    });
+    // Quick reply options
+    const quickReplies = [
+      { text: "What is Scope 1?", value: "What is Scope 1?" },
+      { text: "How can I reduce emissions?", value: "How can I reduce emissions?" },
+      { text: "Show my calculation history", value: "Show my calculation history" },
+      { text: "What is my carbon footprint?", value: "What is my carbon footprint?" }
+    ];
 
-    closeChatbot.addEventListener('click', () => {
-      chatbotContainer.classList.remove('open');
-    });
-
-    sendChatbotMessage.addEventListener('click', sendMessage);
-    chatbotInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-
-    async function sendMessage() {
-      const userMessage = chatbotInput.value.trim();
-      if (userMessage === '') return;
-
-      appendMessage(userMessage, 'user');
-      chatbotInput.value = '';
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom
-
-      // Show loading indicator
-      const loadingMessage = document.createElement('div');
-      loadingMessage.classList.add('chatbot-loading');
-      loadingMessage.textContent = 'EcoLeaf AI is typing...';
-      chatbotMessages.appendChild(loadingMessage);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-
-      try {
-        const chatHistory = [{ role: "user", parts: [{ text: userMessage }] }];
-        const payload = { contents: chatHistory };
-        const apiKey = ""; // Leave as empty string for Canvas to provide
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+    function renderQuickReplies() {
+      chatbotQuickReplies.innerHTML = '';
+      quickReplies.forEach(q => {
+        const btn = document.createElement('button');
+        btn.textContent = q.text;
+        btn.type = 'button';
+        btn.style.cssText = "background:#e7f1db;color:#275213;border:none;border-radius:8px;padding:0.3em 0.8em;cursor:pointer;font-size:1em;";
+        btn.addEventListener('click', () => {
+          chatbotInput.value = q.value;
+          handleChatSend();
         });
+        chatbotQuickReplies.appendChild(btn);
+      });
+    }
 
-        const result = await response.json();
+    function chatbotGreeting() {
+      const name = currentUser ? currentUser : "there";
+      return `<div style="color:#6aa44d;font-weight:700;">Hi ${name}! I’m your EcoLeaf AI Assistant.<br>
+        You can ask me about your carbon footprint, emission scopes, or how to reduce emissions.<br>
+        <span style="color:#40682a;font-weight:400;">Try a quick question below!</span></div>`;
+    }
 
-        // Remove loading indicator
-        chatbotMessages.removeChild(loadingMessage);
+    function chatbotReply(msg) {
+      msg = msg.toLowerCase();
+      lastTopic = null;
+      if (msg.includes('scope 1')) { lastTopic = 'scope1'; return "Scope 1 covers direct emissions from owned or controlled sources (e.g., company vehicles, boilers)."; }
+      if (msg.includes('scope 2')) { lastTopic = 'scope2'; return "Scope 2 covers indirect emissions from the generation of purchased electricity, steam, heating, and cooling consumed by your company."; }
+      if (msg.includes('scope 3')) { lastTopic = 'scope3'; return "Scope 3 includes all other indirect emissions in a company’s value chain, such as business travel, procurement, waste, and transportation."; }
+      if (msg.includes('reduce') || msg.includes('tips')) { lastTopic = 'reduce'; return "To reduce emissions: switch to renewable energy, optimize logistics, reduce waste, and engage suppliers for sustainability. Want more tips?"; }
+      if (msg.includes('history')) { lastTopic = 'history'; return "Your calculation history is shown in the dashboard modal. Would you like to open it?"; }
+      if (msg.includes('footprint')) { lastTopic = 'footprint'; return "Your carbon footprint is calculated based on your input data in the dashboard. Click 'Explore Dashboard' to view or update it."; }
+      if (msg.includes('hello') || msg.includes('hi')) { return chatbotGreeting(); }
+      return "I'm here to help! Try asking about emission scopes, reduction tips, or your carbon footprint.";
+    }
 
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-          const botResponse = result.candidates[0].content.parts[0].text;
-          appendMessage(botResponse, 'bot');
-        } else {
-          appendMessage("Sorry, I couldn't get a response. Please try again.", 'bot');
-        }
-      } catch (error) {
-        console.error('Error fetching chatbot response:', error);
-        // Remove loading indicator
-        if (chatbotMessages.contains(loadingMessage)) {
-            chatbotMessages.removeChild(loadingMessage);
-        }
-        appendMessage("Oops! Something went wrong. Please try again later.", 'bot');
+    function addChatMsg(msg, from) {
+      const div = document.createElement('div');
+      div.style.margin = '0.5rem 0';
+      div.style.textAlign = from === 'user' ? 'right' : 'left';
+      div.innerHTML = `<span style="background:${from==='user'?'#c3da8f':'#f5fbe9'};padding:0.4em 0.9em;border-radius:10px;display:inline-block;">${msg}</span>`;
+      chatbotBody.appendChild(div);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      chatbotHistory.push({ msg, from });
+    }
+
+    function showTypingIndicator() {
+      const typingDiv = document.createElement('div');
+      typingDiv.id = 'chatbotTyping';
+      typingDiv.style.margin = '0.5rem 0';
+      typingDiv.style.textAlign = 'left';
+      typingDiv.innerHTML = `<span style="background:#f5fbe9;padding:0.4em 0.9em;border-radius:10px;display:inline-block;">
+        <span class="dotdotdot" style="display:inline-block;width:1.5em;">&#9679;&#9679;&#9679;</span> typing...
+      </span>`;
+      chatbotBody.appendChild(typingDiv);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const typingDiv = document.getElementById('chatbotTyping');
+      if (typingDiv) typingDiv.remove();
+    }
+
+    function handleChatSend() {
+      const msg = chatbotInput.value.trim();
+      if (!msg) return;
+      addChatMsg(msg, 'user');
+      chatbotInput.value = '';
+      showTypingIndicator();
+      setTimeout(() => {
+        removeTypingIndicator();
+        const reply = chatbotReply(msg);
+        addChatMsg(reply, 'bot');
+      }, 700);
+    }
+
+    // Restore chat history on open
+    function restoreChatHistory() {
+      chatbotBody.innerHTML = '';
+      if (chatbotHistory.length === 0) {
+        addChatMsg(chatbotGreeting(), 'bot');
+      } else {
+        chatbotHistory.forEach(entry => addChatMsg(entry.msg, entry.from));
       }
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Scroll to bottom after response
     }
 
-    function appendMessage(text, sender) {  
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('chatbot-message', sender);
-      messageElement.textContent = text;
-      chatbotMessages.appendChild(messageElement);
+    openChatbot.addEventListener('click', () => {
+      chatbotWidget.style.display = 'flex';
+      openChatbot.style.display = 'none';
+      chatbotWidget.focus();
+      restoreChatHistory();
+      renderQuickReplies();
+      setTimeout(() => chatbotInput.focus(), 100);
+    });
+    closeChatbot.addEventListener('click', () => {
+      chatbotWidget.style.display = 'none';
+      openChatbot.style.display = 'flex';
+    });
+    chatbotSend.addEventListener('click', handleChatSend);
+    chatbotInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleChatSend(); });
+
+    // Navigation logic (ensure all sections are handled)
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = [
+      document.querySelector('.container'), // Home section
+      document.getElementById('section-dashboard'),
+      document.getElementById('section-blog'),
+      document.getElementById('section-contact'),
+      document.getElementById('section-privacy')
+    ];
+    function showSectionByIndex(idx) {
+      sections.forEach((sec, i) => {
+        if (sec) sec.style.display = (i === idx) ? '' : 'none';
+      });
     }
+    // Map nav-link data-section to section index
+    const sectionMap = {
+      home: 0,
+      dashboard: 1,
+      blog: 2,
+      contact: 3,
+      privacy: 4
+    };
+    navLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const idx = sectionMap[this.getAttribute('data-section')];
+        showSectionByIndex(idx);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    // Show home section by default
+    showSectionByIndex(0);
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    });
+
+    // Language support (demo)
+    const langSelect = document.getElementById('langSelect');
+    const translations = {
+      fr: {
+        "Explore Dashboard": "Explorer le tableau de bord",
+        "Track Emissions": "Suivre les émissions",
+        "Our Commitment": "Notre engagement",
+        "Leadership Team": "Équipe de direction",
+        "Set Your Emission Reduction Goal": "Définir votre objectif de réduction des émissions",
+        "Annual Target (tonnes CO2e)": "Objectif annuel (tonnes CO2e)",
+        "Your Carbon Footprint": "Votre empreinte carbone",
+        "Calculation History": "Historique des calculs",
+        "Direct Emissions from Company Operations": "Émissions directes des opérations de l'entreprise",
+        "Energy Indirect Emissions": "Émissions indirectes d'énergie",
+        "Other Indirect Emissions": "Autres émissions indirectes"
+      }
+    };
+    langSelect.addEventListener('change', () => {
+      const lang = langSelect.value;
+      document.querySelectorAll('button, h2, h3, label').forEach(el => {
+        const t = translations[lang]?.[el.textContent.trim()];
+        if (t) el.textContent = t;
+      });
+    });
+
+    // Blog modal content
+    const blogPosts = [
+      {
+        title: "How AI is Transforming Carbon Accounting",
+        date: "April 2025",
+        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+        content: `<p>Artificial intelligence (AI) is rapidly changing the landscape of carbon accounting. By automating data collection, improving accuracy, and providing predictive insights, AI empowers organizations to make smarter sustainability decisions.</p>
+        <ul>
+          <li><strong>Automated Data Collection:</strong> AI can gather emissions data from multiple sources, reducing manual errors and saving time.</li>
+          <li><strong>Real-Time Analytics:</strong> Machine learning models identify emission hotspots and forecast future trends, enabling proactive action.</li>
+          <li><strong>Personalized Recommendations:</strong> AI-driven platforms suggest tailored strategies for emission reduction based on your business profile.</li>
+        </ul>
+        <p>Embracing AI in carbon accounting is a key step toward achieving net-zero goals and building a more sustainable future.</p>`
+      },
+      {
+        title: "Top 5 Ways to Reduce Your Business Emissions",
+        date: "March 2025",
+        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+        content: `<ol>
+          <li><strong>Switch to Renewable Energy:</strong> Power your operations with solar, wind, or hydro energy.</li>
+          <li><strong>Optimize Logistics:</strong> Streamline transportation and delivery routes to minimize fuel use.</li>
+          <li><strong>Engage Suppliers:</strong> Work with partners who prioritize sustainability.</li>
+          <li><strong>Reduce Waste:</strong> Implement recycling and circular economy practices.</li>
+          <li><strong>Promote Remote Work:</strong> Reduce commuting emissions by supporting flexible work arrangements.</li>
+        </ol>
+        <p>Every step counts. Start with one action and build a culture of sustainability in your organization.</p>`
+      },
+      {
+        title: "Understanding Scope 1, 2, and 3 Emissions",
+        date: "February 2025",
+        image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80",
+        content: `<p>Greenhouse gas emissions are categorized into three scopes:</p>
+        <ul>
+          <li><strong>Scope 1:</strong> Direct emissions from owned or controlled sources (e.g., company vehicles, boilers).</li>
+          <li><strong>Scope 2:</strong> Indirect emissions from the generation of purchased electricity, steam, heating, and cooling.</li>
+          <li><strong>Scope 3:</strong> All other indirect emissions in a company’s value chain, such as business travel, procurement, waste, and transportation.</li>
+        </ul>
+        <p>Understanding and addressing all three scopes is essential for comprehensive carbon management.</p>`
+      }
+    ];
+
+    function showBlogModal(idx) {
+      const post = blogPosts[idx];
+      if (!post) return;
+      document.getElementById('blogModalContent').innerHTML = `
+        <img src="${post.image}" alt="${post.title}" style="width:100%;border-radius:12px;max-height:180px;object-fit:cover;margin-bottom:1em;">
+        <h2 style="font-size:1.5rem;color:#275210;margin-bottom:0.2em;">${post.title}</h2>
+        <div style="color:#627a3b;font-size:1em;margin-bottom:1em;">${post.date}</div>
+        ${post.content}
+      `;
+      document.getElementById('blogModal').style.display = 'flex';
+      document.getElementById('blogModal').setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('closeBlogModal').onclick = function() {
+      document.getElementById('blogModal').style.display = 'none';
+      document.getElementById('blogModal').setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    // Close blog modal on overlay click or Escape
+    document.getElementById('blogModal').addEventListener('click', function(e) {
+      if (e.target === this) document.getElementById('closeBlogModal').click();
+    });
+    window.addEventListener('keydown', function(e) {
+      if (e.key === "Escape" && document.getElementById('blogModal').style.display === 'flex') {
+        document.getElementById('closeBlogModal').click();
+      }
+    });
   </script>
+
+  <!-- Animated SVG leaves (demo) -->
+  <div class="bg-leaves">
+    <svg class="leaf leaf1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+      <path fill="#8eb145" d="M12 2C10.34 2 8.68 2.34 7.12 3C5.56 3.66 4.24 4.84 3.41 6.41C2.58 8 2.24 9.8 2.41 11.59C2.58 13.38 3.24 15.16 4.41 16.59C5.56 17.84 7.12 18.68 9 19C10.88 19.32 12.76 19.04 14.41 18.24C16.06 17.44 17.41 16.24 18.41 14.59C19.41 12.94 20 11 20 9C20 6.79 18.21 5 16 5C14.79 5 13.68 5.68 13.06 6.82C12.44 5.68 11.32 5 10 5C8.79 5 8 5.79 8 7C8 8.21 8.79 9 10 9C11.32 9 12.44 8.32 13.06 7.18C13.68 8.32 14.79 9 16 9C17.21 9 18 9.79 18 11C18 12.21 17.21 13 16 13C14.79 13 13.68 12.32 13.06 11.18C12.44 12.32 11.32 13 10 13C8.79 13 8 12.21 8 11C8 9.79 8.79 9 10 9C11.32 9 12.44 9.68 13.06 10.82C13.68 9.68 14.79 9 16 9C17.21 9 18 9.79 18 11C18 12.21 17.21 13 16 13Z" />
+    </svg>
+    <svg class="leaf leaf2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
+      <path fill="#8eb145" d="M12 2C10.34 2 8.68 2.34 7.12 3C5.56 3.66 4.24 4.84 3.41 6.41C2.58 8 2.24 9.8 2.41 11.59C2.58 13.38 3.24 15.16 4.41 16.59C5.56 17.84 7.12 18.68 9 19C10.88 19.32 12.76 19.04 14.41 18.24C16.06 17.44 17.41 16.24 18.41 14.59C19.41 12.94 20 11 20 9C20 6.79 18.21 5 16 5C14.79 5 13.68 5.68 13.06 6.82C12.44 5.68 11.32 5 10 5C8.79 5 8 5.79 8 7C8 8.21 8.79 9 10 9C11.32 9 12.44 8.32 13.06 7.18C13.68 8.32 14.79 9 16 9C17.21 9 18 9.79 18 11C18 12.21 17.21 13 16 13C14.79 13 13.68 12.32 13.06 11.18C12.44 12.32 11.32 13 10 13C8.79 13 8 12.21 8 11C8 9.79 8.79 9 10 9C11.32 9 12.44 9.68 13.06 10.82C13.68 9.68 14.79 9 16 9C17.21 9 18 9.79 18 11C18 12.21 17.21 13 16 13Z" />
+    </svg>
+  </div>
 </body>
+
 </html>
