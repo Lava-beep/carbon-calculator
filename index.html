@@ -1001,9 +1001,15 @@
                     remoteWorkPercentage: Number(formData.get('remoteWork'))
                 };
                 
+                // Debug: Log form data
+                console.log('Form inputs:', inputs);
+                console.log('Form context:', context);
+                
                 // Validate inputs
                 if (!validateInputs(inputs)) {
-                    throw new Error('Invalid input data');
+                    console.error('Validation failed for inputs:', inputs);
+                    const missingFields = Object.entries(inputs).filter(([key, value]) => isNaN(value) || value < 0);
+                    throw new Error(`Invalid input data. Missing or invalid fields: ${missingFields.map(([key]) => key).join(', ')}`);
                 }
                 
                 // Calculate using AI engine
@@ -1063,12 +1069,22 @@
             resultsContainer.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // --- Chart Storage ---
+        let breakdownChart = null;
+        let benchmarkChart = null;
+
         // --- Chart Creation Functions ---
         function createBreakdownChart(emissions) {
             const ctx = document.getElementById('breakdownChart');
             if (!ctx) return;
             
-            new Chart(ctx, {
+            // Destroy existing chart if it exists
+            if (breakdownChart) {
+                breakdownChart.destroy();
+                breakdownChart = null;
+            }
+            
+            breakdownChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Energy', 'Fuel', 'Employees', 'Travel', 'Waste'],
@@ -1100,9 +1116,15 @@
             const ctx = document.getElementById('benchmarkChart');
             if (!ctx) return;
             
+            // Destroy existing chart if it exists
+            if (benchmarkChart) {
+                benchmarkChart.destroy();
+                benchmarkChart = null;
+            }
+            
             const emissionsPerEmployee = results.total_emissions / (results.detailed_emissions?.employees || 1);
             
-            new Chart(ctx, {
+            benchmarkChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Your Company', 'Industry Average', 'Best in Class'],
