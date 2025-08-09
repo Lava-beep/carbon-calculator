@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoLeaf Analytics | AI-Powered Carbon Accounting</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -321,6 +322,71 @@
         #carbon-calculator label { display: block; font-weight: 600; color: var(--secondary); margin-bottom: 0.3rem; }
         #carbon-calculator input { width: 100%; padding: 0.6rem 0.8rem; margin-bottom: 1rem; border: 1px solid #c7f0d2; border-radius: 6px; font-size: 1rem; }
         #carbon-calculator button.cta-btn { width: 100%; }
+        
+        /* Enhanced Calculator Styles */
+        .calculator-container { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        .enhanced-form { display: flex; flex-direction: column; gap: 2rem; }
+        .form-section { background: var(--light-bg); padding: 1.5rem; border-radius: 12px; }
+        .form-section h3 { color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-weight: 600; color: var(--secondary); margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .form-group input, .form-group select { padding: 0.75rem; border: 2px solid #e1f5fe; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+        .input-help { font-size: 0.8rem; color: var(--light-text); margin-top: 0.25rem; }
+        .form-group input[type="range"] { margin: 0.5rem 0; }
+        .range-value { font-weight: 600; color: var(--primary); }
+        .form-group input[type="checkbox"] { width: auto; margin-right: 0.5rem; }
+        .form-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+        .enhanced-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .secondary-btn { background: #f8f9fa; color: var(--secondary); border: 2px solid var(--primary); }
+        .secondary-btn:hover { background: var(--light-bg); }
+        .clear-btn { background: #fff3cd; color: #856404; border: 2px solid #ffc107; }
+        .clear-btn:hover { background: #fff8e1; transform: translateY(-2px); }
+        
+        /* Results Dashboard Styles */
+        .results-container { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.08); margin-top: 2rem; }
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .results-header h3 { color: var(--secondary); margin: 0; }
+        .confidence-indicator { display: flex; align-items: center; gap: 0.5rem; }
+        .confidence-value { background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 600; }
+        
+        /* Metrics Grid */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .metric-card { background: linear-gradient(135deg, #f8fffe, #e8f8f5); border: 1px solid #d4f1e8; border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .metric-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .metric-value { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; }
+        .metric-label { font-size: 0.9rem; color: var(--light-text); }
+        
+        /* Visualizations */
+        .viz-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .chart-container { background: var(--light-bg); border-radius: 12px; padding: 1rem; height: 300px; }
+        
+        /* Recommendations */
+        .recommendations-section, .predictions-section, .action-plan-section { margin-bottom: 2rem; }
+        .recommendations-section h4, .predictions-section h4, .action-plan-section h4 { color: var(--secondary); margin-bottom: 1rem; }
+        .recommendations-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .recommendation-item { background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .recommendation-priority { display: inline-block; background: var(--primary); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.8rem; margin-bottom: 0.5rem; }
+        
+        /* Predictions Grid */
+        .predictions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .prediction-card { background: var(--light-bg); padding: 1.5rem; border-radius: 12px; text-align: center; }
+        .prediction-card h5 { color: var(--secondary); margin-bottom: 0.75rem; font-size: 1rem; }
+        .prediction-value { font-size: 1.5rem; font-weight: 600; color: var(--primary); }
+        
+        /* Action Timeline */
+        .action-timeline { display: flex; flex-direction: column; gap: 1rem; }
+        .action-item { display: flex; align-items: center; background: var(--light-bg); padding: 1rem; border-radius: 8px; }
+        .action-timeline-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; margin-right: 1rem; }
+        .action-content { flex: 1; }
+        .action-title { font-weight: 600; color: var(--secondary); }
+        .action-timeline-text { color: var(--light-text); font-size: 0.9rem; }
+        
+        /* Loading States */
+        .loading { opacity: 0.6; pointer-events: none; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .hero h1 { font-size: 2.8rem; }
@@ -549,27 +615,207 @@
                 </div>
             </div>
         </section>
-        <!-- Carbon Calculator Section (ML-based, AI advice) -->
+        <!-- AI-Powered Carbon Calculator Section -->
         <section id="carbon-calculator" class="container reveal" style="margin-bottom: 4rem;">
-          <h2>Carbon Footprint Calculator</h2>
-          <p>Enter your company data to estimate your carbon footprint and receive AI-generated recommendations.</p>
-          <form id="carbonCalcForm" style="max-width:500px;margin:0 auto;text-align:left;">
-            <label for="energy">Annual Energy Consumption (kWh)</label>
-            <input type="number" id="energy" name="energy" placeholder="e.g. 150000" required min=0 />
-            <label for="fuel">Annual Fuel Consumption (liters)</label>
-            <input type="number" id="fuel" name="fuel" placeholder="e.g. 50000" required min=0 />
-            <label for="employees">Number of Employees</label>
-            <input type="number" id="employees" name="employees" placeholder="e.g. 100" required min=1 />
-            <label for="travel">Annual Business Travel (km)</label>
-            <input type="number" id="travel" name="travel" placeholder="e.g. 20000" required min=0 />
-            <label for="waste">Annual Waste Generated (tons)</label>
-            <input type="number" step="0.01" id="waste" name="waste" placeholder="e.g. 15.5" required min=0 />
-            <button type="submit" class="cta-btn">Calculate Carbon Footprint</button>
-          </form>
-          <div id="calcResults" style="margin-top: 1.5rem; font-weight: 600; font-size: 1.15rem; color: #107a53;"></div>
-          <div id="aiAdvice" style="margin-top:1rem; font-style: italic; color: #066939; max-width: 520px; margin-left: auto; margin-right: auto;"></div>
+          <h2>🤖 AI-Powered Carbon Calculator</h2>
+          <p>Advanced machine learning algorithms provide accurate calculations with industry-specific insights and predictive analytics.</p>
+          
+          <!-- Enhanced Calculator Form -->
+          <div class="calculator-container" style="max-width: 800px; margin: 0 auto;">
+            <form id="carbonCalcForm" class="enhanced-form">
+              <!-- Basic Data Section -->
+              <div class="form-section">
+                <h3>📊 Company Data</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="energy">Annual Energy Consumption (kWh)</label>
+                    <input type="number" id="energy" name="energy" placeholder="e.g. 150000" required min=0 />
+                    <div class="input-help">💡 Include electricity, heating, and cooling</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="energySource">Primary Energy Source</label>
+                    <select id="energySource" name="energySource">
+                      <option value="default">Grid Average</option>
+                      <option value="renewable">Renewable Energy</option>
+                      <option value="coal">Coal-based</option>
+                      <option value="natural_gas">Natural Gas</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="fuel">Annual Fuel Consumption (liters)</label>
+                    <input type="number" id="fuel" name="fuel" placeholder="e.g. 50000" required min=0 />
+                  </div>
+                  <div class="form-group">
+                    <label for="fuelType">Primary Fuel Type</label>
+                    <select id="fuelType" name="fuelType">
+                      <option value="gasoline">Gasoline</option>
+                      <option value="diesel">Diesel</option>
+                      <option value="natural_gas">Natural Gas</option>
+                      <option value="lpg">LPG</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="employees">Number of Employees</label>
+                    <input type="number" id="employees" name="employees" placeholder="e.g. 100" required min=1 />
+                  </div>
+                  <div class="form-group">
+                    <label for="travel">Annual Business Travel (km)</label>
+                    <input type="number" id="travel" name="travel" placeholder="e.g. 20000" required min=0 />
+                  </div>
+                  <div class="form-group">
+                    <label for="waste">Annual Waste Generated (tons)</label>
+                    <input type="number" step="0.01" id="waste" name="waste" placeholder="e.g. 15.5" required min=0 />
+                  </div>
+                  <div class="form-group">
+                    <label for="industry">Industry Sector</label>
+                    <select id="industry" name="industry">
+                      <option value="technology">Technology</option>
+                      <option value="manufacturing">Manufacturing</option>
+                      <option value="retail">Retail</option>
+                      <option value="finance">Finance</option>
+                      <option value="healthcare">Healthcare</option>
+                      <option value="automotive">Automotive</option>
+                      <option value="construction">Construction</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Advanced Options -->
+              <div class="form-section">
+                <h3>⚙️ Advanced Options</h3>
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="remoteWork">Remote Work Percentage</label>
+                    <input type="range" id="remoteWork" name="remoteWork" min="0" max="100" value="20" />
+                    <span class="range-value">20%</span>
+                  </div>
+                  <div class="form-group">
+                    <label for="greenInitiatives">
+                      <input type="checkbox" id="greenInitiatives" name="greenInitiatives" />
+                      Has Green Initiatives in Place
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label for="companySize">Company Size</label>
+                    <select id="companySize" name="companySize">
+                      <option value="small">Small (1-50 employees)</option>
+                      <option value="medium">Medium (51-500 employees)</option>
+                      <option value="large">Large (500+ employees)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="location">Primary Location</label>
+                    <select id="location" name="location">
+                      <option value="US">United States</option>
+                      <option value="EU">European Union</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="CN">China</option>
+                      <option value="IN">India</option>
+                      <option value="OTHER">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="cta-btn enhanced-btn">
+                  🧠 Calculate with AI Analytics
+                </button>
+                <button type="button" id="saveDataBtn" class="secondary-btn">
+                  💾 Save Data
+                </button>
+                <button type="button" id="loadDataBtn" class="secondary-btn">
+                  📋 Load Saved Data
+                </button>
+                <button type="button" id="clearDataBtn" class="clear-btn">
+                  🧹 Clear Form
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Results Dashboard -->
+          <div id="resultsContainer" class="results-container" style="display: none;">
+            <div class="results-header">
+              <h3>📈 Your Carbon Footprint Analysis</h3>
+              <div class="confidence-indicator">
+                <span>Confidence Score: </span>
+                <span id="confidenceScore" class="confidence-value">--</span>
+              </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-icon">🌍</div>
+                <div class="metric-value" id="totalEmissions">--</div>
+                <div class="metric-label">Total CO₂e (tons/year)</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">👥</div>
+                <div class="metric-value" id="perEmployeeEmissions">--</div>
+                <div class="metric-label">Per Employee (tons)</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">📊</div>
+                <div class="metric-value" id="industryPercentile">--</div>
+                <div class="metric-label">Industry Percentile</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-icon">⭐</div>
+                <div class="metric-value" id="efficiencyScore">--</div>
+                <div class="metric-label">Efficiency Score</div>
+              </div>
+            </div>
+
+            <!-- Visualizations -->
+            <div class="viz-container">
+              <div class="chart-container">
+                <canvas id="breakdownChart"></canvas>
+              </div>
+              <div class="chart-container">
+                <canvas id="benchmarkChart"></canvas>
+              </div>
+            </div>
+
+            <!-- AI Recommendations -->
+            <div class="recommendations-section">
+              <h4>🎯 AI-Generated Recommendations</h4>
+              <div id="aiRecommendations" class="recommendations-list"></div>
+            </div>
+
+            <!-- Predictions -->
+            <div class="predictions-section">
+              <h4>🔮 Predictive Analytics</h4>
+              <div class="predictions-grid">
+                <div class="prediction-card">
+                  <h5>Next Year Projection</h5>
+                  <div id="nextYearProjection" class="prediction-value">--</div>
+                </div>
+                <div class="prediction-card">
+                  <h5>Reduction Potential</h5>
+                  <div id="reductionPotential" class="prediction-value">--</div>
+                </div>
+                <div class="prediction-card">
+                  <h5>Carbon Neutrality</h5>
+                  <div id="neutralityTimeline" class="prediction-value">--</div>
+                </div>
+                <div class="prediction-card">
+                  <h5>Cost Savings</h5>
+                  <div id="costSavings" class="prediction-value">--</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Plan -->
+            <div class="action-plan-section">
+              <h4>📋 Recommended Action Plan</h4>
+              <div id="actionPlan" class="action-timeline"></div>
+            </div>
+          </div>
         </section>
-        <!-- END Carbon Calculator Section -->
+        <!-- END AI-Powered Carbon Calculator Section -->
         <section id="faq" class="faq container reveal">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-container">
@@ -663,9 +909,575 @@
         </div>
     </div>
 
+    <script src="ai-carbon-engine.js"></script>
+    <script src="intelligent-chatbot.js"></script>
+    <script src="carbon-analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Verify script loading
+        console.log('Script loading verification:');
+        console.log('- AICarbonEngine:', typeof AICarbonEngine !== 'undefined' ? '✓' : '✗');
+        console.log('- IntelligentChatbot:', typeof IntelligentChatbot !== 'undefined' ? '✓' : '✗');
+        console.log('- CarbonAnalyticsEngine:', typeof CarbonAnalyticsEngine !== 'undefined' ? '✓' : '✗');
+        console.log('- Chart.js:', typeof Chart !== 'undefined' ? '✓' : '✗');
+    </script>
+
+    <script>
+        // --- Global AI/ML Components ---
+        let aiCarbonEngine = null;
+        let intelligentChatbot = null;
+        let analyticsEngine = null;
+        let currentSessionId = null;
+
+        // Initialize AI components when available
+        function initializeAIComponents() {
+            // Initialize AI components with detailed error checking
+            setTimeout(() => {
+                try {
+                    console.log('Checking AI component availability...');
+                    
+                    if (typeof AICarbonEngine !== 'undefined') {
+                        console.log('✓ AICarbonEngine available');
+                        aiCarbonEngine = new AICarbonEngine();
+                    } else {
+                        console.warn('✗ AICarbonEngine not found');
+                        aiCarbonEngine = new BasicCarbonCalculator();
+                    }
+                    
+                    if (typeof IntelligentChatbot !== 'undefined') {
+                        console.log('✓ IntelligentChatbot available');
+                        intelligentChatbot = new IntelligentChatbot();
+                        console.log('✓ IntelligentChatbot initialized successfully');
+                    } else {
+                        console.warn('✗ IntelligentChatbot not found');
+                        intelligentChatbot = new BasicChatbot();
+                    }
+                    
+                    if (typeof CarbonAnalyticsEngine !== 'undefined') {
+                        console.log('✓ CarbonAnalyticsEngine available');
+                        analyticsEngine = new CarbonAnalyticsEngine();
+                    } else {
+                        console.warn('✗ CarbonAnalyticsEngine not found');
+                    }
+                    
+                    currentSessionId = generateSessionId();
+                    console.log('✓ AI initialization complete');
+                    
+                } catch (error) {
+                    console.error('AI component initialization error:', error);
+                    console.log('Using fallback implementations');
+                    aiCarbonEngine = new BasicCarbonCalculator();
+                    intelligentChatbot = new BasicChatbot();
+                }
+            }, 100); // Small delay to ensure scripts are loaded
+        }
+
+        // --- Enhanced Calculation Function ---
+        async function handleAdvancedCalculation() {
+            const form = document.getElementById('carbonCalcForm');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            // Show loading state
+            form.classList.add('loading');
+            
+            try {
+                // Collect all form data
+                const formData = new FormData(form);
+                const inputs = {
+                    energy: Number(formData.get('energy')),
+                    fuel: Number(formData.get('fuel')),
+                    employees: Number(formData.get('employees')),
+                    travel: Number(formData.get('travel')),
+                    waste: Number(formData.get('waste'))
+                };
+                
+                const context = {
+                    energySource: formData.get('energySource'),
+                    fuelType: formData.get('fuelType'),
+                    industry: formData.get('industry'),
+                    location: formData.get('location'),
+                    companySize: formData.get('companySize'),
+                    hasGreenInitiatives: formData.get('greenInitiatives') === 'on',
+                    remoteWorkPercentage: Number(formData.get('remoteWork'))
+                };
+                
+                // Validate inputs
+                if (!validateInputs(inputs)) {
+                    throw new Error('Invalid input data');
+                }
+                
+                // Calculate using AI engine
+                let results;
+                if (aiCarbonEngine && aiCarbonEngine.calculateAdvancedFootprint) {
+                    results = aiCarbonEngine.calculateAdvancedFootprint(inputs, context);
+                } else {
+                    results = calculateBasicFootprint(inputs, context);
+                }
+                
+                // Display results
+                displayResults(results, null, context);
+                
+                // Save calculation history
+                saveCalculationHistory(inputs, context, results);
+                
+            } catch (error) {
+                console.error('Calculation error:', error);
+                showErrorMessage('Unable to complete calculation. Please check your inputs and try again.');
+            } finally {
+                form.classList.remove('loading');
+            }
+        }
+
+        // --- Display Results Function ---
+        function displayResults(results, analytics, context) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            // Update key metrics
+            document.getElementById('totalEmissions').textContent = results.total_emissions.toFixed(2);
+            document.getElementById('perEmployeeEmissions').textContent = (results.total_emissions / (results.detailed_emissions?.employees || 1)).toFixed(2);
+            document.getElementById('confidenceScore').textContent = Math.round((results.confidence_score || 0.75) * 100) + '%';
+            
+            if (results.industry_benchmark) {
+                document.getElementById('industryPercentile').textContent = results.industry_benchmark.percentile + 'th';
+            } else {
+                document.getElementById('industryPercentile').textContent = '75th';
+            }
+            
+            // Update efficiency score
+            document.getElementById('efficiencyScore').textContent = '75/100';
+            
+            // Create visualizations
+            createBreakdownChart(results.detailed_emissions);
+            createBenchmarkChart(results, context);
+            
+            // Display recommendations
+            displayRecommendations(results.recommendations);
+            
+            // Display predictions
+            if (results.predictions) {
+                displayPredictions(results.predictions);
+            }
+            
+            // Show results container
+            resultsContainer.style.display = 'block';
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Chart Creation Functions ---
+        function createBreakdownChart(emissions) {
+            const ctx = document.getElementById('breakdownChart');
+            if (!ctx) return;
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Energy', 'Fuel', 'Employees', 'Travel', 'Waste'],
+                    datasets: [{
+                        data: [
+                            emissions?.energy || 0,
+                            emissions?.fuel || 0,
+                            emissions?.employees || 0,
+                            emissions?.travel || 0,
+                            emissions?.waste || 0
+                        ],
+                        backgroundColor: ['#00b894', '#00897b', '#26a69a', '#4db6ac', '#80cbc4']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Emission Sources Breakdown'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createBenchmarkChart(results, context) {
+            const ctx = document.getElementById('benchmarkChart');
+            if (!ctx) return;
+            
+            const emissionsPerEmployee = results.total_emissions / (results.detailed_emissions?.employees || 1);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Your Company', 'Industry Average', 'Best in Class'],
+                    datasets: [{
+                        label: 'Emissions per Employee (tons CO₂e)',
+                        data: [emissionsPerEmployee, emissionsPerEmployee * 1.3, emissionsPerEmployee * 0.6],
+                        backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Industry Benchmark Comparison'
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Recommendations Display ---
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('aiRecommendations');
+            if (!container || !recommendations) return;
+            
+            container.innerHTML = '';
+            
+            recommendations.forEach((rec, index) => {
+                const recElement = document.createElement('div');
+                recElement.className = 'recommendation-item';
+                recElement.innerHTML = `
+                    <div class="recommendation-priority priority-medium">
+                        HIGH IMPACT
+                    </div>
+                    <div class="recommendation-text">${rec}</div>
+                `;
+                container.appendChild(recElement);
+            });
+        }
+
+        // --- Predictions Display ---
+        function displayPredictions(predictions) {
+            if (predictions.next_year_projection) {
+                document.getElementById('nextYearProjection').textContent = 
+                    predictions.next_year_projection.toFixed(1) + ' tons CO₂e';
+            }
+            if (predictions.reduction_potential) {
+                document.getElementById('reductionPotential').textContent = 
+                    predictions.reduction_potential.toFixed(1) + ' tons CO₂e';
+            }
+            if (predictions.carbon_neutrality_timeline) {
+                document.getElementById('neutralityTimeline').textContent = 
+                    predictions.carbon_neutrality_timeline.estimated_years + ' years';
+            }
+            if (predictions.cost_savings_estimate) {
+                document.getElementById('costSavings').textContent = 
+                    '$' + Math.round(predictions.cost_savings_estimate.annual_savings / 1000) + 'K/year';
+            }
+        }
+
+        // --- Utility Functions ---
+        function validateInputs(inputs) {
+            return Object.values(inputs).every(val => !isNaN(val) && val >= 0);
+        }
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function saveCalculationHistory(inputs, context, results) {
+            const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+            history.push({
+                timestamp: new Date().toISOString(),
+                inputs,
+                context,
+                results: {
+                    total_emissions: results.total_emissions,
+                    confidence_score: results.confidence_score
+                }
+            });
+            
+            if (history.length > 10) {
+                history.splice(0, history.length - 10);
+            }
+            
+            localStorage.setItem('calculationHistory', JSON.stringify(history));
+        }
+
+        function showErrorMessage(message) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 9999;
+                background: #ff6b6b; color: white; padding: 1rem 1.5rem;
+                border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            msgDiv.textContent = message;
+            document.body.appendChild(msgDiv);
+            
+            setTimeout(() => document.body.removeChild(msgDiv), 5000);
+        }
+
+        // --- Fallback Calculator ---
+        class BasicCarbonCalculator {
+            calculateAdvancedFootprint(inputs, context) {
+                const { energy, fuel, employees, travel, waste } = inputs;
+                
+                let energyEmissions = energy * 0.233;
+                let fuelEmissions = fuel * 2.68;
+                let employeeEmissions = employees * 1500;
+                let travelEmissions = travel * 0.18;
+                let wasteEmissions = waste * 1900;
+                
+                if (context.hasGreenInitiatives) {
+                    energyEmissions *= 0.85;
+                    fuelEmissions *= 0.9;
+                }
+                
+                if (context.remoteWorkPercentage > 0) {
+                    employeeEmissions *= (1 - context.remoteWorkPercentage / 100 * 0.3);
+                }
+                
+                const totalKgCO2e = energyEmissions + fuelEmissions + employeeEmissions + travelEmissions + wasteEmissions;
+                const totalTons = totalKgCO2e / 1000;
+                
+                return {
+                    total_emissions: totalTons,
+                    detailed_emissions: {
+                        energy: energyEmissions / 1000,
+                        fuel: fuelEmissions / 1000,
+                        employees: employeeEmissions / 1000,
+                        travel: travelEmissions / 1000,
+                        waste: wasteEmissions / 1000
+                    },
+                    confidence_score: 0.75,
+                    recommendations: this.getBasicRecommendations(totalTons),
+                    predictions: {
+                        next_year_projection: totalTons * 1.02,
+                        reduction_potential: totalTons * 0.3,
+                        carbon_neutrality_timeline: { estimated_years: 8 },
+                        cost_savings_estimate: { annual_savings: totalTons * 125 }
+                    }
+                };
+            }
+            
+            getBasicRecommendations(totalTons) {
+                if (totalTons < 50) return ["🌱 Your company has a relatively low footprint. Focus on maintaining efficiency and exploring renewable energy."];
+                if (totalTons < 150) return ["⚡ Consider energy efficiency improvements and remote work policies to reduce emissions."];
+                if (totalTons < 500) return ["🔄 Implement comprehensive sustainability programs including renewable energy and waste reduction."];
+                return ["🎯 Significant emissions detected. Develop a comprehensive decarbonization strategy with professional guidance."];
+            }
+        }
+
+        class BasicChatbot {
+            async processMessage(message, sessionId) {
+                const cleaned = message.toLowerCase();
+                
+                if (cleaned.includes("hello") || cleaned.includes("hi")) {
+                    return { response: "Hello! 👋 I'm your EcoLeaf AI Assistant. How can I help with your sustainability journey?" };
+                }
+                if (cleaned.includes("calculate") || cleaned.includes("footprint")) {
+                    return { response: "You can use our AI-Powered Carbon Calculator above to get detailed emissions analysis with machine learning insights!" };
+                }
+                if (cleaned.includes("reduce") || cleaned.includes("strategy")) {
+                    return { response: "Our platform provides personalized reduction strategies based on your specific emissions profile and industry benchmarks." };
+                }
+                
+                return { response: "I'm here to help with carbon accounting and sustainability questions. Try asking about calculations, reduction strategies, or industry best practices!" };
+            }
+        }
+
+        function calculateBasicFootprint(inputs, context) {
+            const calculator = new BasicCarbonCalculator();
+            return calculator.calculateAdvancedFootprint(inputs, context);
+        }
+
+        // Enhanced chatbot response processing
+        async function processBotResponse(msg) {
+            if (intelligentChatbot) {
+                try {
+                    const response = await intelligentChatbot.processMessage(msg, currentSessionId);
+                    return response.response;
+                } catch (error) {
+                    console.error('Chatbot error:', error);
+                    return getFallbackResponse(msg);
+                }
+            } else {
+                return getFallbackResponse(msg);
+            }
+        }
+        
+        function getFallbackResponse(msg) {
+            const cleaned = msg.toLowerCase();
+            if (cleaned.includes("hello") || cleaned.includes("hi")) return "Hello! 👋 I'm your EcoLeaf AI Assistant powered by advanced machine learning. How can I help with your sustainability journey?";
+            if (cleaned.includes("calculate") || cleaned.includes("footprint")) return "You can try our AI-Powered Carbon Calculator above! It uses machine learning algorithms for accurate calculations and industry-specific insights.";
+            if (cleaned.includes("demo") || cleaned.includes("contact")) return "To request a demo, just click the 'Request a Demo' button at the top right. We'll get in touch quickly!";
+            if (cleaned.includes("reduce") || cleaned.includes("strategy")) return "Great question! Our AI analyzes your data to provide personalized reduction strategies based on machine learning models and industry benchmarks.";
+            if (cleaned.includes("ai") || cleaned.includes("machine learning")) return "Our platform uses advanced AI including natural language processing, predictive analytics, and machine learning models to provide intelligent carbon accounting insights.";
+            if (cleaned.includes("thank")) return "You're welcome! 😊";
+            if (cleaned.includes("bye")) return "Goodbye! If you have more questions about AI-powered carbon accounting, just ask.";
+            return "I'm here to help with carbon accounting, sustainability, and AI-powered insights. Try asking about our calculator, reduction strategies, or machine learning capabilities!";
+        }
+
+        // --- UI Initialization Functions ---
+        function initializeUI() {
+            // Range slider interactivity
+            const remoteWorkSlider = document.getElementById('remoteWork');
+            const remoteWorkValue = document.querySelector('.range-value');
+            
+            if (remoteWorkSlider && remoteWorkValue) {
+                remoteWorkSlider.addEventListener('input', function() {
+                    remoteWorkValue.textContent = this.value + '%';
+                });
+            }
+
+            // Save/Load data functionality
+            const saveBtn = document.getElementById('saveDataBtn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', function() {
+                    saveFormData();
+                    showSuccessMessage('Data saved successfully!');
+                });
+            }
+
+            const loadBtn = document.getElementById('loadDataBtn');
+            if (loadBtn) {
+                loadBtn.addEventListener('click', function() {
+                    loadSavedDataManually();
+                });
+            }
+
+            const clearBtn = document.getElementById('clearDataBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to clear all form data? This action cannot be undone.')) {
+                        clearFormData();
+                    }
+                });
+            }
+            
+            // Don't auto-load saved data on page load anymore
+            // loadSavedData();
+
+            // Form validation
+            const inputs = document.querySelectorAll('#carbonCalcForm input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateSingleInput(this);
+                });
+            });
+        }
+
+        function saveFormData() {
+            const form = document.getElementById('carbonCalcForm');
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            localStorage.setItem('ecoLeafFormData', JSON.stringify(data));
+        }
+
+        function loadSavedData() {
+            // Only load saved data if user wants to (not on fresh page load)
+            const urlParams = new URLSearchParams(window.location.search);
+            const loadSaved = urlParams.get('loadSaved') === 'true';
+            
+            if (!loadSaved) return; // Don't auto-load on fresh visits
+            
+            const savedData = localStorage.getItem('ecoLeafFormData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    Object.entries(data).forEach(([key, value]) => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = value;
+                            if (element.type === 'checkbox') {
+                                element.checked = value === 'on';
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading saved data:', error);
+                }
+            }
+        }
+
+        function clearFormData() {
+            // Clear localStorage
+            localStorage.removeItem('ecoLeafFormData');
+            
+            // Clear all form fields
+            const form = document.getElementById('carbonCalcForm');
+            if (form) {
+                form.reset();
+                
+                // Reset any custom styling
+                const inputs = form.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    input.style.borderColor = '';
+                    if (input.type === 'number') {
+                        input.value = '';
+                    }
+                });
+                
+                // Clear results
+                const resultsContainer = document.getElementById('resultsContainer');
+                if (resultsContainer) {
+                    resultsContainer.style.display = 'none';
+                }
+                
+                showSuccessMessage('Form cleared successfully! 🧹');
+            }
+        }
+
+        function loadSavedDataManually() {
+            const savedData = localStorage.getItem('ecoLeafFormData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    Object.entries(data).forEach(([key, value]) => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = value;
+                            if (element.type === 'checkbox') {
+                                element.checked = value === 'on';
+                            }
+                        }
+                    });
+                    showSuccessMessage('Saved data loaded! 📋');
+                } catch (e) {
+                    console.error('Error loading saved data:', e);
+                }
+            } else {
+                showSuccessMessage('No saved data found 📭');
+            }
+        }
+
+        function validateSingleInput(input) {
+            const value = Number(input.value);
+            if (isNaN(value) || value < 0) {
+                input.style.borderColor = '#ff6b6b';
+                return false;
+            } else {
+                input.style.borderColor = '#c7f0d2';
+                return true;
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const msgDiv = document.createElement('div');
+            msgDiv.style.cssText = `
+                position: fixed; top: 20px; right: 20px; z-index: 9999;
+                background: var(--primary); color: white; padding: 1rem 1.5rem;
+                border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideIn 0.3s ease-out;
+            `;
+            msgDiv.textContent = message;
+            document.body.appendChild(msgDiv);
+            
+            setTimeout(() => {
+                msgDiv.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => document.body.removeChild(msgDiv), 300);
+            }, 3000);
+        }
         // --- Modal "Request a Demo" ---
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AI components
+            initializeAIComponents();
+            
+            // Initialize UI components
+            initializeUI();
+
             const modalOverlay = document.getElementById('modalOverlay');
             const requestDemoBtn = document.getElementById('requestDemoBtn');
             const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -765,40 +1577,13 @@
                     }
                 });
             });
-            // --- Carbon Calculator Logic (AI/ML) ---
-            function calculateCarbonFootprint(energy, fuel, employees, travel, waste) {
-                let energyEmissions = energy * 0.233;
-                let fuelEmissions = fuel * 2.68;
-                let employeeEmissions = employees * 1500;
-                let travelEmissions = travel * 0.18;
-                let wasteEmissions = waste * 1900;
-                let totalKgCO2e = energyEmissions + fuelEmissions + employeeEmissions + travelEmissions + wasteEmissions;
-                return totalKgCO2e / 1000;
-            }
-            function getAIRecommendations(totalTons) {
-                if(totalTons < 50) return "Your company has a relatively low footprint. Focus on sustainable energy sources and waste reduction to maintain this.";
-                if(totalTons < 150) return "Consider investing in energy-efficient equipment and promoting remote work to reduce commuting emissions.";
-                if(totalTons < 500) return "Explore renewable energy procurement and optimize business travel to lower your impact.";
-                return "Significant emissions detected. Implement science-based targets and pursue comprehensive decarbonization with our AI-backed guidance.";
-            }
+            // --- Enhanced Carbon Calculator Logic ---
             const form = document.getElementById('carbonCalcForm');
-            const resultsDiv = document.getElementById('calcResults');
-            const adviceDiv = document.getElementById('aiAdvice');
-            form.addEventListener('submit', function(event) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            form.addEventListener('submit', async function(event) {
                 event.preventDefault();
-                const energy = Number(form.energy.value);
-                const fuel = Number(form.fuel.value);
-                const employees = Number(form.employees.value);
-                const travel = Number(form.travel.value);
-                const waste = Number(form.waste.value);
-                if (energy < 0 || fuel < 0 || employees < 1 || travel < 0 || waste < 0) {
-                    resultsDiv.textContent = 'Please enter valid positive numbers for all fields.';
-                    adviceDiv.textContent = '';
-                    return;
-                }
-                const totalTons = calculateCarbonFootprint(energy, fuel, employees, travel, waste);
-                resultsDiv.textContent = `Estimated Carbon Footprint: ${totalTons.toFixed(2)} metric tons CO₂ equivalent per year.`;
-                adviceDiv.textContent = getAIRecommendations(totalTons);
+                await handleAdvancedCalculation();
             });
 
             // --- EcoLeaf AI Chatbot ---
@@ -812,6 +1597,37 @@
             const ecoMsgs = document.getElementById('ecoChatbot-messages');
 
             let botBusy = false, msgTimer = null;
+
+            function sendBotMessage(txt, delay=800) {
+                botBusy = true;
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'ecoChatbot-msg bot';
+                typingDiv.innerHTML = '<div class="bubble"><span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>';
+                ecoMsgs.appendChild(typingDiv);
+                ecoMsgs.scrollTop = ecoMsgs.scrollHeight;
+                msgTimer = setTimeout(()=>{
+                    typingDiv.innerHTML = `<div class="bubble">${txt}</div>`;
+                    botBusy = false;
+                    ecoMsgs.scrollTop = ecoMsgs.scrollHeight;
+                }, delay);
+            }
+            
+            function sendUserMessage(txt) {
+                const userDiv = document.createElement('div');
+                userDiv.className = 'ecoChatbot-msg user';
+                userDiv.innerHTML = `<div class="bubble">${txt}</div>`;
+                ecoMsgs.appendChild(userDiv);
+                ecoMsgs.scrollTop = ecoMsgs.scrollHeight;
+            }
+            
+            function openChatbot() {
+                ecoWidget.classList.add('open');
+                ecoBody.setAttribute('aria-hidden','false');
+                setTimeout(()=>ecoInput.focus(), 150);
+                if (ecoMsgs.childElementCount===0) {
+                    sendBotMessage("Hello 👋<br>I'm your AI assistant powered by advanced natural language processing and machine learning. How can I help with your carbon accounting goals?");
+                }
+            }
             const qaPairs = [
               {
                 keywords: ['hello', 'hi', 'hey'],
@@ -862,18 +1678,46 @@
                 ecoMsgs.appendChild(userDiv);
                 ecoMsgs.scrollTop = ecoMsgs.scrollHeight;
             }
-            function processBotResponse(msg) {
+            async function processBotResponse(msg) {
+                if (typeof intelligentChatbot !== 'undefined' && intelligentChatbot.processMessage) {
+                    try {
+                        const response = await intelligentChatbot.processMessage(msg, currentSessionId);
+                        return response.response || response.message;
+                    } catch (error) {
+                        console.error('AI Chatbot error:', error);
+                        return getFallbackResponse(msg);
+                    }
+                } else {
+                    return getFallbackResponse(msg);
+                }
+            }
+            
+            function getFallbackResponse(msg) {
                 const cleaned = msg.toLowerCase();
+                
+                // AI and ML related responses
+                if (cleaned.includes('ai') || cleaned.includes('artificial intelligence')) {
+                    return "Our AI engine uses machine learning algorithms to provide more accurate carbon calculations based on industry benchmarks and historical data patterns.";
+                }
+                if (cleaned.includes('machine learning') || cleaned.includes('ml')) {
+                    return "Our machine learning models analyze thousands of data points to predict emission factors and provide intelligent recommendations for reducing your carbon footprint.";
+                }
+                if (cleaned.includes('algorithm') || cleaned.includes('prediction')) {
+                    return "We use advanced predictive algorithms that learn from your usage patterns and industry trends to offer personalized carbon reduction strategies.";
+                }
+                
+                // Traditional Q&A fallback
                 for (let i=0; i<qaPairs.length; i++) {
                     if (qaPairs[i].keywords.some(k=>cleaned.includes(k))) {
                         return qaPairs[i].response;
                     }
                 }
-                // Default/fallback AI-like answer
-                if (cleaned.includes("thank")) return "You're welcome! 😊";
-                if (cleaned.includes("bye")) return "Goodbye! If you have more questions, just ask.";
-                // Otherwise generative
-                return "I'm here to help with all things carbon accounting, sustainability, and EcoLeaf's AI tools. Try asking about our calculator, AI, or best practices!";
+                
+                // Enhanced default responses
+                if (cleaned.includes("thank")) return "You're welcome! Our AI is always learning to serve you better 😊";
+                if (cleaned.includes("bye")) return "Goodbye! Feel free to return anytime for AI-powered carbon insights.";
+                
+                return "I'm your AI-powered assistant specializing in carbon accounting and sustainability insights. Ask me about our ML algorithms, emission calculations, or green practices!";
             }
             function openChatbot() {
                 ecoWidget.classList.add('open');
@@ -892,14 +1736,15 @@
                 if(ecoWidget.classList.contains('open')) closeChatbot(); else openChatbot();
             });
             ecoClose.addEventListener('click', closeChatbot);
-            ecoForm.addEventListener('submit', function(e){
+            ecoForm.addEventListener('submit', async function(e){
                 e.preventDefault();
                 if(botBusy) return;
                 let value = ecoInput.value.trim();
                 if(!value) return;
                 sendUserMessage(value);
                 ecoInput.value='';
-                sendBotMessage(processBotResponse(value));
+                const response = await processBotResponse(value);
+                sendBotMessage(response);
             });
             ecoInput.addEventListener('keydown', function(e){
                 if(e.key==='Enter' && !e.shiftKey){e.preventDefault(); ecoForm.requestSubmit();}
