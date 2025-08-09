@@ -1,0 +1,22 @@
+{
+  "name": "ml-carbon-calculator",
+  "version": "1.0.0",
+  "description": "AI-Powered Carbon Footprint Calculator with ML recommendations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test-api.js"
+  },
+  "keywords": ["carbon", "footprint", "AI", "ML", "sustainability", "climate", "emissions"],
+  "author": "Lavanya",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0"
+  }
+}
